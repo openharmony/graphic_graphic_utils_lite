@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2020-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,19 +19,41 @@
 #include "graphic_config.h"
 #ifdef ARM_NEON_OPT
 #include <arm_neon.h>
+
 #include "gfx_utils/color.h"
 #include "gfx_utils/graphic_math.h"
 #include "gfx_utils/graphic_types.h"
 
 namespace OHOS {
-#define NEON_STEP_4       4
-#define NEON_STEP_8       8
-#define NEON_STEP_32      32
-#define NEON_A            3
-#define NEON_R            2
-#define NEON_G            1
-#define NEON_B            0
+#define BASEMSB 128
+#define NEON_STEP_4 4
+#define NEON_STEP_8 8
+#define NEON_STEP_32 32
+#define NEON_A 3
+#define NEON_R 2
+#define NEON_G 1
+#define NEON_B 0
 
+static inline uint8x8_t Multipling(uint8x8_t a, uint8x8_t b)
+{
+    uint16x8_t calcType = vmlal_u8(vdupq_n_u16(BASEMSB), a, b);
+    uint8x8_t result = vshrn_n_u16(calcType, NEON_STEP_8);
+    return vshrn_n_u16(vaddq_u16(vmovl_u8(result), calcType), NEON_STEP_8);
+}
+
+static inline uint8x8_t NeonPreLerp(uint8x8_t p, uint8x8_t q, uint8x8_t a)
+{
+    uint16x8_t calcType = vaddl_u8(p, q);
+    return vsub_u8(vshrn_n_u16(calcType, NEON_STEP_8), Multipling(p, a));
+}
+
+static inline uint8x8_t NeonLerp(uint8x8_t p, uint8x8_t q, uint8x8_t alpha)
+{
+    uint16x8_t mulRes = vmlal_u8(vdupq_n_u16(BASEMSB), alpha, vsub_u8(p, q));
+    uint8x8_t result = vshrn_n_u16(mulRes, NEON_STEP_8);
+
+    return vqadd_u8(p, vshrn_n_u16(vaddq_u16(vmovl_u8(result), mulRes), NEON_STEP_8));
+}
 // return vIn / 255
 static inline uint8x8_t NeonFastDiv255(uint16x8_t vIn)
 {
@@ -83,14 +105,16 @@ static void NeonMemcpy(void* dst, int32_t dstSize, const void* src, int32_t srcS
         src = (uint8_t*)src + mod;
     }
 
-    asm volatile (
-    "NEONCopyPLD: \n"
-            " PLD [%[src], #0xC0] \n"
-            " VLDM %[src]!, {d0-d7} \n"
-            " VSTM %[dst]!, {d0-d7} \n"
-            " SUBS %[sz], %[sz], #0x40 \n"
-            " BGT NEONCopyPLD \n"
-    : [dst]"+r"(dst), [src]"+r"(src), [sz]"+r"(sz) : : "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "cc", "memory");
+    asm volatile(
+        "NEONCopyPLD: \n"
+        " PLD [%[src], #0xC0] \n"
+        " VLDM %[src]!, {d0-d7} \n"
+        " VSTM %[dst]!, {d0-d7} \n"
+        " SUBS %[sz], %[sz], #0x40 \n"
+        " BGT NEONCopyPLD \n"
+        : [dst] "+r"(dst), [src] "+r"(src), [sz] "+r"(sz)
+        :
+        : "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "cc", "memory");
 }
 
 static inline void NeonBlendRGBA(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, uint8x8_t& a1,
@@ -143,7 +167,12 @@ static inline void LoadBuf_RGB565(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint
     r = vmovn_u16(vshlq_n_u16(vshrq_n_u16(vBuf, 11), 3));
 }
 
-static inline void LoadBufA_ARGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a, uint8_t opa)
+static inline void LoadBufA_ARGB8888(uint8_t* buf,
+                                     uint8x8_t& r,
+                                     uint8x8_t& g,
+                                     uint8x8_t& b,
+                                     uint8x8_t& a,
+                                     uint8_t opa)
 {
     uint8x8x4_t vBuf = vld4_u8(buf);
     r = vBuf.val[NEON_R];
@@ -152,7 +181,12 @@ static inline void LoadBufA_ARGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, u
     a = NeonMulDiv255(vBuf.val[NEON_A], vdup_n_u8(opa));
 }
 
-static inline void LoadBufA_RGB888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a, uint8_t opa)
+static inline void LoadBufA_RGB888(uint8_t* buf,
+                                   uint8x8_t& r,
+                                   uint8x8_t& g,
+                                   uint8x8_t& b,
+                                   uint8x8_t& a,
+                                   uint8_t opa)
 {
     uint8x8x3_t vBuf = vld3_u8(buf);
     r = vBuf.val[NEON_R];
@@ -161,7 +195,12 @@ static inline void LoadBufA_RGB888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uin
     a = vdup_n_u8(opa);
 }
 
-static inline void LoadBufA_RGB565(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a, uint8_t opa)
+static inline void LoadBufA_RGB565(uint8_t* buf,
+                                   uint8x8_t& r,
+                                   uint8x8_t& g,
+                                   uint8x8_t& b,
+                                   uint8x8_t& a,
+                                   uint8_t opa)
 {
     uint16x8_t vBuf = vld1q_u16(reinterpret_cast<uint16_t*>(buf));
     // 3: RRRRRGGG|GGGBBBBB => RRGGGGGG|BBBBB000
@@ -172,7 +211,29 @@ static inline void LoadBufA_RGB565(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uin
     r = vmovn_u16(vshlq_n_u16(vshrq_n_u16(vBuf, 11), 3));
     a = vdup_n_u8(opa);
 }
-
+static inline void SetPixelColor_ARGB8888(uint8_t* buf,
+                                          const uint8_t& r,
+                                          const uint8_t& g,
+                                          const uint8_t& b,
+                                          const uint8_t& a)
+{
+    uint8x8x4_t vBuf;
+    vBuf.val[NEON_R] = vdup_n_u8(r);
+    vBuf.val[NEON_G] = vdup_n_u8(g);
+    vBuf.val[NEON_B] = vdup_n_u8(b);
+    vBuf.val[NEON_A] = vdup_n_u8(a);
+    vst4_u8(buf, vBuf);
+}
+static inline void SetPixelColor_ARGB8888(uint8_t* dstBuf, uint8_t* srcBuf)
+{
+    uint8x8x4_t vSrcBuf = vld4_u8(srcBuf);
+    uint8x8x4_t vDstBuf;
+    vDstBuf.val[NEON_R] = vSrcBuf.val[NEON_R];
+    vDstBuf.val[NEON_G] = vSrcBuf.val[NEON_G];
+    vDstBuf.val[NEON_B] = vSrcBuf.val[NEON_B];
+    vDstBuf.val[NEON_A] = vSrcBuf.val[NEON_A];
+    vst4_u8(dstBuf, vDstBuf);
+}
 static inline void StoreBuf_ARGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a)
 {
     uint8x8x4_t vBuf;
@@ -208,6 +269,6 @@ static inline void StoreBuf_RGB565(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uin
     vBuf = vsriq_n_u16(vBuf, vshll_n_u8(b, 8), 11);
     vst1q_u16(reinterpret_cast<uint16_t*>(buf), vBuf);
 }
-}
+} // namespace OHOS
 #endif
 #endif

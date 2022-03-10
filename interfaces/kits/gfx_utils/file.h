@@ -25,6 +25,7 @@
 #include "stdint.h"
 #include "fcntl.h"
 #include "unistd.h"
+#include "sys/types.h"
 #include "sys/mount.h"
 #include "sys/stat.h"
 #ifdef __APPLE__

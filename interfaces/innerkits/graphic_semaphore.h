@@ -36,9 +36,9 @@ public:
     /** Default constructor */
     GraphicSemaphore() : GraphicSemaphore(0, MAX_SEM_COUNT) {}
 
-    GraphicSemaphore(int init) : GraphicSemaphore(init, MAX_SEM_COUNT) {}
+    GraphicSemaphore(int32_t init) : GraphicSemaphore(init, MAX_SEM_COUNT) {}
 
-    GraphicSemaphore(int init, int max)
+    GraphicSemaphore(int32_t init, int32_t max)
     {
         if (max > MAX_SEM_COUNT) {
             max = MAX_SEM_COUNT;

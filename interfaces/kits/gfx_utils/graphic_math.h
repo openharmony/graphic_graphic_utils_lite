@@ -59,6 +59,10 @@ namespace OHOS {
 
 #define MATH_ROUND(x) ((x) > 0 ? (int16_t)((x) + 0.5) : (int16_t)((x) - 0.5))
 
+#define MATH_ROUND32(x) ((x) > 0 ? (int32_t)((x) + 0.5) : (int32_t)((x) - 0.5))
+
+#define MATH_UROUND MATH_ROUND32
+
 #define MATH_FLT_EQUAL(a, b) (MATH_ABS((a) - (b)) <= UI_FLT_EPSILON)
 
 /** A quarter of a rotation: 90 degrees */
