@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2020-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -85,7 +85,7 @@ void UIFree(void* buffer);
 /**
  * @brief 重新调整之前调用UIMalloc所分配的内存指针所指向的内存块的大小
  *
- * @param bbuffer 指向内存区的指针
+ * @param buffer 指向内存区的指针
  * @param size 分配的内存块大小
  * @since 3.0
  * @version 5.0

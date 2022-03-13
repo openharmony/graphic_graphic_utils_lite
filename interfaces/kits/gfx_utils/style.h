@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2020-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -371,9 +371,9 @@ public:
     }
 
     /**
-     * @brief Obtains the scroll bar backgound style.
+     * @brief Obtains the scroll bar background style.
      *
-     * @return Returns the scroll bar backgound style.
+     * @return Returns the scroll bar background style.
      * @since 6
      */
     static Style& GetScrollBarBackgroundStyle()
@@ -382,9 +382,9 @@ public:
     }
 
     /**
-     * @brief Obtains the scroll bar foregound style.
+     * @brief Obtains the scroll bar foreground style.
      *
-     * @return Returns the scroll bar foregound style.
+     * @return Returns the scroll bar foreground style.
      * @since 6
      */
     static Style& GetScrollBarForegroundStyle()
