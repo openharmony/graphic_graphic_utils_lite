@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020-2021 Huawei Device Co., Ltd.
+ * Copyright (c) 2020-2022 Huawei Device Co., Ltd.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -97,7 +97,7 @@ float Sqrt(float x)
 {
     const float xhalf = 0.5f * x;
     int32_t i = *(int32_t*)&x;
-    i = 0x5f375a86 - (i / 2); // 0x5f375a86 : Initial value of Newton Iterator. 2 : inital parameter for iterator.
+    i = 0x5f375a86 - (i / 2); // 0x5f375a86 : Initial value of Newton Iterator. 2 : initial parameter for iterator.
     float y = *(float*)&i;
     y = y * (1.5f - (xhalf * y * y));
     y = y * (1.5f - (xhalf * y * y));
