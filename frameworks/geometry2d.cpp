@@ -232,4 +232,4 @@ Rect Polygon::MakeAABB() const
     }
     return Rect(minX, minY, maxX, maxY);
 }
-}
+} // namespace OHOS

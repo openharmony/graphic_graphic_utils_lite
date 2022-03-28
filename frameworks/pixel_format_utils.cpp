@@ -73,4 +73,4 @@ uint32_t PixelFormatUtils::ARGB1555ToARGB8888(uint16_t color)
     ret.blue = in.blue << 3;
     return ret.full;
 }
-}
+} // namespace OHOS

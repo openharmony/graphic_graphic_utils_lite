@@ -229,6 +229,7 @@ public:
     Matrix3<float> invMatrix_;
 
     bool Is3DTransform() const;
+
 private:
     void UpdateMap();
     void AddOp(uint8_t op);

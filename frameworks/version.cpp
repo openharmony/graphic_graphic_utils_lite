@@ -28,4 +28,4 @@ std::string GetLibDsc()
 {
     return LIB_DSC;
 }
-}
+} // namespace OHOS

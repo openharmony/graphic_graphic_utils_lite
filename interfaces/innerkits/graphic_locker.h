@@ -25,7 +25,7 @@ namespace OHOS {
 #if defined __linux__ || defined __LITEOS__ || defined __APPLE__
 class GraphicLocker {
 public:
-    GraphicLocker(pthread_mutex_t& mutex) : mutex_(mutex)
+    explicit GraphicLocker(pthread_mutex_t& mutex) : mutex_(mutex)
     {
         pthread_mutex_lock(&mutex_);
     }
@@ -89,7 +89,7 @@ public:
 // do not support multi-thread
 class GraphicLockGuard {
 public:
-    GraphicLockGuard(GraphicMutex& mutex) : mutex_(mutex)
+    explicit GraphicLockGuard(GraphicMutex& mutex) : mutex_(mutex)
     {
         Lock();
     }

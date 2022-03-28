@@ -179,7 +179,7 @@ static inline uint32_t QueueMultiProducerEnqueue(LockFreeQueue* queue, void* nod
 
         producerNext = producerHead + 1;
         success = HalAtomicCmpAndSwap32(&queue->producer.head, producerHead, producerNext);
-    } while (success == false);
+    } while (!success);
 
     queue->nodes[producerHead & mask] = (uintptr_t)node;
 
@@ -298,7 +298,7 @@ static inline uint32_t QueueMultiConsumerDequeue(LockFreeQueue *queue, void **no
 
         consumerNext = consumerHead + 1;
         success = HalAtomicCmpAndSwap32(&queue->consumer.head, consumerHead, consumerNext);
-    } while (success == false);
+    } while (!success);
 
     /* Prevent the read of queue->nodes before the read of ProdTail. */
     RMB();

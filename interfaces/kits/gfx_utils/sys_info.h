@@ -85,7 +85,7 @@ public:
          * @since 1.0
          * @version 1.0
          */
-        OnFPSChangedListener() : type_(FPS_CT_FIXED_TIME){};
+        OnFPSChangedListener() : type_(FPS_CT_FIXED_TIME){}
 
         /**
          * @brief A destructor used to delete the <b>OnFPSChangedListener</b> instance.

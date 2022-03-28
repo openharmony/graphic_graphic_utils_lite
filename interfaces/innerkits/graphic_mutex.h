@@ -46,7 +46,7 @@ public:
     /** Default destructor */
     ~GraphicMutex()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return;
         }
 #ifdef _WIN32
@@ -60,7 +60,7 @@ public:
 
     inline bool Lock()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return false;
         }
 #ifdef _WIN32
@@ -74,7 +74,7 @@ public:
 
     inline bool Unlock()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return false;
         }
 #ifdef _WIN32

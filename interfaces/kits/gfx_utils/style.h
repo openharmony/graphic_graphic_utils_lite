@@ -202,7 +202,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    StyleDefault(){};
+    StyleDefault(){}
 
     /**
      * @brief A destructor used to delete the <b>StyleDefault</b> instance.
@@ -210,7 +210,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    ~StyleDefault(){};
+    ~StyleDefault(){}
 
     static void Init();
 

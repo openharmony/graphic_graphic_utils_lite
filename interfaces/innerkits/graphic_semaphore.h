@@ -63,7 +63,7 @@ public:
     /** Default destructor */
     ~GraphicSemaphore()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return;
         }
 #ifdef _WIN32
@@ -78,7 +78,7 @@ public:
     /** Increases the count of the specified semaphore object by a specified amount. */
     inline bool Notify()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return false;
         }
 #ifdef _WIN32
@@ -93,7 +93,7 @@ public:
     /** Waits until the specified object is in the signaled state. */
     inline bool Wait()
     {
-        if (initFlag_ == false) {
+        if (!initFlag_) {
             return false;
         }
 #ifdef _WIN32

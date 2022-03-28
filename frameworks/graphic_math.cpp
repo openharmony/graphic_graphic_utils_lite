@@ -96,9 +96,9 @@ uint16_t FastAtan2(int16_t x, int16_t y)
 float Sqrt(float x)
 {
     const float xhalf = 0.5f * x;
-    int32_t i = *(int32_t*)&x;
+    int32_t i = *reinterpret_cast<int32_t*>(&x);
     i = 0x5f375a86 - (i / 2); // 0x5f375a86 : Initial value of Newton Iterator. 2 : initial parameter for iterator.
-    float y = *(float*)&i;
+    float y = *reinterpret_cast<float*>(&i);
     y = y * (1.5f - (xhalf * y * y));
     y = y * (1.5f - (xhalf * y * y));
     y = y * (1.5f - (xhalf * y * y));

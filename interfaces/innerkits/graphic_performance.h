@@ -103,6 +103,7 @@ public:
             }
         }
     }
+
 private:
     Performance() {}
     ~Performance() {}
@@ -113,7 +114,7 @@ private:
 
 class PerformanceTool {
 public:
-    PerformanceTool(const char* name) : name_(name)
+    explicit PerformanceTool(const char* name) : name_(name)
     {
         gettimeofday(&tm_, NULL);
     }
@@ -136,7 +137,7 @@ private:
     int32_t warmUp_ = 0;
     struct timeval tm_;
 };
-}
+} // namespace OHOS
 #define DEBUG_PERFORMANCE_TRACE_AUTO()             OHOS::PerformanceTool __tmp__(__FUNCTION__)
 #define DEBUG_PERFORMANCE_TRACE_WARMUP(x, warmup)  OHOS::PerformanceTool __tmp__(x, warmup)
 #define DEBUG_PERFORMANCE_TRACE(x)                 OHOS::PerformanceTool __tmp__(x)

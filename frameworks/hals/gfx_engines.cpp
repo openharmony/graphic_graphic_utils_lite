@@ -43,7 +43,7 @@ static bool ConvertFormat(const ImagePixelFormat& srcColorFmt, PixelFormat& dstC
 
 static bool Convert2ISurface(const LiteSurfaceData& liteSurfaceData, ISurface& iSurface)
 {
-    if (ConvertFormat(liteSurfaceData.pixelFormat, iSurface.enColorFmt) == false) {
+    if (!ConvertFormat(liteSurfaceData.pixelFormat, iSurface.enColorFmt)) {
         GRAPHIC_LOGE("unsupport color format!");
         return false;
     }
@@ -120,7 +120,7 @@ bool GfxEngines::GfxFillArea(const LiteSurfaceData& dstSurfaceData,
         return false;
     }
     ISurface surface = {};
-    if (Convert2ISurface(dstSurfaceData, surface) == false) {
+    if (!Convert2ISurface(dstSurfaceData, surface)) {
         return false;
     }
     IRect rect = {};
@@ -146,10 +146,10 @@ bool GfxEngines::GfxBlit(const LiteSurfaceData& srcSurfaceData,
     }
     ISurface srcSurface = {};
     ISurface dstSurface = {};
-    if (Convert2ISurface(srcSurfaceData, srcSurface) == false) {
+    if (!Convert2ISurface(srcSurfaceData, srcSurface)) {
         return false;
     }
-    if (Convert2ISurface(dstSurfaceData, dstSurface) == false) {
+    if (!Convert2ISurface(dstSurfaceData, dstSurface)) {
         return false;
     }
     IRect srcIRect = {};

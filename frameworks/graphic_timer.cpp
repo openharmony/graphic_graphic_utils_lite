@@ -66,7 +66,7 @@ static void CALLBACK TimerCallback(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dw
 
 static DWORD WINAPI WinAsyncThread(LPVOID lpParam)
 {
-    GraphicTimer* timer = (GraphicTimer*)lpParam;
+    GraphicTimer* timer = reinterpret_cast<GraphicTimer*>(lpParam);
     LARGE_INTEGER liDueTime;
     liDueTime.QuadPart = -(timer->GetPeriod() * HUNDRED_NS_PER_MS);
 
@@ -162,7 +162,7 @@ GraphicTimer::GraphicTimer(int32_t periodMs, GraphicTimerCb cb, void* arg, bool 
 }
 
 GraphicTimer::~GraphicTimer()
-{   
+{
     if (periodMs_ >= 0) {
         osStatus_t ret = osTimerDelete(timer_);
         if (ret != osStatus_t::osOK) {

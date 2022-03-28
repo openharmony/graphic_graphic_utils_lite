@@ -99,5 +99,5 @@ public:
     static uint16_t ARGB8888ToARGB1555(uint32_t color);
     static uint32_t ARGB1555ToARGB8888(uint16_t color);
 };
-}
+} // namespace OHOS
 #endif

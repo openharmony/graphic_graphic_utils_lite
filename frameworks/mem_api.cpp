@@ -46,4 +46,4 @@ void* UIRealloc(void* buffer, uint32_t size)
     return realloc(buffer, size);
 }
 #endif
-}
+} // namespace OHOS

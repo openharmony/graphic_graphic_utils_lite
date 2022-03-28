@@ -26,4 +26,4 @@ void SysInfo::RegisterFPSChangedListener(OnFPSChangedListener* onFPSChangedListe
 {
     RenderManager::GetInstance().RegisterFPSChangedListener(onFPSChangedListener);
 }
-}
+} // namespace OHOS
