@@ -39,6 +39,11 @@
 
 #include "graphic_config.h"
 namespace OHOS {
+enum VertexGenerateFlags {
+    GENERATE_DASH,
+    GENERATE_STROKE
+};
+
 /**
  * @brief Fill rule
  * @since 1.0

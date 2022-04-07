@@ -25,6 +25,11 @@ namespace OHOS {
  * @version 1.0
  */
 class VertexGenerateDash {
+public:
+    VertexGenerateFlags GetGenerateFlags()
+    {
+        return GENERATE_DASH;
+    }
 };
 } // namespace OHOS
 
