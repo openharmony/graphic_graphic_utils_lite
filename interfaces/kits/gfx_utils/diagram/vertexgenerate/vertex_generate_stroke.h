@@ -90,7 +90,10 @@ public:
 
     void Rewind(uint32_t pathId);
     uint32_t GenerateVertex(float* x, float* y);
-
+    VertexGenerateFlags GetGenerateFlags()
+    {
+        return GENERATE_STROKE;
+    }
 private:
     VertexGenerateStroke(const VertexGenerateStroke&);
     const VertexGenerateStroke& operator=(const VertexGenerateStroke&);
