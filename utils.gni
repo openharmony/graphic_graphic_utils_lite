@@ -18,11 +18,16 @@ graphic_utils_include_dirs = [
 
 graphic_utils_sources = [
   "$GRAPHIC_UTILS_PATH/frameworks/color.cpp",
+  "$GRAPHIC_UTILS_PATH/frameworks/diagram/depiction/depict_curve.cpp",
+  "$GRAPHIC_UTILS_PATH/frameworks/diagram/rasterizer/rasterizer_cells_antialias.cpp",
+  "$GRAPHIC_UTILS_PATH/frameworks/diagram/rasterizer/rasterizer_scanline_antialias.cpp",
+  "$GRAPHIC_UTILS_PATH/frameworks/diagram/rasterizer/rasterizer_scanline_clip.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexgenerate/vertex_generate_dash.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexgenerate/vertex_generate_stroke.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexprimitive/geometry_arc.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexprimitive/geometry_bezier_arc.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexprimitive/geometry_curves.cpp",
+  "$GRAPHIC_UTILS_PATH/frameworks/diagram/vertexprimitive/geometry_shorten_path.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/geometry2d.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/graphic_math.cpp",
   "$GRAPHIC_UTILS_PATH/frameworks/graphic_performance.cpp",
