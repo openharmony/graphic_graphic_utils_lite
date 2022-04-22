@@ -107,6 +107,7 @@ enum FontWeight : uint8_t {
     FONT_WEIGHT_2 = 2,
     FONT_WEIGHT_4 = 4,
     FONT_WEIGHT_8 = 8,
+    FONT_WEIGHT_32 = 32,
 };
 
 static constexpr uint8_t SHIFT_2 = 2;
