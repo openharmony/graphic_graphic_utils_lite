@@ -63,10 +63,6 @@ HWTEST_F(Geometry2dTest, LineOperator_001, TestSize.Level0)
  */
 HWTEST_F(Geometry2dTest, LineOperator_002, TestSize.Level1)
 {
-    int16_t x1 = BASE_VALUE;
-    int16_t y1 = TWOFOLD_VALUE;
-    int16_t x2 = THREEFOLD_VALUE;
-    int16_t y2 = FOURFOLD_VALUE;
     Line* line = new Line(BASE_VALUE, TWOFOLD_VALUE, THREEFOLD_VALUE, FOURFOLD_VALUE);
     if (line == nullptr) {
         EXPECT_EQ(1, 0);

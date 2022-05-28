@@ -15,6 +15,7 @@
 
 #include "gfx_utils/diagram/rasterizer/rasterizer_cells_antialias.h"
 #include "gfx_utils/graphic_log.h"
+#include "securec.h"
 
 namespace OHOS {
 RasterizerCellsAntiAlias::~RasterizerCellsAntiAlias()
