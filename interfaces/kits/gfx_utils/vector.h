@@ -31,7 +31,6 @@
 #include "gfx_utils/diagram/common/common_basics.h"
 #include "gfx_utils/graphic_log.h"
 #include "gfx_utils/heap_base.h"
-#include "securec.h"
 
 namespace OHOS {
 namespace Graphic {
