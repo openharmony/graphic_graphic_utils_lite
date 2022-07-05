@@ -19,16 +19,19 @@ The Utils module defines the common data structure in the graphics subsystem and
 
 ```
 /foundation/graphic/utils
-├── frameworks      # Framework code
-│   ├── hals        # Hardware adaptation layer
-│   ├── linux       # Linux platform adaptation layer
-│   ├── liteos      # LiteOS platform adaptation layer
-│   └── windows     # Windows platform adaptation layer
-├── interfaces      # APIs
-│   ├── innerkits   # APIs between modules
-│   │   └── hals    # APIs of the hardware adaptation layer
-│   └── kits        # External APIs
-└── test            # Unit testing
+├── frameworks               # Framework code
+│   ├── diagram              # 2d graphic engine implementation
+│   │   ├── depiction        # Smooth curve point generation algorithm
+│   │   ├── rasterizer       # rasterizer handling
+│   │   ├── vertexgenerate   # vertex generation
+│   │   └── vertexprimitive  # vertex primitive generation
+│   └── hals                 # Hardware adaptation layer
+├── interfaces               # APIs
+│   ├── innerkits            # APIs between modules
+│   │   └── hals             # APIs of the hardware adaptation layer
+│   └── kits                 # External APIs
+│       └── gfx_utils
+└── test                     # Unit testing
 ```
 
 ## Compilation and Building<a name="section137768191623"></a>
