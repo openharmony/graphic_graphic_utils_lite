@@ -23,6 +23,7 @@ Style StyleDefault::buttonReleasedStyle_;
 Style StyleDefault::buttonPressedStyle_;
 Style StyleDefault::buttonInactiveStyle_;
 Style StyleDefault::labelStyle_;
+Style StyleDefault::editTextStyle_;
 Style StyleDefault::backgroundTransparentStyle_;
 Style StyleDefault::progressBackgroundStyle_;
 Style StyleDefault::progressForegroundStyle_;
@@ -207,6 +208,7 @@ void StyleDefault::Init()
     InitStyle();
     InitButtonStyle();
     InitLabelStyle();
+    InitEditTextStyle();
     InitBackgroundTransparentStyle();
     InitProgressStyle();
     InitPickerStyle();
@@ -258,6 +260,17 @@ void StyleDefault::InitLabelStyle()
 {
     labelStyle_ = defaultStyle_;
     labelStyle_.SetStyle(STYLE_BACKGROUND_OPA, OPA_TRANSPARENT);
+}
+
+void StyleDefault::InitEditTextStyle()
+{
+    editTextStyle_ = defaultStyle_;
+    editTextStyle_.SetStyle(STYLE_BACKGROUND_OPA, OPA_TRANSPARENT);
+    editTextStyle_.SetStyle(STYLE_BACKGROUND_OPA, OPA_TRANSPARENT);
+    editTextStyle_.SetStyle(STYLE_BORDER_COLOR, Color::White().full);
+    editTextStyle_.SetStyle(STYLE_BORDER_WIDTH, 2); // 2: border width
+    editTextStyle_.SetStyle(STYLE_BORDER_RADIUS, 5); // 5: border radius
+    editTextStyle_.SetStyle(STYLE_BORDER_OPA, OPA_OPAQUE);
 }
 
 void StyleDefault::InitBackgroundTransparentStyle()

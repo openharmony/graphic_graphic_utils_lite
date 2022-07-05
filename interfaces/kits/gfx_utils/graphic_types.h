@@ -136,6 +136,11 @@ enum ImageType : uint8_t {
     IMG_SRC_IMAGE_INFO,
 };
 
+enum class InputType {
+    TEXT_TYPE,
+    PASSWORD_TYPE
+};
+
 /**
  * @brief Enumerates screen shapes.
  */

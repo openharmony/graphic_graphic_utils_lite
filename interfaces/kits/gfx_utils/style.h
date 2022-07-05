@@ -300,6 +300,18 @@ public:
     }
 
     /**
+     * @brief Obtains the edit text style.
+     *
+     * @return Returns the edit text style.
+     * @since 1.0
+     * @version 1.0
+     */
+    static Style& GetEditTextStyle()
+    {
+        return editTextStyle_;
+    }
+
+    /**
      * @brief Obtains the background transparent style.
      *
      * @return Returns the background transparent style.
@@ -402,6 +414,7 @@ private:
     static Style buttonReleasedStyle_;
     static Style buttonInactiveStyle_;
     static Style labelStyle_;
+    static Style editTextStyle_;
     static Style backgroundTransparentStyle_;
     static Style progressBackgroundStyle_;
     static Style progressForegroundStyle_;
@@ -416,6 +429,7 @@ private:
     static void InitStyle();
     static void InitButtonStyle();
     static void InitLabelStyle();
+    static void InitEditTextStyle();
     static void InitBackgroundTransparentStyle();
     static void InitProgressStyle();
     static void InitPickerStyle();
