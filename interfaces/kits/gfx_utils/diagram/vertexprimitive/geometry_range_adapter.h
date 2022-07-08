@@ -149,8 +149,8 @@ void QuickSort(Array& arr, Less less)
     int32_t baseLimit = 0;
     while (true) {
         int32_t len = limit - baseLimit;
-        int32_t iIndex;
-        int32_t jIndex;
+        int32_t iIndex = 0;
+        int32_t jIndex = 0;
         int32_t pivot;
         if (len > QUICK_SORT_THRESHOLD) {
             pivot = baseLimit + len * HALFNUM;
