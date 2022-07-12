@@ -108,6 +108,7 @@ enum CapType : uint8_t {
     CAP_NONE,
     /** Round cap style */
     CAP_ROUND,
+    CAP_ROUND_UNSHOW,
 };
 
 /**
