@@ -74,7 +74,7 @@ public:
         }
         lastScaneLineXCoord_ = 0x7FFFFFF0;
         minScaneLineXCoord_ = minX;
-        curSpanBlock_ = &arraySpans_[0];
+        curSpanBlock_ = arraySpans_.Data();
     }
 
     /**
