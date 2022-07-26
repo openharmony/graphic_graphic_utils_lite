@@ -81,7 +81,7 @@ public:
     {
         int32_t downscaleShift = FillInterpolator::SUBPIXEL_SHIFT - GRADIENT_SUBPIXEL_SHIFT;
         interpolator_->Begin(x, y, len);
-        for (; len; --len, ++(*interpolator_), *span++) {
+        for (; len; --len, ++(*interpolator_), span++) {
             interpolator_->Coordinates(&x, &y);
             int32_t index = gradientFunction_->Calculate(x >> downscaleShift, y >> downscaleShift,
                                                          distance1_, distance2_, colorFunction_->GetSize());
