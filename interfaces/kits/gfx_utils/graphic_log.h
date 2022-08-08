@@ -18,7 +18,7 @@
 
 #include "graphic_config.h"
 #if ENABLE_GRAPHIC_LOG
-#if defined(__LITEOS__) || defined(_LITEOS) || defined(__linux__)
+#if defined(__LITEOS__) || defined(_LITEOS_M__) || defined(__linux__)
 #include "log.h"
 #include <cstring>
 #else
