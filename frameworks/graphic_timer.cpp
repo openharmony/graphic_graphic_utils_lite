@@ -17,7 +17,6 @@
 #include "gfx_utils/graphic_log.h"
 #ifdef _WIN32
 #include "windows.h"
-#elif defined(_LITEOS)
 #else
 #include <cerrno>
 #include <csignal>
@@ -28,7 +27,7 @@
 namespace {
 #ifdef _WIN32
 constexpr int32_t HUNDRED_NS_PER_MS = 10000;
-#elif defined(_LITEOS)
+#elif defined(_LITEOS_M__)
 #else
 constexpr int16_t MS_PER_SECOND = 1000;
 constexpr int32_t NS_PER_MS = 1000000;
@@ -135,7 +134,7 @@ void GraphicTimer::Stop()
     }
 }
 
-#elif defined(_LITEOS)
+#elif defined(_LITEOS_M__)
 static void TimerCallback(void* args)
 {
     GraphicTimer* timer = reinterpret_cast<GraphicTimer*>(args);

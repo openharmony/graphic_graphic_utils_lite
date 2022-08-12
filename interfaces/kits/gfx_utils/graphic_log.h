@@ -18,7 +18,7 @@
 
 #include "graphic_config.h"
 #if ENABLE_GRAPHIC_LOG
-#if defined(__LITEOS__) || defined(_LITEOS) || defined(__linux__)
+#if defined(__LITEOS__) || defined(_LITEOS_M__) || defined(__linux__)
 #include "log.h"
 #include <cstring>
 #else
@@ -28,7 +28,7 @@
 
 namespace OHOS {
 #if ENABLE_GRAPHIC_LOG
-#if (defined __LITEOS__) || (defined __linux__)
+#if (defined __LITEOS_A__) || (defined __linux__)
 typedef enum {
     LOG_LEVEL_FATAL = 0,
     LOG_LEVEL_ERROR,
@@ -55,7 +55,7 @@ do {                                                                            
 #define GRAPHIC_LOGI(fmt, args...) GRAPHIC_DECORATOR_HILOG(LOG_LEVEL_INFO, HiviewDFX::HiLog::Info, fmt, ##args)
 #define GRAPHIC_LOGD(fmt, args...) GRAPHIC_DECORATOR_HILOG(LOG_LEVEL_DEBUG, HiviewDFX::HiLog::Debug, fmt, ##args)
 
-#elif defined(_LITEOS)
+#elif defined(__LITEOS_M__)
 #define GRAPHIC_LOGF(fmt, args...) HILOG_FATAL(HILOG_MODULE_UIKIT, fmt, ##args)
 #define GRAPHIC_LOGE(fmt, args...) HILOG_ERROR(HILOG_MODULE_UIKIT, fmt, ##args)
 #define GRAPHIC_LOGW(fmt, args...) HILOG_WARN(HILOG_MODULE_UIKIT, fmt, ##args)

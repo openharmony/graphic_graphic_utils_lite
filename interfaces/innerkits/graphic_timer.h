@@ -18,10 +18,11 @@
 
 #include <cstdint>
 #ifdef _WIN32
-#elif defined(_LITEOS)
+#elif defined(_LITEOS_M__)
 #include "cmsis_os2.h"
 #else
 #include <ctime>
+#include <time.h>
 #endif
 
 namespace OHOS {
@@ -40,7 +41,7 @@ public:
 
 #ifdef _WIN32
     void* GetNativeTimer()
-#elif defined(_LITEOS)
+#elif defined(_LITEOS_M__)
     osTimerId_t GetNativeTimer()
 #else
     timer_t GetNativeTimer()
@@ -72,7 +73,7 @@ private:
 
 #ifdef _WIN32
     void* timer_ = nullptr;
-#elif defined(_LITEOS)
+#elif defined(_LITEOS_M__)
     osTimerId_t timer_;
 #else
     timer_t timer_;

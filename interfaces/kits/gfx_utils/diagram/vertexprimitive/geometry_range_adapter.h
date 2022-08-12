@@ -153,7 +153,7 @@ void QuickSort(Array& arr, Less less)
         int32_t jIndex = 0;
         int32_t pivot;
         if (len > QUICK_SORT_THRESHOLD) {
-            pivot = baseLimit + len * HALFNUM;
+            pivot = static_cast<int32_t>(baseLimit + len * HALFNUM);
             SwapElements(arr[baseLimit], arr[pivot]);
             iIndex = baseLimit + 1;
             jIndex = limit - 1;
