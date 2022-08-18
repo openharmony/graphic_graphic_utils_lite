@@ -27,7 +27,7 @@
 namespace {
 #ifdef _WIN32
 constexpr int32_t HUNDRED_NS_PER_MS = 10000;
-#elif defined(_LITEOS_M__)
+#elif defined(__LITEOS_M__)
 #else
 constexpr int16_t MS_PER_SECOND = 1000;
 constexpr int32_t NS_PER_MS = 1000000;
@@ -134,7 +134,7 @@ void GraphicTimer::Stop()
     }
 }
 
-#elif defined(_LITEOS_M__)
+#elif defined(__LITEOS_M__)
 static void TimerCallback(void* args)
 {
     GraphicTimer* timer = reinterpret_cast<GraphicTimer*>(args);
