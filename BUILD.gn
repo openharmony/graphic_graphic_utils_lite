@@ -72,6 +72,13 @@ lite_library("graphic_utils") {
   ]
   include_dirs = [ "frameworks" ]
   public_configs = [ ":graphic_utils_public_config" ]
+  if (board_toolchain_type == "iccarm") {
+    cflags = [
+      "--diag_suppress",
+      "Pe068,Pa089,Pa093,Pe161,Pe181,Pe223",
+    ]
+    cflags_cc = cflags
+  }
   if (ohos_kernel_type == "liteos_m") {
     deps = [ "//third_party/bounds_checking_function:libsec_static" ]
     public_deps =
@@ -89,13 +96,6 @@ config("graphic_utils_public_config") {
     "interfaces/kits",
     "$product_path/graphic_config",
   ]
-  if (board_toolchain_type == "iccarm") {
-    cflags = [
-      "--diag_suppress",
-      "Pe068,Pa089,Pa093,Pe161,Pe181,Pe223",
-    ]
-    cflags_cc = cflags
-  }
 
   defines += [
     "GRAPHIC_ENABLE_LINECAP_FLAG=1",
