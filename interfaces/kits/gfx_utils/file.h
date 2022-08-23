@@ -21,6 +21,9 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <io.h>
+#ifdef _MSC_VER
+#define F_OK 0
+#endif
 #else
 #include "stdint.h"
 #include "fcntl.h"

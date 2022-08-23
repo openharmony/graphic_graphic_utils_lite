@@ -128,7 +128,7 @@ enum Recursive {
     COLLINEAR2,
     COLLINEAR3
 };
-enum ClippingFlags {
+enum {
     CLIPPING_FLAGS_X1_CLIPPED = 4,
     CLIPPING_FLAGS_X2_CLIPPED = 1,
     CLIPPING_FLAGS_Y1_CLIPPED = 8,
