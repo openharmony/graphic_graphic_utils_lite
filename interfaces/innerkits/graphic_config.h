@@ -122,6 +122,14 @@ namespace OHOS {
 #endif
 
 /**
+ * @brief Use bitmap font for TextId multi language convert, use vector font for glyphs.
+ *        Normally you do not need to enable this macro
+ */
+#ifndef ENABLE_MIX_FONT
+#define ENABLE_MIX_FONT                0
+#endif
+
+/**
  * @brief JPEG and PNG, which is disabled by default on LiteOS.
  */
 #ifndef ENABLE_JPEG_AND_PNG
