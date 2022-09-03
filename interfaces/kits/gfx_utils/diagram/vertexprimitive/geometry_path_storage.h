@@ -29,10 +29,10 @@ namespace OHOS {
 class VertexBlockStorage {
 public:
     enum BlockScale {
-        BLOCK_SHIFT = THIRTY_TWO_COLOR_NUM,
-        BLOCK_SIZE = 1 << BLOCK_SHIFT,
-        BLOCK_MASK = BLOCK_SIZE - 1,
-        BLOCK_POOL = MAX_COLOR_SIZE
+        BLOCK_SCALE_SHIFT = THIRTY_TWO_COLOR_NUM,
+        BLOCK_SCALE_SIZE = 1 << BLOCK_SCALE_SHIFT,
+        BLOCK_SCALE_MASK = BLOCK_SCALE_SIZE - 1,
+        BLOCK_SCALE_POOL = MAX_COLOR_SIZE
     };
 
     ~VertexBlockStorage()
@@ -84,9 +84,7 @@ public:
             float** coordBLK = croodBlocks_ + totalBlocks_ - 1;
             for (; totalBlocks_ > 0; totalBlocks_--) {
                 GeometryArrayAllocator<float>::Deallocate(
-                    *coordBLK,
-                    BLOCK_SIZE * TWO_TIMES +
-                        BLOCK_SIZE / (sizeof(float) / sizeof(uint8_t)));
+                    *coordBLK, BLOCK_SCALE_SIZE * TWO_TIMES + BLOCK_SCALE_SIZE / (sizeof(float) / sizeof(uint8_t)));
                 --coordBLK;
             }
             GeometryArrayAllocator<float*>::Deallocate(croodBlocks_, maxBlocks_ * TWO_TIMES);
@@ -163,11 +161,11 @@ public:
      */
     uint32_t GenerateVertex(uint32_t idx, float* x, float* y) const
     {
-        uint32_t nb = idx >> BLOCK_SHIFT;
-        const float* pv = croodBlocks_[nb] + ((idx & BLOCK_MASK) << 1);
+        uint32_t nb = idx >> BLOCK_SCALE_SHIFT;
+        const float* pv = croodBlocks_[nb] + ((idx & BLOCK_SCALE_MASK) << 1);
         *x = pv[0];
         *y = pv[1];
-        return cmdBlocks_[nb][idx & BLOCK_MASK];
+        return cmdBlocks_[nb][idx & BLOCK_SCALE_MASK];
     }
     /**
      * @brief ets the instruction type corresponding to a specific vertex.
@@ -178,18 +176,16 @@ public:
      */
     uint32_t Command(uint32_t index) const
     {
-        return cmdBlocks_[index >> BLOCK_SHIFT][index & BLOCK_MASK];
+        return cmdBlocks_[index >> BLOCK_SCALE_SHIFT][index & BLOCK_SCALE_MASK];
     }
 
 private:
     void AllocateBlock(uint32_t nb)
     {
         if (nb >= maxBlocks_) {
-            float** new_coords = GeometryArrayAllocator<float*>::Allocate(
-                (maxBlocks_ + BLOCK_POOL) * TWO_TIMES);
+            float** new_coords = GeometryArrayAllocator<float*>::Allocate((maxBlocks_ + BLOCK_SCALE_POOL) * TWO_TIMES);
 
-            uint8_t** new_cmds =
-                (uint8_t**)(new_coords + maxBlocks_ + BLOCK_POOL);
+            uint8_t** new_cmds = (uint8_t**)(new_coords + maxBlocks_ + BLOCK_SCALE_POOL);
 
             if (croodBlocks_) {
                 if (memcpy_s(new_coords, maxBlocks_ * sizeof(float*),
@@ -202,25 +198,23 @@ private:
             }
             croodBlocks_ = new_coords;
             cmdBlocks_ = new_cmds;
-            maxBlocks_ += BLOCK_POOL;
+            maxBlocks_ += BLOCK_SCALE_POOL;
         }
-        croodBlocks_[nb] =
-            GeometryArrayAllocator<float>::Allocate(BLOCK_SIZE * TWO_TIMES +
-                                                     BLOCK_SIZE / (sizeof(float) / sizeof(uint8_t)));
+        croodBlocks_[nb] = GeometryArrayAllocator<float>::Allocate(
+            BLOCK_SCALE_SIZE * TWO_TIMES + BLOCK_SCALE_SIZE / (sizeof(float) / sizeof(uint8_t)));
 
-        cmdBlocks_[nb] =
-            (uint8_t*)(croodBlocks_[nb] + BLOCK_SIZE * TWO_TIMES);
+        cmdBlocks_[nb] = (uint8_t*)(croodBlocks_[nb] + BLOCK_SCALE_SIZE * TWO_TIMES);
 
         totalBlocks_++;
     }
     uint8_t* StoragePtrs(float** xy_ptr)
     {
-        uint32_t nb = totalVertices_ >> BLOCK_SHIFT;
+        uint32_t nb = totalVertices_ >> BLOCK_SCALE_SHIFT;
         if (nb >= totalBlocks_) {
             AllocateBlock(nb);
         }
-        *xy_ptr = croodBlocks_[nb] + ((totalVertices_ & BLOCK_MASK) << 1);
-        return cmdBlocks_[nb] + (totalVertices_ & BLOCK_MASK);
+        *xy_ptr = croodBlocks_[nb] + ((totalVertices_ & BLOCK_SCALE_MASK) << 1);
+        return cmdBlocks_[nb] + (totalVertices_ & BLOCK_SCALE_MASK);
     }
 
 private:
