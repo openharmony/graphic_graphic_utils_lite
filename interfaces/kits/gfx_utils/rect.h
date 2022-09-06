@@ -71,13 +71,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    CommonRect(T left, T top, T right, T bottom)
-    {
-        left_ = left;
-        right_ = right;
-        top_ = top;
-        bottom_ = bottom;
-    }
+    CommonRect(T left, T top, T right, T bottom) : left_(left), right_(right), top_(top), bottom_(bottom) {}
 
     /**
      * @brief A constructor used to create a <b>CommonRect</b> instance by copying another rectangle.
@@ -86,14 +80,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    CommonRect(const CommonRect<T>& other)
-
-    {
-        left_ = other.left_;
-        right_ = other.right_;
-        top_ = other.top_;
-        bottom_ = other.bottom_;
-    }
+    CommonRect(const CommonRect<T>& other) = default;
 
     /**
      * @brief A constructor used to create a <b>CommonRect</b> instance by copying another rectangle.
@@ -102,13 +89,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    CommonRect(const CommonRect<T>&& other)
-    {
-        left_ = other.left_;
-        right_ = other.right_;
-        top_ = other.top_;
-        bottom_ = other.bottom_;
-    }
+    CommonRect(CommonRect<T>&& other) = default;
 
     /**
      * @brief Sets the coordinates of the four boundaries of a rectangle.
