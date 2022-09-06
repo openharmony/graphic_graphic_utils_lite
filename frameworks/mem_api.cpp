@@ -15,35 +15,31 @@
 
 #include "gfx_utils/mem_api.h"
 namespace OHOS {
-#ifndef IMG_CACHE_MEMORY_CUSTOM
-void* ImageCacheMalloc(ImageInfo& info)
+__attribute__((weak)) void* ImageCacheMalloc(ImageInfo& info)
 {
     return malloc(info.dataSize);
 }
 
-void ImageCacheFree(ImageInfo& info)
+__attribute__((weak)) void ImageCacheFree(ImageInfo& info)
 {
     uint8_t* buf = const_cast<uint8_t*>(info.data);
     free(buf);
     info.data = nullptr;
     return;
 }
-#endif
 
-#if !ENABLE_MEMORY_HOOKS
-void* UIMalloc(uint32_t size)
+__attribute__((weak)) void* UIMalloc(uint32_t size)
 {
     return malloc(size);
 }
 
-void UIFree(void* buffer)
+__attribute__((weak)) void UIFree(void* buffer)
 {
     free(buffer);
 }
 
-void* UIRealloc(void* buffer, uint32_t size)
+__attribute__((weak)) void* UIRealloc(void* buffer, uint32_t size)
 {
     return realloc(buffer, size);
 }
-#endif
 } // namespace OHOS
