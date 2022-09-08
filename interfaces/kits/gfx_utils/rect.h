@@ -71,7 +71,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    CommonRect(T left, T top, T right, T bottom) : left_(left), right_(right), top_(top), bottom_(bottom) {}
+    CommonRect(T left, T top, T right, T bottom) : left_(left), top_(top), right_(right), bottom_(bottom) {}
 
     /**
      * @brief A constructor used to create a <b>CommonRect</b> instance by copying another rectangle.

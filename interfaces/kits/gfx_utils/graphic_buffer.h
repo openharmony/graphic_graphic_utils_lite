@@ -39,6 +39,31 @@
 #include "gfx_utils/rect.h"
 
 namespace OHOS {
+#define _ALIGN_UP(sz, align) (((sz) + (align - 1)) & (-(align)))
+#define _ALIGN_DOWN(sz, align) ((sz) & (-(align)))
+#define _ADDR_ALIGN(ptr, sz, align)                                  \
+    do {                                                             \
+        uint32_t _sz = _ALIGN_DOWN(sz, align);                       \
+        (ptr) = decltype(ptr)((uintptr_t)(void*)(ptr) + ((sz)-_sz)); \
+        (sz) = _sz;                                                  \
+    } while (0);
+#define _STRUCT_ALIGN(sz) alignas(sz)
+
+#ifdef ALIGNMENT_BYTES
+#if (ALIGNMENT_BYTES != 0) && ((ALIGNMENT_BYTES & (ALIGNMENT_BYTES - 1)) != 0)
+#error ALIGNMENT_BYTES should be power of 2.
+#endif
+#define UI_ALIGN_UP(size) _ALIGN_UP((size), ALIGNMENT_BYTES)
+#define UI_ALIGN_DOWN(size) _ALIGN_DOWN((size), ALIGNMENT_BYTES)
+#define UI_ADDR_ALIGN(ptr, sz) _ADDR_ALIGN(ptr, sz, ALIGNMENT_BYTES)
+#define UI_STRUCT_ALIGN _STRUCT_ALIGN(ALIGNMENT_BYTES)
+#else
+#define UI_ALIGN_UP(size) (size)
+#define UI_ALIGN_DOWN(size) (size)
+#define UI_ADDR_ALIGN(ptr, sz)
+#define UI_STRUCT_ALIGN
+#endif
+
 /**
  * @brief buffer info for drawing.
  * @since 6.0
@@ -47,8 +72,8 @@ namespace OHOS {
 struct BufferInfo {
     Rect rect;
     int32_t stride;
-    void *phyAddr;
-    void *virAddr;
+    void* phyAddr;
+    void* virAddr;
     uint16_t width;
     uint16_t height;
     ColorMode mode;

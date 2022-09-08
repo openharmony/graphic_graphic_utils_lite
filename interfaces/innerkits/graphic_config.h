@@ -414,6 +414,12 @@ static constexpr uint8_t MAX_FONT_SEARCH_NUM = 26;
 #define DEFAULT_LINE_BREAK_RULE_FILENAME   "line_cj.brk"
 #endif
 
+/* Define alignment bytes for specific hardware.
+ * Must be power of 2. The default value is <b>4</b>. */
+#ifndef ALIGNMENT_BYTES
+#define ALIGNMENT_BYTES 4
+#endif
+
 /* Defines some configurations and their default values on LiteOS and other system platforms. */
 #ifdef __LITEOS_M__
 
