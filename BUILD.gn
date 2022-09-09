@@ -40,7 +40,7 @@ lite_library("graphic_utils") {
   } else {
     target_type = "shared_library"
   }
-  if (board_toolchain_type == "iccarm") {
+  if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
     cflags = [
       "--diag_suppress",
       "Pe068,Pa089,Pa093,Pe161,Pe181,Pe223",
