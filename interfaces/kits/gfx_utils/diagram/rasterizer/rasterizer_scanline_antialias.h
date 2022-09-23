@@ -73,7 +73,8 @@ public:
           autoClose_(true),
           startX_(0),
           startY_(0),
-          status_(STATUS_INITIAL)
+          status_(STATUS_INITIAL),
+          scanY_(0)
     {
         for (int32_t coverIndex = 0; coverIndex < AA_SCALE; coverIndex++) {
             gammar_[coverIndex] = coverIndex;

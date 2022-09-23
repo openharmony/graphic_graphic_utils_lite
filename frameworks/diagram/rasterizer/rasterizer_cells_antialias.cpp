@@ -170,7 +170,7 @@ void RasterizerCellsAntiAlias::RenderHorizonline(
 
     int32_t delta, deltayMask, first;
     int64_t dx;
-    int32_t increase, liftDxMask, modDxMask, remDxMask;
+    int32_t increase, modDxMask;
     /**
      * The color mask of the two points is the same. Add the settings directly and return.
      */
@@ -213,8 +213,8 @@ void RasterizerCellsAntiAlias::RenderHorizonline(
     if (pixelX1 != pixelX2) {
         /* delta_subpixel x（ 0 to POLY_SUBPIXEL_SCALE）  to ( delta_subpixel_scale_y + delta) */
         deltayMask = POLY_SUBPIXEL_SCALE * (polySubpixelMaskY2 - polySubpixelMaskY1 + delta);
-        remDxMask = static_cast<int32_t>(deltayMask % dx);
-        liftDxMask = static_cast<int32_t>(deltayMask / dx);
+        int32_t remDxMask = static_cast<int32_t>(deltayMask % dx);
+        int32_t liftDxMask = static_cast<int32_t>(deltayMask / dx);
         if (remDxMask < 0) {
             liftDxMask--;
             remDxMask += dx;
@@ -374,7 +374,6 @@ void RasterizerCellsAntiAlias::RenderVerticalLine(int32_t& x1, int32_t& ex1, int
 void RasterizerCellsAntiAlias::RenderObliqueLine(int64_t& dx, int64_t& dy, int32_t& first, int32_t& increase, int32_t& xFrom,
                                                  int64_t& deltaxMask, int32_t& ey1, int32_t& ey2, int32_t& delta)
 {
-    int32_t xTo;
     int32_t remDyMask, liftDyMask;
     deltaxMask = POLY_SUBPIXEL_SCALE * dx;
     liftDyMask = static_cast<int32_t>(deltaxMask / dy);
@@ -391,7 +390,7 @@ void RasterizerCellsAntiAlias::RenderObliqueLine(int64_t& dx, int64_t& dy, int32
             modDyMask -= dy;
             delta++;
         }
-        xTo = xFrom + delta;
+        int32_t xTo = xFrom + delta;
         RenderHorizonline(ey1, xFrom, POLY_SUBPIXEL_SCALE - first, xTo, first);
         xFrom = xTo;
         ey1 += increase;
@@ -557,13 +556,12 @@ void QsortCells(CellBuildAntiAlias** start, uint32_t num)
 
         CellBuildAntiAlias** iIndex;
         CellBuildAntiAlias** jIndex;
-        CellBuildAntiAlias** pivot;
 
         if (len > QSORT_THRESHOLD) {
             /**
              * First exchange base + len / 2 as the pivot
              */
-            pivot = base + len / TWO_TIMES;
+            CellBuildAntiAlias** pivot = base + len / TWO_TIMES;
             SwapCells(base, pivot);
 
             iIndex = base + 1;

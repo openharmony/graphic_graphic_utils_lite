@@ -355,9 +355,6 @@ void CubicBezierCurveDividOperate::Recursive(float x1, float y1,
     if (level > CURVE_RECURSION_LIMIT) {
         return;
     }
-    if (level > CURVE_RECURSION_LIMIT) {
-        return;
-    }
 
     /** Calculates All Midpoints Of a Segment */
     float x12 = (x1 + x2) / FLOATNUM;

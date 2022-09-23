@@ -62,39 +62,26 @@ void Clip(Polygon& poly, const Line& line)
 {
     uint8_t vertexNum = poly.GetVertexNum();
     Polygon newPoly;
-    int16_t iX;
-    int16_t iY;
-    int16_t kX;
-    int16_t kY;
-
-    int16_t x1;
-    int16_t y1;
-    int16_t x2;
-    int16_t y2;
-
-    int8_t k;
-    int32_t iPos;
-    int32_t kPos;
 
     /* (iX, iY), (kX, kY) are the co-ordinate values of the points */
     for (int8_t i = 0; i < vertexNum; i++) {
         /* i and k form a line in polygon  */
-        k = (i + 1) % vertexNum;
-        iX = poly[i].x_;
-        iY = poly[i].y_;
-        kX = poly[k].x_;
-        kY = poly[k].y_;
+        int8_t k = (i + 1) % vertexNum;
+        int16_t iX = poly[i].x_;
+        int16_t iY = poly[i].y_;
+        int16_t kX = poly[k].x_;
+        int16_t kY = poly[k].y_;
 
-        x1 = line[0].x_;
-        y1 = line[0].y_;
-        x2 = line[1].x_;
-        y2 = line[1].y_;
+        int16_t x1 = line[0].x_;
+        int16_t y1 = line[0].y_;
+        int16_t x2 = line[1].x_;
+        int16_t y2 = line[1].y_;
 
         /* Calculating position of first point w.r.t. clipper line */
-        iPos = static_cast<int32_t>(x2 - x1) * (iY - y1) - static_cast<int32_t>(y2 - y1) * (iX - x1);
+        int32_t iPos = static_cast<int32_t>(x2 - x1) * (iY - y1) - static_cast<int32_t>(y2 - y1) * (iX - x1);
 
         /* Calculating position of second point w.r.t. clipper line */
-        kPos = static_cast<int32_t>(x2 - x1) * (kY - y1) - static_cast<int32_t>(y2 - y1) * (kX - x1);
+        int32_t kPos = static_cast<int32_t>(x2 - x1) * (kY - y1) - static_cast<int32_t>(y2 - y1) * (kX - x1);
 
         uint8_t newVertexNum = newPoly.GetVertexNum();
 
@@ -157,39 +144,26 @@ void Clip(const Line& line, const Polygon& poly, Vector2<int16_t>* pOut, uint8_t
         return;
     }
     uint8_t vertexNum = poly.GetVertexNum();
-    int16_t iX;
-    int16_t iY;
-    int16_t kX;
-    int16_t kY;
-
-    int16_t x1;
-    int16_t y1;
-    int16_t x2;
-    int16_t y2;
-
-    int8_t k;
-    int32_t iPos;
-    int32_t kPos;
 
     /* (iX, iY), (kX, kY) are the co-ordinate values of the points */
     for (int8_t i = 0; i < vertexNum; i++) {
         /* i and k form a line in polygon  */
-        k = (i + 1) % vertexNum;
-        iX = poly[i].x_;
-        iY = poly[i].y_;
-        kX = poly[k].x_;
-        kY = poly[k].y_;
+        int8_t k = (i + 1) % vertexNum;
+        int16_t iX = poly[i].x_;
+        int16_t iY = poly[i].y_;
+        int16_t kX = poly[k].x_;
+        int16_t kY = poly[k].y_;
 
-        x1 = line[0].x_;
-        y1 = line[0].y_;
-        x2 = line[1].x_;
-        y2 = line[1].y_;
+        int16_t x1 = line[0].x_;
+        int16_t y1 = line[0].y_;
+        int16_t x2 = line[1].x_;
+        int16_t y2 = line[1].y_;
 
         /* Calculating position of first point w.r.t. clipper line */
-        iPos = static_cast<int32_t>(x2 - x1) * (iY - y1) - static_cast<int32_t>(y2 - y1) * (iX - x1);
+        int32_t iPos = static_cast<int32_t>(x2 - x1) * (iY - y1) - static_cast<int32_t>(y2 - y1) * (iX - x1);
 
         /* Calculating position of second point w.r.t. clipper line */
-        kPos = static_cast<int32_t>(x2 - x1) * (kY - y1) - static_cast<int32_t>(y2 - y1) * (kX - x1);
+        int32_t kPos = static_cast<int32_t>(x2 - x1) * (kY - y1) - static_cast<int32_t>(y2 - y1) * (kX - x1);
 
         if ((iPos >= 0 && kPos < 0) || (iPos < 0 && kPos >= 0)) {
             Vector2<int16_t> intersectPoint;

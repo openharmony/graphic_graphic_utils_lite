@@ -162,7 +162,6 @@ uint32_t VertexGenerateDash::GenerateVertex(float* x, float* y)
                 return PATH_CMD_MOVE_TO;
             case POLYLINE: {
                 float dashRest = dashes_[currDash_] - currDashStart_;
-                uint32_t cmd;
                 if (currDash_ & 1) {
                     cmd = PATH_CMD_MOVE_TO;
                 } else {

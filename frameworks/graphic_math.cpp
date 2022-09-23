@@ -163,7 +163,8 @@ float Sqrt(float x)
 {
     const float xhalf = 0.5f * x;
     int32_t i = *reinterpret_cast<int32_t*>(&x);
-    i = 0x5f375a86 - (i / 2); // 0x5f375a86 : Initial value of Newton Iterator. 2 : initial parameter for iterator.
+    // 0x5f375a86 : Initial value of Newton Iterator. 2 : initial parameter for iterator.
+    i = 0x5f375a86 - (i / 2);
     float y = *reinterpret_cast<float*>(&i);
     y = y * (1.5f - (xhalf * y * y));
     y = y * (1.5f - (xhalf * y * y));

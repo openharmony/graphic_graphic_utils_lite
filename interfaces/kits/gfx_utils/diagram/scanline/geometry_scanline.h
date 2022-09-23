@@ -52,7 +52,8 @@ public:
     };
     using Iterator = SpanBlock* ;
     using ConstIterator = const SpanBlock* ;
-    GeometryScanline() : minScaneLineXCoord_(0), lastScaneLineXCoord_(0x7FFFFFF0), curSpanBlock_(0) {}
+    GeometryScanline() : minScaneLineXCoord_(0), lastScaneLineXCoord_(0x7FFFFFF0),
+                         scaneLineYCoord_(0), curSpanBlock_(0) {}
     /**
      * @class ScanlineUnPackedContainer
      * @brief 16 bit unpacked scan line container class - packed scan line container,

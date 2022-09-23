@@ -48,7 +48,7 @@ namespace OHOS {
  * @since 1.0
  * @version 1.0
  */
-void* ImageCacheMalloc(ImageInfo& info);
+void* ImageCacheMalloc(const ImageInfo& info);
 
 /**
  * @brief Releases the image cache memory.

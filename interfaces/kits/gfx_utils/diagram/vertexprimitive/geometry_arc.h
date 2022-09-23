@@ -30,7 +30,10 @@ namespace OHOS {
 class GeometryArc : public HeapBase {
 #if GRAPHIC_ENABLE_ARC_FLAG
 public:
-    GeometryArc() : initialized_(false), expansionRatio_(1.0f) {}
+    GeometryArc() : initialized_(false), pathCommand_(0.0f), centerX_(0.0f),
+                    centerY_(0.0f), radiusX_(0.0f), radiusY_(0.0f),
+                    currentAngle_(0.0f), beginAngle_(0.0f), endAngle_(0.0f),
+                    expansionRatio_(1.0f), deltaAngle_(0.0f), isClockwise_(false) {}
 
     /**
      * @brief Constructor arc.

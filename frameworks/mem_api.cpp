@@ -17,7 +17,7 @@
 #include "gfx_utils/common_macros.h"
 
 namespace OHOS {
-UI_WEAK_SYMBOL void* ImageCacheMalloc(ImageInfo& info)
+UI_WEAK_SYMBOL void* ImageCacheMalloc(const ImageInfo& info)
 {
     return malloc(info.dataSize);
 }

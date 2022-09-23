@@ -41,5 +41,5 @@
 #include "errno.h"
 #endif
 
-#define DEFAULT_FILE_PERMISSION 0666 // default file permission when creat file
+#define DEFAULT_FILE_PERMISSION 0660 // default file permission when creat file
 #endif // GRAPHIC_LITE_FILE_H

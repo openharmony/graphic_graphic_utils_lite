@@ -503,6 +503,12 @@ struct Rgba8T {
         Convert(*this, color);
     }
 
+    Rgba8T& operator=(const Rgba8T& color)
+    {
+        Convert(*this, color);
+        return *this;
+    }
+
     /**
      * @brief Overloaded RGBA function
      *

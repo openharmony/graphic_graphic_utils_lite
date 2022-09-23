@@ -39,6 +39,10 @@ bool RasterizerScanlineAntialias::SweepScanline(GeometryScanline& sl)
 
         while (numCells) {
             const CellBuildAntiAlias* curCell = *cells;
+            if (curCell == nullptr) {
+                GRAPHIC_LOGE("Text: RasterizerScanlineAntialias::SweepScanline can not new curCell");
+                return true;
+            }
             int32_t x = curCell->x;
             int32_t area = curCell->area;
             uint32_t alpha;

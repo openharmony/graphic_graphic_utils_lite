@@ -97,7 +97,7 @@ private:
 class QuadrBezierCurveDividOp {
 public:
     QuadrBezierCurveDividOp()
-        : approximationScale_(1.0f), angleTolerance_(0.0f), count_(0) {}
+        : approximationScale_(1.0f), distanceToleranceSquare_(0.0f), angleTolerance_(0.0f), count_(0) {}
 
     QuadrBezierCurveDividOp(float x1, float y1,
                             float x2, float y2,
@@ -388,7 +388,8 @@ inline CubicBezierCurvePoints HermiteToBezier(const CubicBezierCurvePoints& curv
 class CubicBezierCurveDividOperate {
 public:
     CubicBezierCurveDividOperate()
-        : approximationScale_(1.0f), angleTolerance_(0.0f), cuspLimit_(0.0f), count_(0) {}
+        : approximationScale_(1.0f),  distanceToleranceSquare_(0.0f),
+          angleTolerance_(0.0f), cuspLimit_(0.0f), count_(0) {}
 
     CubicBezierCurveDividOperate(float x1, float y1,
                                  float x2, float y2,

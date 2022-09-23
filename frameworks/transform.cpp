@@ -60,20 +60,16 @@ TransformMap::TransformMap(const Rect& rect)
 bool TransformMap::GetClockWise() const
 {
     int16_t count = 0;
-    int32_t c;
 
     uint8_t vertexNum = polygon_.GetVertexNum();
     if (vertexNum < VERTEX_NUM_MIN) {
         return false;
     }
 
-    uint8_t i = 0;
-    uint8_t j;
-    uint8_t k;
-    for (; i < vertexNum; i++) {
-        j = (i + 1) % vertexNum; // 1: the next vertex
-        k = (i + 2) % vertexNum; // 2: the after next vertex
-        c = (static_cast<int32_t>(polygon_[j].x_ - polygon_[i].x_) * (polygon_[k].y_ - polygon_[j].y_)) -
+    for (uint8_t i = 0; i < vertexNum; i++) {
+        uint8_t j = (i + 1) % vertexNum; // 1: the next vertex
+        uint8_t k = (i + 2) % vertexNum; // 2: the after next vertex
+        int32_t c = (static_cast<int32_t>(polygon_[j].x_ - polygon_[i].x_) * (polygon_[k].y_ - polygon_[j].y_)) -
             (static_cast<int32_t>(polygon_[j].y_ - polygon_[i].y_) * (polygon_[k].x_ - polygon_[j].x_));
         if (c < 0) {
             count--;
