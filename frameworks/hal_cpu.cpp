@@ -38,7 +38,7 @@ uint32_t HalGetCpuCoreNum()
     cpuCoreNum = sysInfo.dwNumberOfProcessors;
 #elif defined __LINUX__
     cpuCoreNum = sysconf(_SC_NPROCESSORS_ONLN);
-#elif defined HAL_CPU_NUM
+#elif ((defined (HAL_CPU_NUM)) && (HAL_CPU_NUM < 8))
     cpuCoreNum = HAL_CPU_NUM;
 #else
     cpuCoreNum = 1;

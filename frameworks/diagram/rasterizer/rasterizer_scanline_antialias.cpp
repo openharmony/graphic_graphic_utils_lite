@@ -45,7 +45,7 @@ bool RasterizerScanlineAntialias::SweepScanline(GeometryScanline& sl)
 
             cover += curCell->cover;
             // accumulate all cells with the same X
-            while (--numCells && (curCell = *++cells) && (curCell->x == x)) {
+            while (--numCells && (curCell = *++cells) && (curCell != nullptr) && (curCell->x == x)) {
                 area += curCell->area;
                 cover += curCell->cover;
             }
@@ -58,7 +58,7 @@ bool RasterizerScanlineAntialias::SweepScanline(GeometryScanline& sl)
                 }
                 x++;
             }
-            if (numCells && curCell->x > x) {
+            if (numCells && (curCell != nullptr) && curCell->x > x) {
                 // At this time, area is 0, that is, 0 to cover << (POLY_SUBPIXEL_SHIFT + 1)
                 alpha = CalculateAlpha(cover << (POLY_SUBPIXEL_SHIFT + 1));
                 if (alpha) {
