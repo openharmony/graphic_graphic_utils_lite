@@ -40,8 +40,8 @@
 #define UI_ADDR_ALIGN(ptr, sz) _ADDR_ALIGN(ptr, sz, ALIGNMENT_BYTES)
 #define UI_STRUCT_ALIGN _STRUCT_ALIGN(ALIGNMENT_BYTES)
 #else
-#define UI_ALIGN_UP(size)  _ALIGN_UP((size), 4)
-#define UI_ALIGN_DOWN(size) _ALIGN_DOWN((size), 4)
+#define UI_ALIGN_UP(size)  _ALIGN_UP((size), 4U)
+#define UI_ALIGN_DOWN(size) _ALIGN_DOWN((size), 4U)
 #define UI_ADDR_ALIGN(ptr, sz)
 #define UI_STRUCT_ALIGN
 #endif
