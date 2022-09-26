@@ -60,7 +60,22 @@ public:
 #if GRAPHIC_ENABLE_LINEJOIN_FLAG
           miterLimit_(0),
 #endif
+#if GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
+          linearGradientPoint_({0, 0, 0, 0}),
+          radialGradientPoint_({0, 0, 0, 0, 0, 0}),
+          stopAndColors_({}),
+          gradientflag_(Linear),
+#endif
+#if GRAPHIC_ENABLE_PATTERN_FILL_FLAG
+          patternRepeat_(REPEAT),
+#endif
+#if GRAPHIC_ENABLE_PATTERN_FILL_FLAG
+          image_(nullptr),
+#endif
 #if GRAPHIC_ENABLE_SHADOW_EFFECT_FLAG
+          shadowBlurRadius_(0),
+          shadowOffsetX_(0.0f),
+          shadowOffsetY_(0.0f),
           shadowColor_(Color::Black()),
           haveShadow_(false),
 #endif
