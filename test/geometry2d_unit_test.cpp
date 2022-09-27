@@ -23,7 +23,7 @@ using namespace testing::ext;
 namespace OHOS {
 namespace {
     const uint16_t VECTOR2_SIZE = 4;
-    const int16_t BASE_VALUE = BASE_VALUE;
+    const int16_t BASE_VALUE = 1;
     const int16_t TWOFOLD_VALUE = 2 * BASE_VALUE;
     const int16_t THREEFOLD_VALUE = 3 * BASE_VALUE;
     const int16_t FOURFOLD_VALUE = 4 * BASE_VALUE;
@@ -225,7 +225,7 @@ HWTEST_F(Geometry2dTest, Geometry2dIntersect_001, TestSize.Level0)
     }
     Vector2<int16_t> out;
 
-    EXPECT_EQ(Intersect(*line1, *line2, out), false);
+    EXPECT_EQ(Intersect(*line1, *line2, out), true);
     EXPECT_EQ(out.x_, TWOFOLD_VALUE);
     EXPECT_EQ(out.y_, TWOFOLD_VALUE);
 
@@ -299,7 +299,7 @@ HWTEST_F(Geometry2dTest, Geometry2dClip_001, TestSize.Level0)
     }
     Clip(*polygon, *line);
     uint16_t i = 0;
-    EXPECT_EQ(polygon->GetVertexNum(), 0);
+    EXPECT_EQ(polygon->GetVertexNum(), 3);
     EXPECT_EQ(polygon->operator[](i).x_, FIVEFOLD_VALUE);
     EXPECT_EQ(polygon->operator[](i++).y_, BASE_VALUE);
     EXPECT_EQ(polygon->operator[](i).x_, BASE_VALUE);
