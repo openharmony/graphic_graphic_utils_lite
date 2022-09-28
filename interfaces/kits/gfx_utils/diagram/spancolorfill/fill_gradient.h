@@ -65,8 +65,8 @@ public:
         : interpolator_(&inter),
           gradientFunction_(&GradientFunction),
           colorFunction_(&ColorFunction),
-          distance1_(distance1 * GRADIENT_SUBPIXEL_SCALE),
-          distance2_(distance2 * GRADIENT_SUBPIXEL_SCALE) {}
+          distance1_(static_cast<int32_t>(distance1 * GRADIENT_SUBPIXEL_SCALE)),
+          distance2_(static_cast<int32_t>(distance2 * GRADIENT_SUBPIXEL_SCALE)) {}
 
     void Prepare() {}
 
@@ -121,9 +121,9 @@ public:
      * @param dy In the y-axis direction, the distance from the end circle center to the start circle center
      */
     GradientRadialCalculate(float endRadius, float dx, float dy)
-        : endRadius_(endRadius * GRADIENT_SUBPIXEL_SCALE),
-          dx_(dx * GRADIENT_SUBPIXEL_SCALE),
-          dy_(dy * GRADIENT_SUBPIXEL_SCALE)
+        : endRadius_(static_cast<int32_t>(endRadius * GRADIENT_SUBPIXEL_SCALE)),
+          dx_(static_cast<int32_t>(dx * GRADIENT_SUBPIXEL_SCALE)),
+          dy_(static_cast<int32_t>(dy * GRADIENT_SUBPIXEL_SCALE))
     {
         UpdateValues();
     }
@@ -149,9 +149,9 @@ public:
         if (deltaRadius < 1) {
             deltaRadius = 1;
         }
-        int16_t index = (((dx * dx_ + dy * dy_ +
+        int16_t index = static_cast<int16_t>((((dx * dx_ + dy * dy_ +
                         Sqrt(fabs(radiusDistance)))
-                        * mul_ - startRadius) * size) / deltaRadius;
+                        * mul_ - startRadius) * size) / deltaRadius);
         if (index < 0) {
             index = 0;
         }
