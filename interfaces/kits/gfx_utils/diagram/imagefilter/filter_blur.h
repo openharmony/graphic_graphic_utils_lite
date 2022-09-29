@@ -58,7 +58,7 @@ public:
             if (isGetRGBAIntegral) {
                 GetRGBAIntegralImage((uint8_t*)img.PixValuePtr(0, 0), width, height, stride);
             }
-#ifdef __ICCARM__
+#ifndef __ICCARM__
 #pragma omp parallel for
 #endif
             for (int32_t y = 0; y < height; y++) {
