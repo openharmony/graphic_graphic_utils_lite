@@ -320,7 +320,6 @@ void RasterizerCellsAntiAlias::LineOperate(int32_t x1, int32_t y1, int32_t x2, i
     modDyMask = static_cast<int32_t>(deltaxMask % dy);
     if (modDyMask < 0) {
         delta--;
-        modDyMask += dy;
     }
     xFrom = x1 + delta;
     RenderHorizonline(ey1, x1, submaskFlagsY1, xFrom, first);
