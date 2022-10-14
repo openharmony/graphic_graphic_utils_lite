@@ -56,10 +56,12 @@ float Sin(float angle)
     }
 #endif
 }
+
 float Fmod(float X, float Y)
 {
-    return X - (int)(X / Y) * Y;
+    return static_cast<float>(X - static_cast<int>(X / Y) * Y);
 }
+
 float Cos(float angle)
 {
 #if ENABLE_CMATH
