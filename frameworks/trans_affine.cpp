@@ -15,35 +15,20 @@
 #include "gfx_utils/trans_affine.h"
 
 namespace OHOS {
-const uint8_t PARL_INDEX_SIZE = 6;
-const TransAffine& TransAffine::ParlToParl(const float* src,
-                                           const float* dst)
-{
-    data_[0] = src[2] - src[0];
-    data_[3] = src[3] - src[1];
-    data_[1] = src[4] - src[0];
-    data_[4] = src[5] - src[1];
-    data_[2] = src[0];
-    data_[5] = src[1];
-    Invert();
-    Multiply(TransAffine(dst[2] - dst[0], dst[3] - dst[1],
-                         dst[4] - dst[0], dst[5] - dst[1],
-                         dst[0], dst[1]));
-    return *this;
-}
-
 const TransAffine& TransAffine::RectToParl(float x1, float y1,
                                            float x2, float y2,
                                            const float* parl)
 {
-    float src[PARL_INDEX_SIZE];
-    src[0] = x1;
-    src[1] = y1;
-    src[2] = x2;
-    src[3] = y1;
-    src[4] = x2;
-    src[5] = y2;
-    ParlToParl(src, parl);
+    data_[0] = x2 - x1;
+    data_[3] = 0; // y1 - y1
+    data_[1] = x2 - x1;
+    data_[4] = y2 - y1;
+    data_[2] = x1;
+    data_[5] = y1;
+    Invert();
+    Multiply(TransAffine(parl[2] - parl[0], parl[3] - parl[1],
+                         parl[4] - parl[0], parl[5] - parl[1],
+                         parl[0], parl[1]));
     return *this;
 }
 

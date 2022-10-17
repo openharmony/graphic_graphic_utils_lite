@@ -57,14 +57,6 @@ public:
     }
     /**
      * @brief Convert the original parallelogram to the target parallelogram
-     * @param src Original parallelogram
-     * @param dst Target parallelogram
-     * @since 1.0
-     * @version 1.0
-     */
-    const TransAffine& ParlToParl(const float* src, const float* dst);
-    /**
-     * @brief Convert the original parallelogram to the target parallelogram
      * @param x1 x-axis coordinate of the upper left corner of the rectangle
      * @param y1 y-axis coordinate of the upper left corner of the rectangle
      * @param x2 x-axis coordinates of the lower right corner of the rectangle

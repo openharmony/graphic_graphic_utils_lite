@@ -450,7 +450,7 @@ struct Rgba8T {
         BASE_MSB = 1 << (BASE_SHIFT - 1)
     };
 
-    Rgba8T() {}
+    Rgba8T() : red(0), green(0), blue(0), alpha(0) {}
 
     /**
      * @brief Rgba8T Constructor
