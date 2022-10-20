@@ -85,7 +85,7 @@ static constexpr int16_t ORDER_MATRIX_4 = 4;
 float Sin(float angle);
 float Cos(float angle);
 float Acos(float value);
-float Fmod(float X, float Y);
+float Fmod(float x, float y);
 uint16_t FastAtan2(int16_t x, int16_t y);
 float FastAtan2F(float x, float y);
 float Sqrt(float x);

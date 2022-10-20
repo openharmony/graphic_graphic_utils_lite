@@ -21,7 +21,6 @@
 #include <windows.h>
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
 #include <ctime>
-#include "time.h"
 #else
 #include "los_tick.h"
 #endif
