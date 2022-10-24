@@ -21,7 +21,7 @@
 #define UI_WEAK_SYMBOL
 #endif
 
-#define ALIGN_UP(sz, align) (((sz) + (align - 1)) & (-(align)))
+#define ALIGN_UP(sz, align) (((sz) + ((align) - 1)) & (-(align)))
 #define ALIGN_DOWN(sz, align) ((sz) & (-(align)))
 #define _ADDR_ALIGN(ptr, sz, align)                                  \
     do {                                                             \
