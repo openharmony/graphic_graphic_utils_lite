@@ -43,7 +43,7 @@ lite_library("graphic_utils") {
   if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
     cflags = [
       "--diag_suppress",
-      "Pe068,Pa089,Pa093,Pe161,Pe181,Pe223",
+      "Pe068,Pa089,Pa093,Pe161,Pe181,Pa205,Pe223",
     ]
     cflags_cc = cflags
   }
