@@ -23,12 +23,12 @@
 
 #define ALIGN_UP(sz, align) (((sz) + (align - 1)) & (-(align)))
 #define ALIGN_DOWN(sz, align) ((sz) & (-(align)))
-#define _ADDR_ALIGN(ptr, sz, align)                                  \
+#define ADDR_ALIGN(ptr, sz, align)                                  \
     do {                                                             \
         uint32_t _sz = ALIGN_DOWN(sz, align);                       \
         (ptr) = decltype(ptr)((uintptr_t)(void*)(ptr) + ((sz)-_sz)); \
         (sz) = _sz;                                                  \
-    } while (0);
+    } while (0)
 #define STRUCT_ALIGN(sz) alignas(sz)
 
 #ifdef ALIGNMENT_BYTES
@@ -37,7 +37,7 @@
 #endif
 #define UI_ALIGN_UP(size) ALIGN_UP((size), ALIGNMENT_BYTES)
 #define UI_ALIGN_DOWN(size) ALIGN_DOWN((size), ALIGNMENT_BYTES)
-#define UI_ADDR_ALIGN(ptr, sz) _ADDR_ALIGN(ptr, sz, ALIGNMENT_BYTES)
+#define UI_ADDR_ALIGN(ptr, sz) ADDR_ALIGN(ptr, sz, ALIGNMENT_BYTES)
 #define UI_STRUCT_ALIGN STRUCT_ALIGN(ALIGNMENT_BYTES)
 #else
 #define UI_ALIGN_UP(size)  ALIGN_UP((size), 4U)
