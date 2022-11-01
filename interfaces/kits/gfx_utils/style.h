@@ -177,7 +177,7 @@ public:
     uint8_t imageOpa_;
     /* text style */
     uint8_t textOpa_;
-    uint16_t font_;
+    uint8_t font_;
     int8_t lineSpace_;
     int16_t letterSpace_;
     int16_t lineHeight_;
