@@ -81,7 +81,7 @@ public:
         colorProfile_.ReSize(RemoveDuplicates(colorProfile_, OffsetEqual));
         if (colorProfile_.Size() > 1) {
             uint32_t index;
-            uint32_t start = colorProfile_[0].offset * colorLutSize_;
+            uint32_t start = static_cast<uint32_t>(colorProfile_[0].offset * colorLutSize_);
             uint32_t end;
             Rgba8T color = colorProfile_[0].color;
 
@@ -95,7 +95,7 @@ public:
              * From 1 to colorprofile Interpolation color calculation between size ()
              */
             for (index = 1; index < colorProfile_.Size(); index++) {
-                end = colorProfile_[index].offset * colorLutSize_;
+                end = static_cast<uint32_t>(colorProfile_[index].offset * colorLutSize_);
                 ColorInterpolator ci(colorProfile_[index - 1].color,
                                      colorProfile_[index].color,
                                      end - start + 1);

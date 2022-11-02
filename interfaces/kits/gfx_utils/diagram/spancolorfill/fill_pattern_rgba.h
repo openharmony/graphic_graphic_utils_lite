@@ -76,8 +76,8 @@ public:
 
     void Generate(Rgba8T* span, int32_t x, int32_t y, uint32_t len)
     {
-        y = y - patternStartY_;
-        x = x - patternStartX_;
+        y = static_cast<int32_t>(y - patternStartY_);
+        x = static_cast<int32_t>(x - patternStartX_);
         for (; len; --len, span++, x++) {
             if (patternRepeat_ == NO_REPEAT) {
                 if (x >= patternImagewidth_ ||
