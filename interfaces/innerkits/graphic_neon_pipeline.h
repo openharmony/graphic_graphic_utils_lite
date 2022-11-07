@@ -38,6 +38,7 @@ struct {
 }
 g_dstFunc[] = {
     {ARGB8888, LoadBuf_ARGB8888, NeonBlendRGBA, StoreBuf_ARGB8888},
+    {XRGB8888, LoadBuf_XRGB8888, NeonBlendXRGB, StoreBuf_XRGB8888},
     {RGB888, LoadBuf_RGB888, NeonBlendRGB, StoreBuf_RGB888},
     {RGB565, LoadBuf_RGB565, NeonBlendRGB, StoreBuf_RGB565}
 };
@@ -48,6 +49,7 @@ struct {
 }
 g_srcFunc[] = {
     {ARGB8888, LoadBufA_ARGB8888},
+    {XRGB8888, LoadBufA_XRGB8888},
     {RGB888, LoadBufA_RGB888},
     {RGB565, LoadBufA_RGB565}
 };
@@ -333,6 +335,12 @@ private:
             g = vdup_n_u8(color->green);
             b = vdup_n_u8(color->blue);
             a = NeonMulDiv255(vdup_n_u8(opa), vdup_n_u8(color->alpha));
+        } else if (sm == XRGB8888) {
+            Color32* color = reinterpret_cast<Color32*>(srcColor);
+            r = vdup_n_u8(color->red);
+            g = vdup_n_u8(color->green);
+            b = vdup_n_u8(color->blue);
+            a = vdup_n_u8(opa);
         } else if (sm == RGB888) {
             Color24* color = reinterpret_cast<Color24*>(srcColor);
             r = vdup_n_u8(color->red);
