@@ -66,6 +66,8 @@ enum LabelRotateDegree : uint8_t {
 enum ColorMode : uint8_t {
     /** ARGB8888 color mode */
     ARGB8888 = 0,
+    /** XRGB888 color mode */
+    XRGB8888,
     /** RGB888 color mode */
     RGB888,
     /** RGB565 color mode */
