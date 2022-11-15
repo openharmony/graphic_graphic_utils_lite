@@ -164,7 +164,7 @@ public:
         if (reciprocal == 0) {
             return VERTEX_DIST_EPSILON;
         }
-        return 1.0 / reciprocal;
+        return 1.0f / reciprocal;
     }
 
     /**

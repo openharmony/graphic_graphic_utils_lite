@@ -145,11 +145,11 @@ private:
         ColorPoint(float offsetValue, const Rgba8T& colorValue)
             : offset(offsetValue), color(colorValue)
         {
-            if (offset < 0.0) {
-                offset = 0.0;
+            if (offset < 0.0f) {
+                offset = 0.0f;
             }
-            if (offset > 1.0) {
-                offset = 1.0;
+            if (offset > 1.0f) {
+                offset = 1.0f;
             }
         }
     };
