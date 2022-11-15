@@ -811,7 +811,7 @@ public:
     {
         this->scaleRadioX_ *= scaleX;
         this->scaleRadioY_ *= scaleX;
-        if (rotateAngle_ > 0.0 || rotateAngle_ < 0) {
+        if (rotateAngle_ > 0.0f || rotateAngle_ < 0) {
             transfrom_.Rotate(-rotateAngle_ * PI / BOXER);
             transfrom_.Scale(scaleX, scaleY);
             transfrom_.Rotate(rotateAngle_ * PI / BOXER);
