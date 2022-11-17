@@ -70,6 +70,14 @@ namespace OHOS {
 #define ENABLE_FIXED_POINT                    1
 #endif
 
+/**
+ * @brief checkBox iamge, which default value = 1 means use the default image,
+ * if haven't use checkBox image could set value = 0 to reduce the build resources.
+ */
+#ifndef ENABLE_DEFAULT_CHECKBOX_IMAGE
+#define ENABLE_DEFAULT_CHECKBOX_IMAGE         1
+#endif
+
 #ifdef __LITEOS_M__
 /**
  * @brief Font shaping, which is disabled by default on LiteOS.
