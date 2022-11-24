@@ -40,7 +40,10 @@ lite_library("graphic_utils") {
   } else {
     target_type = "shared_library"
   }
+  include_dirs = [ "frameworks" ]
   if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
+    include_dirs +=
+        [ "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite" ]
     cflags = [
       "--diag_suppress",
       "Pe068,Pa089,Pa093,Pe161,Pe181,Pa205,Pe223",
@@ -76,7 +79,6 @@ lite_library("graphic_utils") {
     "frameworks/transform.cpp",
     "frameworks/version.cpp",
   ]
-  include_dirs = [ "frameworks" ]
   public_configs = [ ":graphic_utils_public_config" ]
   if (ohos_kernel_type == "liteos_m") {
     deps = [ "//third_party/bounds_checking_function:libsec_static" ]
