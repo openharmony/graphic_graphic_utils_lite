@@ -422,6 +422,10 @@ static constexpr uint8_t MAX_FONT_SEARCH_NUM = 26;
 #define DEFAULT_LINE_BREAK_RULE_FILENAME   "line_cj.brk"
 #endif
 
+#ifndef DEFAULT_MAX_CACHE_ENTRY_NUM
+#define DEFAULT_MAX_CACHE_ENTRY_NUM                     64
+#endif // DEFAULT_MAX_CACHE_ENTRY_NUM
+
 /* Defines some configurations and their default values on LiteOS and other system platforms. */
 #ifdef __LITEOS_M__
 
