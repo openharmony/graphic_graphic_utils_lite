@@ -130,6 +130,19 @@ static inline void NeonBlendRGBA(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, ui
     b1 = NeonDivInt(b, a1);
 }
 
+static inline void NeonBlendXRGB(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, uint8x8_t& a1,
+                                 uint8x8_t r2, uint8x8_t g2, uint8x8_t b2, uint8x8_t a2)
+{
+    uint8x8_t da = vdup_n_u8(OPA_OPAQUE) - a2;
+    a1 = a1 - NeonMulDiv255(a2, a1) + a2;
+    uint16x8_t r = vmull_u8(r2, a2) + vmull_u8(r1, da);
+    uint16x8_t g = vmull_u8(g2, a2) + vmull_u8(g1, da);
+    uint16x8_t b = vmull_u8(b2, a2) + vmull_u8(b1, da);
+    r1 = NeonDivInt(r, a1);
+    g1 = NeonDivInt(g, a1);
+    b1 = NeonDivInt(b, a1);
+}
+
 static inline void NeonBlendRGB(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, uint8x8_t& a1,
                                 uint8x8_t r2, uint8x8_t g2, uint8x8_t b2, uint8x8_t a2)
 {
@@ -140,6 +153,15 @@ static inline void NeonBlendRGB(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, uin
 }
 
 static inline void LoadBuf_ARGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a)
+{
+    uint8x8x4_t vBuf = vld4_u8(buf);
+    r = vBuf.val[NEON_R];
+    g = vBuf.val[NEON_G];
+    b = vBuf.val[NEON_B];
+    a = vBuf.val[NEON_A];
+}
+
+static inline void LoadBuf_XRGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a)
 {
     uint8x8x4_t vBuf = vld4_u8(buf);
     r = vBuf.val[NEON_R];
@@ -179,6 +201,20 @@ static inline void LoadBufA_ARGB8888(uint8_t* buf,
     g = vBuf.val[NEON_G];
     b = vBuf.val[NEON_B];
     a = NeonMulDiv255(vBuf.val[NEON_A], vdup_n_u8(opa));
+}
+
+static inline void LoadBufA_XRGB8888(uint8_t* buf,
+                                     uint8x8_t& r,
+                                     uint8x8_t& g,
+                                     uint8x8_t& b,
+                                     uint8x8_t& a,
+                                     uint8_t opa)
+{
+    uint8x8x4_t vBuf = vld4_u8(buf);
+    r = vBuf.val[NEON_R];
+    g = vBuf.val[NEON_G];
+    b = vBuf.val[NEON_B];
+    a = vdup_n_u8(opa);
 }
 
 static inline void LoadBufA_RGB888(uint8_t* buf,
@@ -235,6 +271,16 @@ static inline void SetPixelColor_ARGB8888(uint8_t* dstBuf, uint8_t* srcBuf)
     vst4_u8(dstBuf, vDstBuf);
 }
 static inline void StoreBuf_ARGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a)
+{
+    uint8x8x4_t vBuf;
+    vBuf.val[NEON_R] = r;
+    vBuf.val[NEON_G] = g;
+    vBuf.val[NEON_B] = b;
+    vBuf.val[NEON_A] = a;
+    vst4_u8(buf, vBuf);
+}
+
+static inline void StoreBuf_XRGB8888(uint8_t* buf, uint8x8_t& r, uint8x8_t& g, uint8x8_t& b, uint8x8_t& a)
 {
     uint8x8x4_t vBuf;
     vBuf.val[NEON_R] = r;
