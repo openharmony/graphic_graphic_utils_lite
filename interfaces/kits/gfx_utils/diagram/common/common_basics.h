@@ -376,7 +376,7 @@ struct GeometryArrayAllocator {
         if (num < 1) {
             num = 1;
         }
-        return new T[num];
+        return static_cast<T*>(UIMalloc(num * sizeof(T)));
     }
     /**
      * @brief Array memory free
@@ -385,7 +385,7 @@ struct GeometryArrayAllocator {
      */
     static void Deallocate(T* ptr, uint32_t)
     {
-        delete[] ptr;
+        UIFree(ptr);
     }
 };
 
