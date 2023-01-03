@@ -64,7 +64,7 @@ class RasterizerCellsAntiAlias {
      * @version 1.0
      */
     enum CellBlockScale {
-        CELL_BLOCK_SHIFT = 12,
+        CELL_BLOCK_SHIFT = 5,
         CELL_BLOCK_SIZE = 1 << CELL_BLOCK_SHIFT,
         CELL_BLOCK_MASK = CELL_BLOCK_SIZE - 1,
         CELL_BLOCK_POOL = 256
