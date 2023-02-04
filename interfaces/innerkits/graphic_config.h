@@ -138,6 +138,13 @@ namespace OHOS {
 #endif
 
 /**
+ * @brief For vector type font, enable different font size or font family for label.
+ */
+#ifndef ENABLE_SPANNABLE_STRING
+#define ENABLE_SPANNABLE_STRING         0
+#endif
+
+/**
  * @brief JPEG and PNG, which is disabled by default on LiteOS.
  */
 #ifndef ENABLE_JPEG_AND_PNG
