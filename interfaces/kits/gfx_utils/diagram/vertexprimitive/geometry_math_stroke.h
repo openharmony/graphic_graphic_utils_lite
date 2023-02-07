@@ -64,8 +64,8 @@ public:
           lineCap_(BUTT_CAP),
 #endif
 #if defined(GRAPHIC_ENABLE_LINEJOIN_FLAG) && GRAPHIC_ENABLE_LINEJOIN_FLAG
-          miterLimitMeasure_(DEFAULTMITERLIMIT),
           lineJoin_(MITER_JOIN),
+          miterLimitMeasure_(DEFAULTMITERLIMIT),
 #endif
           approxScaleRadio_(1.0f) {}
 
@@ -436,8 +436,6 @@ private:
     float strokeWidthUsingAbs_;
     float strokeWidthPercentDivision_;
     int32_t strokeWidthSignal_;
-
-    float approxScaleRadio_;
 #if defined(GRAPHIC_ENABLE_LINECAP_FLAG) && GRAPHIC_ENABLE_LINECAP_FLAG
     LineCap lineCap_;
 #endif
@@ -445,6 +443,7 @@ private:
     LineJoin lineJoin_;
     float miterLimitMeasure_;
 #endif
+    float approxScaleRadio_;
 };
 } // namespace OHOS
 #endif

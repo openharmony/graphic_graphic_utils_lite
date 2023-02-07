@@ -42,7 +42,7 @@ const uint16_t COLOR_LUT_SIZE = 512;
 class FillGradientLut {
 #if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
 public:
-    FillGradientLut() : colorType_(COLOR_LUT_SIZE), colorLutSize_(COLOR_LUT_SIZE), colorProfile_(COLOR_PROFILE_SIZE) {}
+    FillGradientLut() : colorProfile_(COLOR_PROFILE_SIZE), colorType_(COLOR_LUT_SIZE), colorLutSize_(COLOR_LUT_SIZE) {}
     /**
      * @brief Remove all colors
      * @since 1.0
