@@ -116,8 +116,8 @@ public:
      * @version 1.0
      */
     explicit DepictAdaptorVertexGenerate(VertexSource& source)
-        : msource_(&source), status_(INITIAL) {}
-
+        : msource_(&source), status_(INITIAL), lastCmd_(0), startX_(0), startY_(0) {}
+        
     /**
      * @brief Set vertex source directly
      * @since 1.0
