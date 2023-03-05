@@ -23,12 +23,12 @@ if (enable_ohos_graphic_utils_product_config) {
   defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
 }
 
-lite_component("lite_graphic_utils") {
+lite_component("graphic_utils_lite") {
   features = [ ":graphic_utils" ]
   public_deps = features
 }
 
-ndk_lib("lite_graphic_utils_ndk") {
+ndk_lib("graphic_utils_lite_ndk") {
   lib_extension = ".so"
   deps = [ ":graphic_utils" ]
   head_files = [ "interfaces/kits" ]
@@ -134,7 +134,7 @@ if (ohos_kernel_type != "liteos_m") {
     ]
     include_dirs = [ "//foundation/graphic/wms/interfaces/innerkits" ]
     deps = [
-      ":lite_graphic_utils",
+      ":graphic_utils_lite",
       "//drivers/peripheral/display/hal:hdi_display",
     ]
     public_configs = [ ":graphic_hals_public_config" ]

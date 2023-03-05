@@ -38,7 +38,7 @@ The Utils module defines the common data structure in the graphics subsystem and
 
 ```
 # Generate the libgraphic_utils.so file in the out directory of the product folder through GN compilation.
-hb build lite_graphic_utils
+hb build graphic_utils_lite
 ```
 
 ## Description<a name="section1312121216216"></a>
@@ -95,7 +95,7 @@ The Hals module adapts and encapsulates the functions related to the driver subs
 
 ```
 # Generate the libgraphic_hals.so file in the out directory of the product folder through GN compilation.
-hb build lite_graphic_utils
+hb build graphic_utils_lite
 ```
 
 ## Description<a name="section1312121216216"></a>

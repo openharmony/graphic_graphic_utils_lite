@@ -38,7 +38,7 @@ HALS组件中实现了对驱动子系统和平台相关功能的适配封装，�
 
 ```
 # 通过gn编译,在out目录下对应产品的文件夹中生成libgraphic_hals.so
-hb build lite_graphic_utils
+hb build graphic_utils_lite
 ```
 
 ## 说明<a name="section1312121216216"></a>
@@ -94,7 +94,7 @@ UTILS组件中定义了图形子系统中的公共数据结构，并提供了一
 
 ```
 # 通过gn编译,在out目录下对应产品的文件夹中生成libgraphic_utils.so
-hb build lite_graphic_utils
+hb build graphic_utils_lite
 ```
 
 ## 说明<a name="section1312121216216"></a>

@@ -12,13 +12,13 @@
 if (ohos_kernel_type != "liteos_m") {
   import("//build/lite/config/test.gni")
 
-  group("lite_graphic_utils_test") {
+  group("graphic_utils_lite_test") {
     if (ohos_build_type == "debug") {
       deps = [ ":graphic_test_utils_door" ]
     }
   }
 
-  config("lite_graphic_utils_test_config") {
+  config("graphic_utils_lite_test_config") {
     include_dirs = []
     ldflags = [
       "-lstdc++",
@@ -31,7 +31,7 @@ if (ohos_kernel_type != "liteos_m") {
       output_extension = "bin"
       output_dir = "$root_out_dir/test/unittest/graphic"
       deps = [ "//foundation/graphic/utils:graphic_utils" ]
-      configs = [ ":lite_graphic_utils_test_config" ]
+      configs = [ ":graphic_utils_lite_test_config" ]
       sources = [
         "color_unit_test.cpp",
         "geometry2d_unit_test.cpp",
@@ -44,6 +44,6 @@ if (ohos_kernel_type != "liteos_m") {
     }
   }
 } else {
-  group("lite_graphic_utils_test") {
+  group("graphic_utils_lite_test") {
   }
 }
