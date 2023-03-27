@@ -184,8 +184,14 @@ private:
     {
         if (nb >= maxBlocks_) {
             float** new_coords = GeometryArrayAllocator<float*>::Allocate((maxBlocks_ + BLOCK_SCALE_POOL) * TWO_TIMES);
+            if (new_coords == nullptr) {
+                return;
+            }
 
             uint8_t** new_cmds = (uint8_t**)(new_coords + maxBlocks_ + BLOCK_SCALE_POOL);
+            if (new_cmds == nullptr) {
+                return;
+            }
 
             if (croodBlocks_) {
                 if (memcpy_s(new_coords, maxBlocks_ * sizeof(float*),
