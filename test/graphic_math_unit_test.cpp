@@ -83,14 +83,13 @@ HWTEST_F(MathTest, MathSqrt_001, TestSize.Level0)
     const float testIntegerSquared = testInteger * testInteger;
     const float testFloat = 2.121320; // 2.121320: 4.5 squaring results
     const float testFloatSquared = 4.5;
-    const float accuracy = 0.000001;
 
     EXPECT_EQ(Sqrt(0), 0);
     float ret = Sqrt(testIntegerSquared);
-    EXPECT_TRUE(ret > testInteger - accuracy && ret < testInteger + accuracy);
+    EXPECT_TRUE(MATH_FLT_EQUAL(ret, testInteger));
 
     ret = Sqrt(testFloatSquared);
-    EXPECT_TRUE(ret > testFloat - accuracy && ret < testFloat + accuracy);
+    EXPECT_TRUE(MATH_FLT_EQUAL(ret, testFloat));
 }
 
 /**
