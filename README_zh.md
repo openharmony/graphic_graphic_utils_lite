@@ -18,7 +18,7 @@ HALS组件中实现了对驱动子系统和平台相关功能的适配封装，�
 ## 目录<a name="section161941989596"></a>
 
 ```
-/foundation/graphic/utils
+/foundation/graphic/graphic_utils_lite
 ├── frameworks               # 框架代码
 │   ├── diagram              # 2d图形引擎
 │   │   ├── depiction        # 光滑曲线点生成算法
@@ -51,11 +51,11 @@ hb build graphic_utils_lite
 
 [图形子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/%E5%9B%BE%E5%BD%A2%E5%AD%90%E7%B3%BB%E7%BB%9F.md)
 
-[graphic_wms](https://gitee.com/openharmony/graphic_wms/blob/master/README_zh.md)
+[window_window_manager_lite](https://gitee.com/openharmony/window_window_manager_lite/blob/master/README.md)
 
-[graphic_surface](https://gitee.com/openharmony/graphic_surface/blob/master/README_zh.md)
+[graphic_surface_lite](https://gitee.com/openharmony/graphic_surface_lite/blob/master/README.md)
 
-[graphic_ui](https://gitee.com/openharmony/graphic_ui/blob/master/README_zh.md)
+[arkui_ui_lite](https://gitee.com/openharmony/arkui_ui_lite/blob/master/README.md)
 
 # 图形UTILS组件<a name="ZH-CN_TOPIC_0000001123083525"></a>
 
@@ -77,7 +77,7 @@ UTILS组件中定义了图形子系统中的公共数据结构，并提供了一
 ## 目录<a name="section161941989596"></a>
 
 ```
-/foundation/graphic/utils
+/foundation/graphic/graphic_utils_lite
 ├── frameworks      # 框架代码
 │   ├── hals        # 硬件适配层
 │   ├── linux       # linux平台适配层
@@ -108,10 +108,10 @@ hb build graphic_utils_lite
 
 [图形子系统](https://gitee.com/openharmony/docs/blob/master/zh-cn/readme/%E5%9B%BE%E5%BD%A2%E5%AD%90%E7%B3%BB%E7%BB%9F.md)
 
-[graphic_wms](https://gitee.com/openharmony/graphic_wms/blob/master/README_zh.md)
+[window_window_manager_lite](https://gitee.com/openharmony/window_window_manager_lite/blob/master/README.md)
 
-[graphic_surface](https://gitee.com/openharmony/graphic_surface/blob/master/README_zh.md)
+[graphic_surface_lite](https://gitee.com/openharmony/graphic_surface_lite/blob/master/README.md)
 
-[graphic_ui](https://gitee.com/openharmony/graphic_ui/blob/master/README_zh.md)
+[arkui_ui_lite](https://gitee.com/openharmony/arkui_ui_lite/blob/master/README.md)
 
-**graphic_utils**
+**graphic_graphic_utils_lite**

@@ -23,18 +23,18 @@ if (enable_ohos_graphic_utils_product_config) {
   defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
 }
 
-lite_component("graphic_utils_lite") {
-  features = [ ":graphic_utils" ]
+lite_component("utils_lite") {
+  features = [ ":graphic_utils_lite" ]
   public_deps = features
 }
 
 ndk_lib("graphic_utils_lite_ndk") {
   lib_extension = ".so"
-  deps = [ ":graphic_utils" ]
+  deps = [ ":graphic_utils_lite" ]
   head_files = [ "interfaces/kits" ]
 }
 
-lite_library("graphic_utils") {
+lite_library("graphic_utils_lite") {
   if (ohos_kernel_type == "liteos_m") {
     target_type = "static_library"
   } else {
@@ -132,9 +132,10 @@ if (ohos_kernel_type != "liteos_m") {
       "frameworks/hals/gfx_engines.cpp",
       "frameworks/hals/hi_fbdev.cpp",
     ]
-    include_dirs = [ "//foundation/graphic/wms/interfaces/innerkits" ]
+    include_dirs =
+        [ "//foundation/window/window_manager_lite/interfaces/innerkits" ]
     deps = [
-      ":graphic_utils_lite",
+      ":utils_lite",
       "//drivers/peripheral/display/hal:hdi_display",
     ]
     public_configs = [ ":graphic_hals_public_config" ]

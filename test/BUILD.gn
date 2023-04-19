@@ -30,7 +30,7 @@ if (ohos_kernel_type != "liteos_m") {
     unittest("graphic_test_utils_door") {
       output_extension = "bin"
       output_dir = "$root_out_dir/test/unittest/graphic"
-      deps = [ "//foundation/graphic/utils:graphic_utils" ]
+      deps = [ "//foundation/graphic/graphic_utils_lite:utils_lite" ]
       configs = [ ":graphic_utils_lite_test_config" ]
       sources = [
         "color_unit_test.cpp",

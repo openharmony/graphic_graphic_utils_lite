@@ -18,7 +18,7 @@ The Utils module defines the common data structure in the graphics subsystem and
 ## Directory Structure<a name="section161941989596"></a>
 
 ```
-/foundation/graphic/utils
+/foundation/graphic/graphic_utils_lite
 ├── frameworks               # Framework code
 │   ├── diagram              # 2d graphic engine implementation
 │   │   ├── depiction        # Smooth curve point generation algorithm
@@ -52,11 +52,11 @@ hb build graphic_utils_lite
 
 [Graphic subsystem](https://gitee.com/openharmony/docs/blob/master/en/readme/graphics.md)
 
-[graphic_wms](https://gitee.com/openharmony/graphic_wms/blob/master/README.md)
+[window_window_manager_lite](https://gitee.com/openharmony/window_window_manager_lite/blob/master/README.md)
 
-[graphic_surface](https://gitee.com/openharmony/graphic_surface/blob/master/README.md)
+[graphic_surface_lite](https://gitee.com/openharmony/graphic_surface_lite/blob/master/README.md)
 
-[graphic_ui](https://gitee.com/openharmony/graphic_ui/blob/master/README.md)
+[arkui_ui_lite](https://gitee.com/openharmony/arkui_ui_lite/blob/master/README.md)
 
 # Hals<a name="EN-US_TOPIC_0000001124625243"></a>
 
@@ -78,7 +78,7 @@ The Hals module adapts and encapsulates the functions related to the driver subs
 ## Directory Structure<a name="section161941989596"></a>
 
 ```
-/foundation/graphic/utils
+/foundation/graphic/graphic_utils_lite
 ├── frameworks      # Framework code
 │   ├── hals        # Hardware adaptation layer
 │   ├── linux       # Linux platform adaptation layer
@@ -108,10 +108,10 @@ hb build graphic_utils_lite
 
 [Graphic subsystem](https://gitee.com/openharmony/docs/blob/master/en/readme/graphics.md)
 
-[graphic_wms](https://gitee.com/openharmony/graphic_wms/blob/master/README.md)
+[window_window_manager_lite](https://gitee.com/openharmony/window_window_manager_lite/blob/master/README.md)
 
-[graphic_surface](https://gitee.com/openharmony/graphic_surface/blob/master/README.md)
+[graphic_surface_lite](https://gitee.com/openharmony/graphic_surface_lite/blob/master/README.md)
 
-[graphic_ui](https://gitee.com/openharmony/graphic_ui/blob/master/README.md)
+[arkui_ui_lite](https://gitee.com/openharmony/arkui_ui_lite/blob/master/README.md)
 
-**graphic_utils**
+**graphic_graphic_utils_lite**
