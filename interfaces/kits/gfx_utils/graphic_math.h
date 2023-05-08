@@ -81,6 +81,7 @@ static constexpr float ATAN2_P7 = -0.0443360;
 static constexpr float RADIAN_TO_ANGLE = 57.295779513;
 static constexpr float UI_FLT_EPSILON = 1E-5;
 static constexpr int16_t ORDER_MATRIX_4 = 4;
+static constexpr float EPSINON = 0.000001;
 
 float Sin(float angle);
 float Cos(float angle);
