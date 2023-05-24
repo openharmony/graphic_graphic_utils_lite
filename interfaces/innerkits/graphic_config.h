@@ -154,8 +154,9 @@ namespace OHOS {
 /**
  * @brief GIF, which is disabled by default on LiteOS.
  */
-#undef ENABLE_GIF
+#ifndef ENABLE_GIF
 #define ENABLE_GIF                        0
+#endif
 
 /**
  * @brief Fully rectangle render everytime, which is disabled by default on LiteOS.
