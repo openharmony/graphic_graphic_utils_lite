@@ -12,7 +12,6 @@
   "component": {
     "name": "graphic_utils_lite",
     "subsystem": "graphic",
-    "syscap": [ "SystemCapability.Graphic.GraphicUtilsLite" ],
     "feature": [],
     "adapted_system_type": [ "mini","small" ],
     "rom": "",
