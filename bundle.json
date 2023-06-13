@@ -14,14 +14,15 @@
     "subsystem": "graphic",
     "feature": [],
     "adapted_system_type": [ "mini","small" ],
-    "rom": "",
-    "ram": "",
+    "rom": "450KB",
+    "ram": "~50KB",
     "deps": {
       "third_party": [
         "bounds_checking_function"
       ],
       "components": [
-        "hilog_lite"
+        "hilog_lite",
+        "drivers_peripheral_display"
       ]
     },
     "build": {
