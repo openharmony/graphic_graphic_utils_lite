@@ -189,6 +189,8 @@ public:
         return angle_;
     }
 
+    Point GetOrigPoint(const Point& point, const Rect& relativeRect);
+
     /**
      * @brief Rotates the rectangle.
      * @param angle Indicates the angle to rotate.
