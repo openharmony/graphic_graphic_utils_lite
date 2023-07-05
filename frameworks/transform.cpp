@@ -156,6 +156,53 @@ void TransformMap::Shear(const Vector2<float>& shearX, const Vector2<float>& she
     UpdateMap();
 }
 
+Point TransformMap::GetOrigPoint(const Point& point, const Rect& relativeRect)
+{
+    Rect rect = Rect(point.x, point.y, point.x, point.y);
+    Rect rectTemp = rect_;
+    Polygon polygonTemp = polygon_;
+    short rectX = relativeRect.GetX();
+    short rectY = relativeRect.GetY();
+
+    rect_ = rect;
+    polygon_ = rect;
+    trans_[ROTATE] = &rotate_;
+    trans_[SCALE] = &scale_;
+    trans_[SHEAR] = &shear_;
+    trans_[TRANSLATE] = &translate_;
+    rotate_ = Matrix4<float>::Rotate(
+        angle_, Vector3<float>(rotatePivotStart_.x_ + rectX, rotatePivotStart_.y_ + rectY, rotatePivotStart_.z_),
+        Vector3<float>(rotatePivotEnd_.x_ + rectX, rotatePivotEnd_.y_ + rectY, rotatePivotEnd_.z_));
+    scale_ = Matrix4<float>::Scale(Vector3<float>(1.0f / scaleCoeff_.x_, 1.0f / scaleCoeff_.y_, scaleCoeff_.z_),
+                                   Vector3<float>(scalePivot_.x_ + rectX, scalePivot_.y_ + rectY, scalePivot_.z_));
+
+    shear_ = Matrix4<float>::Shear(shearX_, shearY_, shearZ_);
+    shear_ = shear_ * Matrix4<float>::Translate(Vector3<float>(-rectX, -rectY, 0));
+    shear_ = Matrix4<float>::Translate(Vector3<float>(rectX, rectY, 0)) * shear_;
+    matrix_ = (*trans_[opOrder_[TRANSLATE]]) * (*trans_[opOrder_[SHEAR]]) * (*trans_[opOrder_[SCALE]]) *
+              (*trans_[opOrder_[ROTATE]]);
+
+    float x = rectX + cameraPosition_.x_;
+    float y = rectY + cameraPosition_.y_;
+    float z = 0;
+    Matrix4<float> translateFromCamera = Matrix4<float>::Translate(Vector3<float>(-x, -y, -z));
+    Matrix4<float> translateToCamera = Matrix4<float>::Translate(Vector3<float>(x, y, z));
+    Matrix4<float> perspectiveMatrix;
+    perspectiveMatrix[2][2] = 0;                           // 2 : index
+    if (!FloatEqual(cameraDistance_, 0)) {
+        perspectiveMatrix[2][3] = -1.0f / cameraDistance_; // 2 3 : index
+    }
+    perspectiveMatrix_ = translateToCamera * (perspectiveMatrix * translateFromCamera);
+    matrix_ = perspectiveMatrix_ * matrix_;
+    SetMatrix(matrix_, true);
+    Rect r = polygon_.MakeAABB();
+    rect_ = rectTemp;
+    polygon_ = polygonTemp;
+    scale_ = Matrix4<float>::Scale(scaleCoeff_,
+                                   Vector3<float>(scalePivot_.x_ + rectX, scalePivot_.y_ + rectY, scalePivot_.z_));
+    return {r.GetRight(), r.GetBottom()};
+}
+
 bool TransformMap::operator==(const TransformMap& other) const
 {
     if (rotate_ == other.rotate_ && translate_ == other.translate_ && scale_ == other.scale_ &&
