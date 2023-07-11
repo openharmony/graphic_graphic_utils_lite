@@ -78,6 +78,27 @@ void QuadBezierCurveIncr::Init(float x1, float y1,
     currentStep_ = numberSteps_;
 }
 
+void QuadBezierCurveIncr::Reset()
+{
+    numberSteps_ = 0;
+    currentStep_ = -1;
+}
+
+CurveApproximationMethod QuadBezierCurveIncr::ApproximationMethod() const
+{
+    return CURVEINCREMENT;
+}
+
+float QuadBezierCurveIncr::AngleTolerance() const
+{
+    return 0.0f;
+}
+
+float QuadBezierCurveIncr::CuspLimit() const
+{
+    return 0.0f;
+}
+
 void QuadBezierCurveIncr::Rewind(uint32_t)
 {
     if (numberSteps_ == 0) {
@@ -129,6 +150,58 @@ void QuadrBezierCurveDividOp::Init(float x1, float y1,
     distanceToleranceSquare_ *= distanceToleranceSquare_;
     Bezier(x1, y1, x2, y2, x3, y3);
     count_ = 0;
+}
+
+void QuadrBezierCurveDividOp::Reset()
+{
+    points_.Clear();
+    count_ = 0;
+}
+
+CurveApproximationMethod QuadrBezierCurveDividOp::ApproximationMethod() const
+{
+    return CURVEDIVIDOPERATE;
+}
+
+void QuadrBezierCurveDividOp::ApproximationScale(float scale)
+{
+    approximationScale_ = scale;
+}
+
+float QuadrBezierCurveDividOp::ApproximationScale() const
+{
+    return approximationScale_;
+}
+
+void QuadrBezierCurveDividOp::AngleTolerance(float angle)
+{
+    angleTolerance_ = angle;
+}
+
+float QuadrBezierCurveDividOp::AngleTolerance() const
+{
+    return angleTolerance_;
+}
+
+float QuadrBezierCurveDividOp::CuspLimit() const
+{
+    return 0.0f;
+}
+
+void QuadrBezierCurveDividOp::Rewind(uint32_t)
+{
+    count_ = 0;
+}
+
+uint32_t QuadrBezierCurveDividOp::GenerateVertex(float* x, float* y)
+{
+    if (count_ >= points_.Size()) {
+        return PATH_CMD_STOP;
+    }
+    const PointF& point = points_[count_++];
+    *x = point.x;
+    *y = point.y;
+    return (count_ == 1) ? PATH_CMD_MOVE_TO : PATH_CMD_LINE_TO;
 }
 
 void QuadrBezierCurveDividOp::Recursive(float x1, float y1,
@@ -286,6 +359,27 @@ void CubicBezierCurveIncrement::Init(float x1, float y1,
     currentStep_ = numberSteps_;
 }
 
+void CubicBezierCurveIncrement::Reset()
+{
+    numberSteps_ = 0;
+    currentStep_ = -1;
+}
+
+CurveApproximationMethod CubicBezierCurveIncrement::ApproximationMethod() const
+{
+    return CURVEINCREMENT;
+}
+
+float CubicBezierCurveIncrement::AngleTolerance() const
+{
+    return 0.0f;
+}
+
+float CubicBezierCurveIncrement::CuspLimit() const
+{
+    return 0.0f;
+}
+
 void CubicBezierCurveIncrement::Rewind(uint32_t)
 {
     if (numberSteps_ == 0) {
@@ -344,6 +438,63 @@ void CubicBezierCurveDividOperate::Init(float x1, float y1,
     distanceToleranceSquare_ *= distanceToleranceSquare_;
     Bezier(x1, y1, x2, y2, x3, y3, x4, y4);
     count_ = 0;
+}
+
+void CubicBezierCurveDividOperate::Reset()
+{
+    points_.Clear();
+    count_ = 0;
+}
+
+CurveApproximationMethod CubicBezierCurveDividOperate::ApproximationMethod() const
+{
+    return CURVEDIVIDOPERATE;
+}
+
+void CubicBezierCurveDividOperate::ApproximationScale(float scale)
+{
+    approximationScale_ = scale;
+}
+
+float CubicBezierCurveDividOperate::ApproximationScale() const
+{
+    return approximationScale_;
+}
+
+void CubicBezierCurveDividOperate::AngleTolerance(float angleValue)
+{
+    angleTolerance_ = angleValue;
+}
+
+float CubicBezierCurveDividOperate::AngleTolerance() const
+{
+    return angleTolerance_;
+}
+
+void CubicBezierCurveDividOperate::CuspLimit(float angleValue)
+{
+    cuspLimit_ = (angleValue == 0.0f) ? 0.0f : PI - angleValue;
+}
+
+float CubicBezierCurveDividOperate::CuspLimit() const
+{
+    return (cuspLimit_ == 0.0f) ? 0.0f : PI - cuspLimit_;
+}
+
+void CubicBezierCurveDividOperate::Rewind(uint32_t)
+{
+    count_ = 0;
+}
+
+uint32_t CubicBezierCurveDividOperate::GenerateVertex(float* x, float* y)
+{
+    if (count_ >= points_.Size()) {
+        return PATH_CMD_STOP;
+    }
+    const PointF& p = points_[count_++];
+    *x = p.x;
+    *y = p.y;
+    return (count_ == 1) ? PATH_CMD_MOVE_TO : PATH_CMD_LINE_TO;
 }
 
 void CubicBezierCurveDividOperate::Recursive(float x1, float y1,
