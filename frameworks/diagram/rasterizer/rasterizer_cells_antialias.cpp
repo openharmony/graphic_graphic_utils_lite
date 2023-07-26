@@ -411,6 +411,9 @@ void RasterizerCellsAntiAlias::AllocateBlock()
             CellBuildAntiAlias** newCells =
                 GeometryArrayAllocator<CellBuildAntiAlias*>::Allocate(maxBlocks_ +
                                                             CELL_BLOCK_POOL);
+            if (newCells == nullptr) {
+                return;
+            }
             if (cells_) {
                 if (memcpy_s(newCells, maxBlocks_ * sizeof(CellBuildAntiAlias*),
                              cells_, maxBlocks_ * sizeof(CellBuildAntiAlias*)) != EOK) {
