@@ -71,6 +71,13 @@ namespace OHOS {
 #endif
 
 /**
+ * @brief Multi-Font type, which is disabled by default on LiteOS.
+ */
+#ifndef ENABLE_MULTI_FONT
+#define ENABLE_MULTI_FONT                     1
+#endif
+
+/**
  * @brief checkBox iamge, which default value = 1 means use the default image,
  * if haven't use checkBox image could set value = 0 to reduce the build resources.
  */
@@ -91,12 +98,6 @@ namespace OHOS {
  */
 #ifndef ENABLE_ICU
 #define ENABLE_ICU                        0
-#endif
-/**
- * @brief Multi-Font type, which is disabled by default on LiteOS.
- */
-#ifndef ENABLE_MULTI_FONT
-#define ENABLE_MULTI_FONT                 0
 #endif
 /**
  * @brief Multi-window, which does not take effect on LiteOS.
