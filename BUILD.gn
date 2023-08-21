@@ -56,6 +56,7 @@ lite_library("graphic_utils_lite") {
 
   sources = [
     "frameworks/color.cpp",
+    "frameworks/diagram/common/paint.cpp",
     "frameworks/diagram/depiction/depict_curve.cpp",
     "frameworks/diagram/rasterizer/rasterizer_cells_antialias.cpp",
     "frameworks/diagram/rasterizer/rasterizer_scanline_antialias.cpp",

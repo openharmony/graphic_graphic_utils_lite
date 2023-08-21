@@ -18,6 +18,7 @@ graphic_utils_include_dirs = [
 
 graphic_utils_sources = [
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/color.cpp",
+  "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/diagram/common/paint.cpp",
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/diagram/depiction/depict_curve.cpp",
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/diagram/rasterizer/rasterizer_cells_antialias.cpp",
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/diagram/rasterizer/rasterizer_scanline_antialias.cpp",
