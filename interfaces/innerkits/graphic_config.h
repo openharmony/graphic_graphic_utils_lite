@@ -85,13 +85,6 @@ namespace OHOS {
 #define ENABLE_DEFAULT_CHECKBOX_IMAGE         1
 #endif
 
-/**
- * @brief For vector type font, enable different font size or font family for label.
- */
-#ifndef ENABLE_SPANNABLE_STRING
-#define ENABLE_SPANNABLE_STRING               1
-#endif
-
 #ifdef __LITEOS_M__
 /**
  * @brief Font shaping, which is disabled by default on LiteOS.
@@ -143,6 +136,13 @@ namespace OHOS {
  */
 #ifndef ENABLE_MIX_FONT
 #define ENABLE_MIX_FONT                0
+#endif
+
+/**
+ * @brief For vector type font, enable different font size or font family for label.
+ */
+#ifndef ENABLE_SPANNABLE_STRING
+#define ENABLE_SPANNABLE_STRING         0
 #endif
 
 /**
