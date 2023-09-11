@@ -218,6 +218,10 @@ public:
 
     void Translate(const Vector3<int16_t>& trans);
 
+    void Translate(const Vector2<float>& trans);
+
+    void Translate(const Vector3<float>& trans);
+
     void Shear(const Vector2<float>& shearX, const Vector2<float>& shearY, const Vector2<float>& shearZ);
 
     bool operator==(const TransformMap& other) const;

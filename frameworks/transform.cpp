@@ -147,6 +147,18 @@ void TransformMap::Translate(const Vector3<int16_t>& trans)
     UpdateMap();
 }
 
+void TransformMap::Translate(const Vector2<float>& trans)
+{
+    Translate(Vector3<float>(trans.x_, trans.y_, 0));
+}
+
+void TransformMap::Translate(const Vector3<float>& trans)
+{
+    translate_ = Matrix4<float>::Translate(trans);
+    AddOp(TRANSLATE);
+    UpdateMap();
+}
+
 void TransformMap::Shear(const Vector2<float>& shearX, const Vector2<float>& shearY, const Vector2<float>& shearZ)
 {
     shearX_ = shearX;
