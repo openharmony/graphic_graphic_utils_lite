@@ -89,7 +89,7 @@ namespace OHOS {
  * @brief For vector type font, enable different font size or font family for label.
  */
 #ifndef ENABLE_SPANNABLE_STRING
-#define ENABLE_SPANNABLE_STRING               1
+#define ENABLE_SPANNABLE_STRING               0
 #endif
 
 #ifdef __LITEOS_M__
