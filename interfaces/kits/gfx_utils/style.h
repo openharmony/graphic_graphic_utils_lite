@@ -175,7 +175,10 @@ public:
     int16_t marginBottom_;
     /* image style */
     uint8_t imageOpa_;
-    /* text style */
+    /*
+     * text style
+     * style.lineSpace_ can be negative, and shall not be enabled with only one line.
+     */
     uint8_t textOpa_;
     uint16_t font_;
     int8_t lineSpace_;
