@@ -148,8 +148,11 @@ namespace OHOS {
 /**
  * @brief JPEG and PNG, which is disabled by default on LiteOS.
  */
-#ifndef ENABLE_JPEG_AND_PNG
-#define ENABLE_JPEG_AND_PNG               0
+#ifndef ENABLE_JPEG
+#define ENABLE_JPEG                       0
+#endif
+#ifndef ENABLE_PNG
+#define ENABLE_PNG                        0
 #endif
 
 /**
@@ -203,8 +206,11 @@ namespace OHOS {
 #define ENABLE_FRAME_BUFFER               0
 #endif
 
-#ifndef ENABLE_JPEG_AND_PNG
-#define ENABLE_JPEG_AND_PNG               1
+#ifndef ENABLE_JPEG
+#define ENABLE_JPEG                       1
+#endif
+#ifndef ENABLE_PNG
+#define ENABLE_PNG                        1
 #endif
 /**
  * @brief ARM NEON ability, which is disabled by default on WIN32.
@@ -245,8 +251,11 @@ namespace OHOS {
 #define ENABLE_FRAME_BUFFER               0
 #endif
 
-#ifndef ENABLE_JPEG_AND_PNG
-#define ENABLE_JPEG_AND_PNG               1
+#ifndef ENABLE_JPEG
+#define ENABLE_JPEG                       1
+#endif
+#ifndef ENABLE_PNG
+#define ENABLE_PNG                        1
 #endif
 /**
  * @brief ARM NEON ability, which is enabled by default on other platforms.
