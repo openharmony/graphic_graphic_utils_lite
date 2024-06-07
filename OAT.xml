@@ -58,7 +58,7 @@ Note:If the text contains special characters, please escape them according to th
         <licensefile>LICENSE</licensefile>
         <filefilterlist>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies" >
-                <filteritem type="filepath" name="*.png" desc=".png not need check"/>
+                <filteritem type="filename" name="*.png" desc=".png not need check"/>
             </filefilter>
         </filefilterlist>
     </oatconfig>
