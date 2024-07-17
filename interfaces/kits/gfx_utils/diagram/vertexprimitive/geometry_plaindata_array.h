@@ -93,6 +93,10 @@ public:
      */
     T& operator[](uint32_t index)
     {
+        if (index < 0 || index > size_) {
+            return data_[size_ - 1];
+        }
+
         return data_[index];
     }
     /**

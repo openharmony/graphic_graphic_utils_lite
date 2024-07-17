@@ -129,6 +129,9 @@ public:
     void AddSpan(int32_t x, uint32_t spanLength, uint32_t cover)
     {
         x -= minScaneLineXCoord_;
+        if (spanLength >= UINT32_MAX) {
+            GRAPHIC_LOGE("spanLength fail");
+        }
         if (memset_s(&arrayCovers_[x], spanLength, cover, spanLength) != EOK) {
             GRAPHIC_LOGE("AddSpan fail");
             return;
