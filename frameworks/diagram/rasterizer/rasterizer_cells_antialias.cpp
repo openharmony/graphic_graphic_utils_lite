@@ -474,7 +474,7 @@ void RasterizerCellsAntiAlias::SortAllCells()
         i = (nb > CELL_BLOCK_SIZE) ? uint32_t(CELL_BLOCK_SIZE) : nb;
         nb -= i;
         if (((cellPtr->y - minY_) < 0) || ((cellPtr->y - minY_) > (sortedYSize + CELLS_SIZE))) {
-           continue;
+            continue;
         }
 
         while (i--) {
