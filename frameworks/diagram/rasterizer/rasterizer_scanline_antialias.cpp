@@ -100,7 +100,7 @@ uint32_t RasterizerScanlineAntialias::CalculateAlpha(int32_t area) const
             cover = AA_SCALE2 - cover;
         }
     }
-    if (cover > AA_MASK) {
+    if ((cover > AA_MASK) || (cover < 0)) {
         cover = AA_MASK;
     }
     return gammar_[cover];
