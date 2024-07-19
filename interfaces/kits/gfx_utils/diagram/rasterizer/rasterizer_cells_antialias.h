@@ -147,7 +147,7 @@ public:
     uint32_t GetScanlineNumCells(uint32_t yLevel)
     {
         uint32_t MaxSize = maxY_ - minY_ + 1 + CELLS_SIZE;
-        if ((yLevel - minY_) < 0 || (yLevel - minY_) > MaxSize) {
+        if ((yLevel - minY_) > MaxSize) {
             return 0;
         }
 
@@ -163,7 +163,7 @@ public:
     const CellBuildAntiAlias * const *GetScanlineCells(uint32_t yLevel)
     {
         uint32_t MaxSize = maxY_ - minY_ + 1 + CELLS_SIZE;
-        if ((yLevel - minY_) < 0 || (yLevel - minY_) > MaxSize) {
+        if ((yLevel - minY_) > MaxSize) {
             return sortedCells_;
         }
 
