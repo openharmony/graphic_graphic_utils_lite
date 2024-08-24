@@ -12,7 +12,9 @@
   "component": {
     "name": "graphic_utils_lite",
     "subsystem": "graphic",
-    "feature": [],
+    "feature": [
+      "graphic_utils_lite_enable_ohos_product_config"
+    ],
     "adapted_system_type": [ "mini","small" ],
     "rom": "450KB",
     "ram": "~50KB",
@@ -26,7 +28,7 @@
       ]
     },
     "build": {
-      "sub_component": [ 
+      "sub_component": [
         "//foundation/graphic/graphic_utils_lite:utils_lite",
         "//foundation/graphic/graphic_utils_lite/test:graphic_utils_lite_test" ],
       "inner_kits": [],

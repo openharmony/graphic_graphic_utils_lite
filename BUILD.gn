@@ -16,10 +16,10 @@ import("//build/lite/ndk/ndk.gni")
 defines = []
 
 declare_args() {
-  enable_ohos_graphic_utils_product_config = false
+  graphic_utils_lite_enable_ohos_product_config = false
 }
 
-if (enable_ohos_graphic_utils_product_config) {
+if (graphic_utils_lite_enable_ohos_product_config) {
   defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
 }
 
