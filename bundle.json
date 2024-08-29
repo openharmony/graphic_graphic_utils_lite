@@ -12,7 +12,7 @@
   "component": {
     "name": "graphic_utils_lite",
     "subsystem": "graphic",
-    "feature": [
+    "features": [
       "graphic_utils_lite_enable_ohos_product_config"
     ],
     "adapted_system_type": [ "mini","small" ],
