@@ -59,7 +59,7 @@ Note:If the text contains special characters, please escape them according to th
         <licensefile></licensefile>
         <filefilterlist>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binary file policies">
-                <filteritem type="filepath" name="figures/*.png" desc="Self-developed image"/>
+                <filteritem type="filepath" name="figures/.*.png*" desc="Self-developed image"/>
             </filefilter>
         </filefilterlist>
     </oatconfig>
