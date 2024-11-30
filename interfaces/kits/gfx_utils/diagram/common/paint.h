@@ -106,7 +106,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    virtual ~Paint() {}
+    virtual ~Paint();
 
     const Paint& operator=(const Paint& paint)
     {
