@@ -15,13 +15,6 @@
 
 #include "gfx_utils/diagram/common/paint.h"
 namespace OHOS {
-Paint::~Paint()
-{
-#if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
-    stopAndColors_.Clear();
-#endif
-}
-
 void Paint::InitDash(const Paint& paint)
 {
 #if defined(GRAPHIC_ENABLE_DASH_GENERATE_FLAG) && GRAPHIC_ENABLE_DASH_GENERATE_FLAG
