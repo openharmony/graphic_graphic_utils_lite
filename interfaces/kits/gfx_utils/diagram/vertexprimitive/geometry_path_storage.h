@@ -196,9 +196,13 @@ private:
             if (croodBlocks_) {
                 if (memcpy_s(new_coords, maxBlocks_ * sizeof(float*),
                              croodBlocks_, maxBlocks_ * sizeof(float*)) != EOK) {
+                    GRAPHIC_LOGE("AllocateBlock memcpy_s fail\n");
+                    return;
                 }
                 if (memcpy_s(new_cmds, maxBlocks_ * sizeof(float*),
                              cmdBlocks_, maxBlocks_ * sizeof(uint8_t*)) != EOK) {
+                    GRAPHIC_LOGE("AllocateBlock memcpy_s fail\n");
+                    return;
                 }
                 GeometryArrayAllocator<float*>::Deallocate(croodBlocks_, maxBlocks_ * TWO_TIMES);
             }
