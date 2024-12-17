@@ -106,7 +106,7 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    virtual ~Paint() {}
+    virtual ~Paint();
 
     const Paint& operator=(const Paint& paint)
     {
@@ -757,6 +757,7 @@ private:
     RadialGradientPoint radialGradientPoint_;
     List<StopAndColor> stopAndColors_;
     Gradient gradientflag_;
+    void CopyStopAndColors(const Paint& paint);
 #endif
 #if defined(GRAPHIC_ENABLE_PATTERN_FILL_FLAG) && GRAPHIC_ENABLE_PATTERN_FILL_FLAG
     PatternRepeatMode patternRepeat_;
