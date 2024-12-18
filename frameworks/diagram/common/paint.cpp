@@ -15,6 +15,13 @@
 
 #include "gfx_utils/diagram/common/paint.h"
 namespace OHOS {
+Paint::~Paint()
+{
+#if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
+    stopAndColors_.Clear();
+#endif
+}
+
 void Paint::InitDash(const Paint& paint)
 {
 #if defined(GRAPHIC_ENABLE_DASH_GENERATE_FLAG) && GRAPHIC_ENABLE_DASH_GENERATE_FLAG
@@ -88,7 +95,7 @@ void Paint::Init(const Paint& paint)
 #if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
     linearGradientPoint_ = paint.linearGradientPoint_;
     radialGradientPoint_ = paint.radialGradientPoint_;
-    stopAndColors_ = paint.stopAndColors_;
+    CopyStopAndColors(paint);
     gradientflag_ = paint.gradientflag_;
 #endif
 #if defined(GRAPHIC_ENABLE_PATTERN_FILL_FLAG) && GRAPHIC_ENABLE_PATTERN_FILL_FLAG
@@ -350,4 +357,19 @@ void Paint::Transform(float scaleX, float shearX, float shearY, float scaleY, in
     transfrom_.SetData(1, transfrom_.GetData()[1] + shearX);
     transfrom_.SetData(3, transfrom_.GetData()[3] + shearY);
 }
+
+#if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
+void Paint::CopyStopAndColors(const Paint& paint)
+{
+    stopAndColors_.Clear();
+    if (!paint.stopAndColors_.IsEmpty()) {
+        ListNode<StopAndColor>* node = paint.stopAndColors_.Head();
+        const ListNode<StopAndColor>* head = paint.stopAndColors_.End();
+        do {
+            stopAndColors_.PushBack(node->data_);
+            node = paint.stopAndColors_.Next(node);
+        } while (node != head);
+    }
+}
+#endif
 } // namespace OHOS
