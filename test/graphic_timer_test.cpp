@@ -42,7 +42,7 @@ public:
     ~GraphicTimerTest() {}
     static void SetUpTestCase(void)
     {
-        srand(time(0));
+        srand(time(nullptr));
     }
     static void TearDownTestCase(void) {}
     void SetUp();
