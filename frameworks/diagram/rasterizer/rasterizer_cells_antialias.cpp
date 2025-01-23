@@ -482,7 +482,7 @@ void RasterizerCellsAntiAlias::SortAllCells()
 
     // Convert the Y-histogram into the array of starting indexes
     uint32_t start = 0;
-    for (i = 0; i < sortedYSize; i++) {
+    for (i = 0; i < static_cast<uint32_t>(sortedYSize); i++) {
         uint32_t v = sortedY_[i].start;
         sortedY_[i].start = start;
         start += v;
@@ -504,7 +504,7 @@ void RasterizerCellsAntiAlias::SortAllCells()
     }
 
     // Finally arrange the X-arrays
-    for (i = 0; i < sortedYSize; i++) {
+    for (i = 0; i < static_cast<uint32_t>(sortedYSize); i++) {
         const SortedYLevel& currY = sortedY_[i];
         if (currY.num) {
             QsortCells(sortedCells_ + currY.start, currY.num);
