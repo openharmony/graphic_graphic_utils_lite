@@ -105,6 +105,7 @@ public:
      */
     Vector2<int16_t>& operator[](uint8_t index)
     {
+        ASSERT(index < 2); // 2: number of vertex
         return vertex_[index];
     }
 
@@ -118,6 +119,7 @@ public:
      */
     const Vector2<int16_t> operator[](uint8_t index) const
     {
+        ASSERT(index < 2); // 2: number of vertex
         return vertex_[index];
     }
 
