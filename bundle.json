@@ -19,19 +19,28 @@
     "rom": "450KB",
     "ram": "~50KB",
     "deps": {
-      "third_party": [
-        "bounds_checking_function"
-      ],
       "components": [
         "hilog_lite",
-        "drivers_peripheral_display"
+        "drivers_peripheral_display",
+        "bounds_checking_function"
       ]
     },
     "build": {
       "sub_component": [
         "//foundation/graphic/graphic_utils_lite:utils_lite",
         "//foundation/graphic/graphic_utils_lite/test:graphic_utils_lite_test" ],
-      "inner_kits": [],
+      "inner_kits": [
+          {
+            "name": "//foundation/graphic/graphic_utils_lite:utils_lite",
+            "header": {
+              "header_files": [],
+              "header_base": [
+                "//foundation/graphic/graphic_utils_lite/interfaces/kits",
+                "//foundation/graphic/graphic_utils_lite/interfaces/innerkits"
+              ]
+            }
+          }
+      ],
       "test": []
     }
   }
