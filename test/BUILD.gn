@@ -9,7 +9,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if (ohos_kernel_type != "liteos_m") {
+if (os_level != "standard" && ohos_kernel_type != "liteos_m") {
   import("//build/lite/config/test.gni")
 
   group("graphic_utils_lite_test") {
