@@ -85,7 +85,7 @@ if (os_level != "standard") {
         if (ohos_kernel_type == "liteos_m") {
             deps = [ "//third_party/bounds_checking_function:libsec_static" ]
             public_deps =
-                [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_static" ]
+                [ "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite" ]
         } else {
             deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
             public_deps =
