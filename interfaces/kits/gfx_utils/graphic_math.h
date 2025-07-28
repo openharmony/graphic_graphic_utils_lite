@@ -265,7 +265,7 @@ public:
 
     bool operator==(const Vector3& other) const
     {
-        return (fabs(x_ - other.x_) < EPSINON) && (fabs(y_ - other.y_) < EPSINON) && (fabs(z_ - other.z_) < EPSINON);
+        return ((fabs(x_ - other.x_) < EPSINON) && (fabs(y_ - other.y_) < EPSINON) && (fabs(z_ - other.z_) < EPSINON));
     }
 };
 
