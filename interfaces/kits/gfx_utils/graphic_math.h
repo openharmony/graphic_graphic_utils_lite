@@ -265,7 +265,7 @@ public:
 
     bool operator==(const Vector3& other) const
     {
-        return (x_ == other.x_) && (y_ == other.y_) && (z_ == other.z_);
+        return (fabs(x_ - other.x_) < EPSINON) && (fabs(y_ - other.y_) < EPSINON) && (fabs(z_ - other.z_) < EPSINON);
     }
 };
 
@@ -531,7 +531,7 @@ template<typename T>
 Matrix3<T> Matrix3<T>::Inverse() const
 {
     T det = this->Determinant();
-    if (det == 0) {
+    if (fabs(det) < EPSINON) {
         return Matrix3<T>(*this);
     }
 
@@ -860,7 +860,7 @@ bool Matrix4<T>::operator==(const Matrix4& other) const
     const T* oData = other.data_;
     // 16 : 4 * 4 points
     for (int16_t i =  0; i < 16; i++) {
-        if (data_[i] != oData[i]) {
+        if (fabs(data_[i] - oData[i]) > EPSINON) {
             return false;
         }
     }
@@ -875,7 +875,7 @@ Matrix4<T> Matrix4<T>::Rotate(T angle, const Vector3<T>& pivot1, const Vector3<T
     T length = Sqrt((pivot2.x_ - pivot1.x_) * (pivot2.x_ - pivot1.x_) +
                     (pivot2.y_ - pivot1.y_) * (pivot2.y_ - pivot1.y_) +
                     (pivot2.z_ - pivot1.z_) * (pivot2.z_ - pivot1.z_));
-    if (length == 0) {
+    if (fabs(length) < EPSINON) {
         return rotateMat4;
     }
     T cosA = static_cast<T>(Sin(angle + QUARTER_IN_DEGREE));
