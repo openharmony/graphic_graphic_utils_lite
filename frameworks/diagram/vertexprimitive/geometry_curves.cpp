@@ -245,7 +245,7 @@ void QuadrBezierCurveDividOp::Recursive(float x1, float y1,
         }
     } else {
         da = deltaX * deltaX + deltaY * deltaY;
-        if (fabs(da) < epsilon) {
+        if (std::fabs(da) < epsilon) {
             distance = CalcSqDistance(x1, y1, x2, y2);
         } else {
             distance = ((x2 - x1) * deltaX + (y2 - y1) * deltaY) / da;
@@ -536,7 +536,7 @@ void CubicBezierCurveDividOperate::Recursive(float x1, float y1,
         case COLLINEAR:
             /** All are Collinear or p1 == p4 */
             delta41 = delta41X * delta41X + delta41Y * delta41Y;
-            if (fabs(delta41) < epsilon) {
+            if (std::fabs(delta41) < epsilon) {
                 delta2 = CalcSqDistance(x1, y1, x2, y2);
                 delta3 = CalcSqDistance(x4, y4, x3, y3);
             } else {
