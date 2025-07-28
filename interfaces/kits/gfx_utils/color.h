@@ -240,7 +240,7 @@ struct Rgba {
     Rgba& Demultiply()
     {
         const float epsilon = 1e-6f;
-        if (fabs(alpha) < epsilon) {
+        if (std::fabs(alpha) < epsilon) {
             red = 0;
             green = 0;
             blue = 0;
