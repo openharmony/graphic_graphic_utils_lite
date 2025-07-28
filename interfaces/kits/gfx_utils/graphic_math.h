@@ -38,6 +38,7 @@
 
 #include "gfx_utils/heap_base.h"
 #include <cstdint>
+#include <cmath>
 
 namespace OHOS {
 /**
