@@ -153,7 +153,8 @@ public:
     float DeterminantReciprocal() const
     {
         float reciprocal = data_[0] * data_[4] - data_[3] * data_[1];
-        if (reciprocal == 0) {
+        const float epsilon = 1e-6f;
+        if (fabs(reciprocal) < epsilon) {
             return VERTEX_DIST_EPSILON;
         }
         return 1.0f / reciprocal;
