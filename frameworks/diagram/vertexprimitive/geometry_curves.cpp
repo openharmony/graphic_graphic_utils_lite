@@ -224,6 +224,7 @@ void QuadrBezierCurveDividOp::Recursive(float x1, float y1,
     float deltaY = y3 - y1;
     float distance = MATH_ABS(((x2 - x3) * deltaY - (y2 - y3) * deltaX));
     float da;
+    const float epsilon = 1e-6f;
     if (distance > CURVE_COLLINEARITY_EPSILON) {
         if (distance * distance <= distanceToleranceSquare_ * (deltaX * deltaX + deltaY * deltaY)) {
             // If The Curvature Does Not Exceed The Distance Tolerance Value
@@ -244,7 +245,7 @@ void QuadrBezierCurveDividOp::Recursive(float x1, float y1,
         }
     } else {
         da = deltaX * deltaX + deltaY * deltaY;
-        if (da == 0) {
+        if (fabs(da) < epsilon) {
             distance = CalcSqDistance(x1, y1, x2, y2);
         } else {
             distance = ((x2 - x1) * deltaX + (y2 - y1) * deltaY) / da;
@@ -528,13 +529,14 @@ void CubicBezierCurveDividOperate::Recursive(float x1, float y1,
     float dxTemp;
     float dyTemp;
     float delta41;
+    const float epsilon = 1e-6f;
 
     bool isEnabled = true;
     switch ((int32_t(delta2 > CURVE_COLLINEARITY_EPSILON) << 1) + int32_t(delta3 > CURVE_COLLINEARITY_EPSILON)) {
         case COLLINEAR:
             /** All are Collinear or p1 == p4 */
             delta41 = delta41X * delta41X + delta41Y * delta41Y;
-            if (delta41 == 0) {
+            if (fabs(delta41) < epsilon) {
                 delta2 = CalcSqDistance(x1, y1, x2, y2);
                 delta3 = CalcSqDistance(x4, y4, x3, y3);
             } else {
