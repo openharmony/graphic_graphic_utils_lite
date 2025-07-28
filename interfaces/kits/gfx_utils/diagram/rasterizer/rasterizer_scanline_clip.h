@@ -26,7 +26,6 @@
 #include "gfx_utils/diagram/common/common_clip_operate.h"
 #include "gfx_utils/graphic_math.h"
 #include "gfx_utils/diagram/rasterizer/rasterizer_cells_antialias.h"
-#include <cmath>
 namespace OHOS {
 /**
  * The PolyMaxCoord enumeration type
