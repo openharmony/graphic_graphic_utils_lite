@@ -53,6 +53,9 @@ enum LineJoin {
     BEVEL_JOIN = 3,
     MITER_JOIN_ROUND = 4
 };
+
+const float epsilon = 1e-6f;
+
 class GeometryMathStroke {
 public:
     GeometryMathStroke()
@@ -94,7 +97,7 @@ public:
         }
         float dx1;
         float dy1;
-        if (len != 0) {
+        if (fabs(len) > epsilon) {
             dx1 = (vd1.vertexYCoord - vd0.vertexYCoord) / len;
             dy1 = (vd1.vertexXCoord - vd0.vertexXCoord) / len;
         } else {
@@ -184,13 +187,13 @@ public:
         float dy1 = 0;
         float dx2 = 0;
         float dy2 = 0;
-        if (deltaLengthPrev != 0) {
+        if (fabs(deltaLengthPrev) > epsilon) {
             dx1 = strokeWidth_ * (vertexDistMiddle.vertexYCoord - vertexDistBegin.vertexYCoord) / deltaLengthPrev;
             dy1 = strokeWidth_ * (vertexDistMiddle.vertexXCoord - vertexDistBegin.vertexXCoord) / deltaLengthPrev;
         } else {
             isEnable = false;
         }
-        if (isEnable && deltaLengthLast != 0) {
+        if (isEnable && (fabs(deltaLengthLast) > epsilon)) {
             dx2 = strokeWidth_ * (vertexDistLast.vertexYCoord - vertexDistMiddle.vertexYCoord) / deltaLengthLast;
             dy2 = strokeWidth_ * (vertexDistLast.vertexXCoord - vertexDistMiddle.vertexXCoord) / deltaLengthLast;
         } else {
@@ -203,7 +206,7 @@ public:
         float crossProduct =
             CrossProduct(vertexDistBegin.vertexXCoord, vertexDistBegin.vertexYCoord, vertexDistMiddle.vertexXCoord,
                          vertexDistMiddle.vertexYCoord, vertexDistLast.vertexXCoord, vertexDistLast.vertexYCoord);
-        if (crossProduct != 0 && (crossProduct > 0) == (strokeWidth_ > 0)) {
+        if ((fabs(crossProduct) > epsilon) && (crossProduct > 0) == (strokeWidth_ > 0)) {
             float limit =
                 ((deltaLengthPrev < deltaLengthLast) ? deltaLengthPrev : deltaLengthLast) / strokeWidthUsingAbs_;
             CalcMiter(vertexConsumer, vertexDistBegin, vertexDistMiddle, vertexDistLast, dx1, dy1, dx2, dy2,
