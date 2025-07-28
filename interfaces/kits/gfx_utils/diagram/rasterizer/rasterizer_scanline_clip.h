@@ -70,7 +70,8 @@ struct RasterDepictInt {
 
     static inline int32_t MultDiv(float deltaA, float deltaB, float dealtaC)
     {
-        if (dealtaC != 0) {
+        const float epsilon = 1e-6f;
+        if (fabs(dealtaC) > epsilon) {
             return MATH_ROUND32(deltaA * deltaB / dealtaC);
         }
         return 0;
