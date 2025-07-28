@@ -26,6 +26,7 @@
 #include "gfx_utils/diagram/common/common_clip_operate.h"
 #include "gfx_utils/graphic_math.h"
 #include "gfx_utils/diagram/rasterizer/rasterizer_cells_antialias.h"
+#include <cmath>
 namespace OHOS {
 /**
  * The PolyMaxCoord enumeration type
@@ -71,7 +72,7 @@ struct RasterDepictInt {
     static inline int32_t MultDiv(float deltaA, float deltaB, float dealtaC)
     {
         const float epsilon = 1e-6f;
-        if (std::fabs(dealtaC) > epsilon) {
+        if (fabs(dealtaC) > epsilon) {
             return MATH_ROUND32(deltaA * deltaB / dealtaC);
         }
         return 0;
