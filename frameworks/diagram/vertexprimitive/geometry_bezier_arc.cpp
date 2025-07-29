@@ -31,6 +31,8 @@ const float BEZIER_ARC_EQUAL_DIVISION = 3.0f;
 
 const float BEZIER_ARC_RADIICHECK = 10.0f;
 
+const float epsilon = 1e-6f;
+
 void ArcToBezier(float cx, float cy, float rx, float ry,
                  float startAngle, float sweepAngle,
                  float* curve)
@@ -38,7 +40,7 @@ void ArcToBezier(float cx, float cy, float rx, float ry,
     float y0 = Sin((sweepAngle / FLOATNUM) * RADIAN_TO_ANGLE);
     float x0 = Cos((sweepAngle / FLOATNUM) * RADIAN_TO_ANGLE);
     float tx = (1.0f - x0) * BEZIER_ARC_DELTAX / BEZIER_ARC_EQUAL_DIVISION;
-    if (y0 == 0) {
+    if (fabs(y0) < epsilon) {
         y0 = y0 + VERTEX_DIST_EPSILON;
     }
     float ty = y0 - tx * x0 / y0;
@@ -154,10 +156,10 @@ void BezierArcSvg::Init(float x0, float y0,
     float sign = (largeArcFlag == sweepFlag) ? -1.0f : 1.0f;
     float sq = (prx * pry - prx * py1 - pry * px1) / (prx * py1 + pry * px1);
     float coef = sign * Sqrt((sq < 0) ? 0 : sq);
-    if (ry == 0) {
+    if (fabs(ry) < epsilon) {
         ry += VERTEX_DIST_EPSILON;
     }
-    if (rx == 0) {
+    if (fabs(rx) < epsilon) {
         rx += VERTEX_DIST_EPSILON;
     }
     float cx1 = coef * ((rx * y1) / ry);
@@ -173,7 +175,7 @@ void BezierArcSvg::Init(float x0, float y0,
     float p = ux;
     float n = Sqrt(ux * ux + uy * uy);
     sign = (uy < 0) ? -1.0f : 1.0f;
-    if (n == 0) {
+    if (fabs(n) < epsilon) {
         n += VERTEX_DIST_EPSILON;
     }
     float v = p / n;
@@ -187,7 +189,7 @@ void BezierArcSvg::Init(float x0, float y0,
     n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
     p = ux * vx + uy * vy;
     sign = (ux * vy - uy * vx < 0) ? -1.0f : 1.0f;
-    if (n == 0) {
+    if (fabs(n) < epsilon) {
         n += VERTEX_DIST_EPSILON;
     }
     v = p / n;

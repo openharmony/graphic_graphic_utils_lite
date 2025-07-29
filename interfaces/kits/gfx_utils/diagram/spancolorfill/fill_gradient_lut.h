@@ -175,7 +175,8 @@ private:
      */
     static bool OffsetEqual(const ColorPoint& colorPoint1, const ColorPoint& colorPoint2)
     {
-        return colorPoint1.offset == colorPoint2.offset;
+        const float epsilon = 1e-6f;
+        return (fabs(colorPoint1.offset - colorPoint2.offset) < epsilon);
     }
     Graphic::Vector<ColorPoint> colorProfile_;
     GeometryPlainDataArray<Rgba8T> colorType_;

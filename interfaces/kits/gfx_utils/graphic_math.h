@@ -38,6 +38,7 @@
 
 #include "gfx_utils/heap_base.h"
 #include <cstdint>
+#include <cmath>
 
 namespace OHOS {
 /**
@@ -265,7 +266,7 @@ public:
 
     bool operator==(const Vector3& other) const
     {
-        return (x_ == other.x_) && (y_ == other.y_) && (z_ == other.z_);
+        return ((fabs(x_ - other.x_) < EPSINON) && (fabs(y_ - other.y_) < EPSINON) && (fabs(z_ - other.z_) < EPSINON));
     }
 };
 
@@ -860,7 +861,7 @@ bool Matrix4<T>::operator==(const Matrix4& other) const
     const T* oData = other.data_;
     // 16 : 4 * 4 points
     for (int16_t i =  0; i < 16; i++) {
-        if (data_[i] != oData[i]) {
+        if (fabs(data_[i] - oData[i]) > EPSINON) {
             return false;
         }
     }
