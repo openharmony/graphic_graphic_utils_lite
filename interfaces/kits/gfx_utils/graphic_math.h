@@ -532,7 +532,7 @@ template<typename T>
 Matrix3<T> Matrix3<T>::Inverse() const
 {
     T det = this->Determinant();
-    if (fabs(det) < EPSINON) {
+    if (det == 0) {
         return Matrix3<T>(*this);
     }
 
@@ -876,7 +876,7 @@ Matrix4<T> Matrix4<T>::Rotate(T angle, const Vector3<T>& pivot1, const Vector3<T
     T length = Sqrt((pivot2.x_ - pivot1.x_) * (pivot2.x_ - pivot1.x_) +
                     (pivot2.y_ - pivot1.y_) * (pivot2.y_ - pivot1.y_) +
                     (pivot2.z_ - pivot1.z_) * (pivot2.z_ - pivot1.z_));
-    if (fabs(length) < EPSINON) {
+    if (length == 0) {
         return rotateMat4;
     }
     T cosA = static_cast<T>(Sin(angle + QUARTER_IN_DEGREE));
