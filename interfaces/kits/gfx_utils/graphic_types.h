@@ -36,6 +36,7 @@
 #define GRAPHIC_LITE_TYPES_H
 
 #include <cstdint>
+#include <cmath>
 
 namespace OHOS {
 using TimeType = uint32_t;
@@ -100,6 +101,16 @@ enum ColorMode : uint8_t {
     TSC6,
     /** TSC6A color mode */
     TSC6A,
+    /** SVG color mode */
+    SVG,
+	/** INDEX8 color mode */
+    INDEX8,
+    /** BGRA8888 color mode */
+    BGRA8888,
+    /** YUV420SP color mode */
+    YUV420SP,
+    /** AYUV420SP color mode */
+    AYUV420SP,
     /** unknown color mode */
     UNKNOWN,
 };
@@ -131,6 +142,17 @@ struct Point {
 };
 
 /**
+ * @brief Defines a crownEvent.
+ * @since 1.0
+ * @version 1.0
+ */
+struct CrownEvent {
+    int16_t rotate;
+    float angularVelocity;
+    float rotateVelocity;
+    float rotateDegree;
+};
+/**
  * @brief Enumerates image types.
  */
 enum ImageType : uint8_t {
@@ -153,7 +175,30 @@ enum ScreenShape {
 
 enum ScrollBarSide : uint8_t {
     SCROLL_BAR_RIGHT_SIDE = 0,
-    SCROLL_BAR_LEFT_SIDE
+    SCROLL_BAR_LEFT_SIDE,
+    SCROLL_BAR_BOTTOM_SIDE
+};
+
+/**
+* @brief Defines a float point.
+* @since 1.0
+* @version 1.0
+*/
+struct FloatPoint {
+    float x;
+    float y;
+
+    bool operator==(const FloatPoint& other)
+    {
+        FloatPoint offset = { fabs(other.x - x), fabs(other.y - y) };
+        return ((offset.x < 1e-6f) && (offset.y < 1e-6f));
+    }
+
+    void Translate(const FloatPoint p)
+    {
+        x += p.x;
+        y += p.y;
+    }
 };
 } // namespace OHOS
 #endif // GRAPHIC_LITE_TYPES_H
