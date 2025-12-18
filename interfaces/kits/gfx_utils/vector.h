@@ -105,6 +105,16 @@ public:
         return (array_ + size_);
     }
 
+    T* begin() const
+    {
+        return array_;
+    }
+
+    const T* end() const
+    {
+        return (array_ + size_);
+    }
+
     bool IsEmpty() const
     {
         return (size_ == 0);
