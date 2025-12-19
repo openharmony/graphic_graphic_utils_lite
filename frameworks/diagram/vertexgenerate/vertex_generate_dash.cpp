@@ -47,7 +47,7 @@ void VertexGenerateDash::RemoveAllDashes()
 
 void VertexGenerateDash::AddDash(float dashLen, float gapLen)
 {
-    if (numDashes_ < MAX_DASHES) {
+    if (numDashes_ + 1 < MAX_DASHES) {
         totalDashLen_ += dashLen + gapLen;
         dashes_[numDashes_++] = dashLen;
         dashes_[numDashes_++] = gapLen;

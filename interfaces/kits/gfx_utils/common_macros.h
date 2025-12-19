@@ -39,11 +39,13 @@
 #define UI_ALIGN_DOWN(size) ALIGN_DOWN((size), ALIGNMENT_BYTES)
 #define UI_ADDR_ALIGN(ptr, sz) ADDR_ALIGN(ptr, sz, ALIGNMENT_BYTES)
 #define UI_STRUCT_ALIGN STRUCT_ALIGN(ALIGNMENT_BYTES)
+#define UI_MEMBER_ALIGN __attribute__((aligned(ALIGNMENT_BYTES)))
 #else
 #define UI_ALIGN_UP(size)  ALIGN_UP((size), 4U)
 #define UI_ALIGN_DOWN(size) ALIGN_DOWN((size), 4U)
 #define UI_ADDR_ALIGN(ptr, sz)
 #define UI_STRUCT_ALIGN
+#define UI_MEMBER_ALIGN
 #endif
 
 #endif
