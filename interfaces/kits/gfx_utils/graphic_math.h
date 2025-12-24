@@ -723,17 +723,16 @@ public:
 
 protected:
     Matrix3<T> ConomialMatrix(int16_t row, int16_t col) const;
-    T data_[16]; // 16: 4 point with x,y,z,w
+    T data_[16] = { 0 }; // 16: 4 point with x,y,z,w
 };
 
 template<typename T>
 Matrix4<T>::Matrix4()
 {
-    for (int16_t row = 0; row < ORDER_MATRIX_4; row++) {
-        for (int16_t col = 0; col < ORDER_MATRIX_4; col++) {
-            data_[row * ORDER_MATRIX_4 + col] = (row == col) ? 1 : 0;
-        }
-    }
+    data_[0 * 4 + 0] = 1;
+    data_[1 * 4 + 1] = 1;
+    data_[2 * 4 + 2] = 1;
+    data_[3 * 4 + 3] = 1;
 }
 
 template<typename T>
@@ -768,11 +767,14 @@ Matrix4<T> Matrix4<T>::operator*(const Matrix4& other) const
     T* rData = rMulti.data_;
     const T* oData  = other.data_;
     for (int16_t row = 0; row < ORDER_MATRIX_4; row++) {
-        for (int16_t col = 0; col < ORDER_MATRIX_4; col++) {
-            /* 1 2 3 4 8 12 : offset */
-            rData[row * 4 + col] = oData[row * 4] * data_[col] + oData[row * 4 + 1] * data_[4 + col] +
-                                   oData[row * 4 + 2] * data_[8 + col] + oData[row * 4 + 3] * data_[12 + col];
-        }
+        rData[row * 4 + 0] = oData[row * 4] * data_[0] + oData[row * 4 + 1] * data_[4 + 0] +
+                             oData[row * 4 + 2] * data_[8 + 0] + oData[row * 4 + 3] * data_[12 + 0];
+        rData[row * 4 + 1] = oData[row * 4] * data_[1] + oData[row * 4 + 1] * data_[4 + 1] +
+                             oData[row * 4 + 2] * data_[8 + 1] + oData[row * 4 + 3] * data_[12 + 1];
+        rData[row * 4 + 2] = oData[row * 4] * data_[2] + oData[row * 4 + 1] * data_[4 + 2] +
+                             oData[row * 4 + 2] * data_[8 + 2] + oData[row * 4 + 3] * data_[12 + 2];
+        rData[row * 4 + 3] = oData[row * 4] * data_[3] + oData[row * 4 + 1] * data_[4 + 3] +
+                             oData[row * 4 + 2] * data_[8 + 3] + oData[row * 4 + 3] * data_[12 + 3];
     }
     return rMulti;
 }
@@ -872,13 +874,17 @@ template<typename T>
 Matrix4<T> Matrix4<T>::Rotate(T angle, const Vector3<T>& pivot1, const Vector3<T>& pivot2)
 {
     Matrix4<T> rotateMat4;
-    T* rData = rotateMat4.data_;
+    if (pivot1 == pivot2) {
+        return rotateMat4;
+    }
     T length = Sqrt((pivot2.x_ - pivot1.x_) * (pivot2.x_ - pivot1.x_) +
                     (pivot2.y_ - pivot1.y_) * (pivot2.y_ - pivot1.y_) +
                     (pivot2.z_ - pivot1.z_) * (pivot2.z_ - pivot1.z_));
     if (length == 0) {
         return rotateMat4;
     }
+
+    T* rData = rotateMat4.data_;
     T cosA = static_cast<T>(Sin(angle + QUARTER_IN_DEGREE));
     T sinA = static_cast<T>(Sin(angle));
     T diff = 1 - cosA;
