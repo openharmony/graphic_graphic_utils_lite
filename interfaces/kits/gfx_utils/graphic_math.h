@@ -768,13 +768,13 @@ Matrix4<T> Matrix4<T>::operator*(const Matrix4& other) const
     const T* oData  = other.data_;
     for (int16_t row = 0; row < ORDER_MATRIX_4; row++) {
         rData[row * 4 + 0] = oData[row * 4] * data_[0] + oData[row * 4 + 1] * data_[4 + 0] + // 0 1 4: offset
-                             oData[row * 4 + 2] * data_[8 + 0] + oData[row * 4 + 3] * data_[12 + 0]; // 0 2 3 4 8 12: offset
+            oData[row * 4 + 2] * data_[8 + 0] + oData[row * 4 + 3] * data_[12 + 0]; // 0 2 3 4 8 12: offset
         rData[row * 4 + 1] = oData[row * 4] * data_[1] + oData[row * 4 + 1] * data_[4 + 1] + // 0 1 4: offset
-                             oData[row * 4 + 2] * data_[8 + 1] + oData[row * 4 + 3] * data_[12 + 1]; // 1 2 3 4 8 12: offset
+            oData[row * 4 + 2] * data_[8 + 1] + oData[row * 4 + 3] * data_[12 + 1]; // 1 2 3 4 8 12: offset
         rData[row * 4 + 2] = oData[row * 4] * data_[2] + oData[row * 4 + 1] * data_[4 + 2] + // 1 2 4: offset
-                             oData[row * 4 + 2] * data_[8 + 2] + oData[row * 4 + 3] * data_[12 + 2]; // 2 3 4 8 12: offset
+            oData[row * 4 + 2] * data_[8 + 2] + oData[row * 4 + 3] * data_[12 + 2]; // 2 3 4 8 12: offset
         rData[row * 4 + 3] = oData[row * 4] * data_[3] + oData[row * 4 + 1] * data_[4 + 3] + // 1 3 4: offset
-                             oData[row * 4 + 2] * data_[8 + 3] + oData[row * 4 + 3] * data_[12 + 3]; // 2 3 4 8 12: offset
+            oData[row * 4 + 2] * data_[8 + 3] + oData[row * 4 + 3] * data_[12 + 3]; // 2 3 4 8 12: offset
     }
     return rMulti;
 }
