@@ -37,6 +37,10 @@
 
 #include "gfx_utils/color.h"
 
+#ifndef RADIAL_GRADIENT_COLOR_NUM
+#define RADIAL_GRADIENT_COLOR_NUM 3
+#endif
+
 namespace OHOS {
 /**
  * @brief Enumerates keys of styles.
@@ -47,6 +51,10 @@ namespace OHOS {
 enum : uint8_t {
     /** Background color */
     STYLE_BACKGROUND_COLOR,
+    /** Background gradient color */
+    STYLE_GRADIENT_BACKGROUND_COLOR,
+    /** Background radial gradient color */
+    STYLE_RADIENT_GRADIENT_BACKGROUND_COLOR,
     /** Background opacity */
     STYLE_BACKGROUND_OPA,
     /** Border radius */
@@ -87,6 +95,10 @@ enum : uint8_t {
     STYLE_LINE_HEIGHT,
     /** Text opacity */
     STYLE_TEXT_OPA,
+    /** Text stroke color */
+    STYLE_TEXT_STROKR_COLOR,
+    /** Text stroke width */
+    STYLE_TEXT_STROKR_WIDTH,
     /** Line color */
     STYLE_LINE_COLOR,
     /** Line width */
@@ -109,6 +121,58 @@ enum CapType : uint8_t {
     /** Round cap style */
     CAP_ROUND,
     CAP_ROUND_UNSHOW,
+};
+
+/**
+ * @brief Gradient color direction
+ *
+ * @since 1.0
+ * @version 1.0
+ */
+enum GradientDirection : uint8_t {
+    DIRECTION_TOP_TO_BOTTOM,
+    DIRECTION_TOP_RIGHT_TO_BOTTOM_LEFT,
+    DIRECTION_RIGHT_TO_LEFT,
+    DIRECTION_BOTTOM_RIGHT_TO_TOP_LEFT,
+    DIRECTION_BOTTOM_TO_TOP,
+    DIRECTION_BOTTOM_LEFT_TO_TOP_RIGHT,
+    DIRECTION_LEFT_TO_RIGHT,
+    DIRECTION_TOP_LEFT_TO_BOTTOM_RIGHT
+};
+
+/**
+ * @brief union to describe gradient color attribute.
+ *
+ * @param type Indicates the type of gradient style. Include:
+ *             linear-gradient(with different direction) and radial-gradient(with different direction)
+ *             Reserved. Detial description will defined when uses.
+ * @param colorBegin Indicates gradient begin color.
+ * @param colorEnd Indicates gradient end color.
+ * @param position Indicates the position of radial-gradient.
+ *                 Only use in radial=gradient, high 16 bytes indicates x position,
+ *                 low 16 bytes indicates y position.
+ * @param num colors num and offsets num of the radial-gradient.
+ * @param radius radius of the radial-gradient.
+ * @param center_x center x position of the radial-gradient.
+ * @param center_y center y position of the radial-gradient.
+ * @param colors colors of the radial-gradient.
+ * @param offsets offsets of the radial-gradient.
+ */
+union GradientColor {
+    struct {
+        uint8_t direction;
+        ColorType colorBegin;
+        ColorType colorEnd;
+        uint32_t position;
+    };
+    struct {
+        uint8_t num;
+        uint16_t radius;
+        uint16_t center_x;
+        uint16_t center_y;
+        ColorType colors[RADIAL_GRADIENT_COLOR_NUM];
+        float offsets[RADIAL_GRADIENT_COLOR_NUM];
+    };
 };
 
 /**
@@ -145,6 +209,16 @@ public:
      */
     void SetStyle(uint8_t key, int64_t value);
 
+        /**
+     * @brief Sets a style of gradient color.
+     *
+     * @param key Indicates the different type of gradient color, now only support background.
+     * @param gradientColor Indicates the value matching the key.
+     * @since 1.0
+     * @version 1.0
+     */
+    void SetStyle(uint8_t key, GradientColor &gradientColor);
+
     /**
      * @brief Obtains the value of a style.
      *
@@ -157,6 +231,9 @@ public:
 
     /* background style */
     ColorType bgColor_;
+    GradientColor gradientColor_;
+    uint8_t enableGradient_;
+    uint8_t enableRadialGradient_;
     uint8_t bgOpa_;
     /* border style */
     uint8_t borderOpa_;
@@ -185,6 +262,8 @@ public:
     int16_t letterSpace_;
     int16_t lineHeight_;
     ColorType textColor_;
+    ColorType textStrokeColor_;
+    int16_t textStrokeWidth_;
     /* line style */
     ColorType lineColor_;
     uint8_t lineOpa_;
