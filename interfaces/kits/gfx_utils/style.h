@@ -149,7 +149,7 @@ enum GradientDirection : uint8_t {
  * @param colorBegin Indicates gradient begin color.
  * @param colorEnd Indicates gradient end color.
  * @param position Indicates the position of radial-gradient.
- *                 Only use in radial=gradient, high 16 bytes indicates x position,
+ *                 Only use in radial-gradient, high 16 bytes indicates x position,
  *                 low 16 bytes indicates y position.
  * @param num colors num and offsets num of the radial-gradient.
  * @param radius radius of the radial-gradient.
