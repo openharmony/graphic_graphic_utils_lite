@@ -54,7 +54,7 @@ enum : uint8_t {
     /** Background gradient color */
     STYLE_GRADIENT_BACKGROUND_COLOR,
     /** Background radial gradient color */
-    STYLE_RADIENT_GRADIENT_BACKGROUND_COLOR,
+    STYLE_RADIAL_GRADIENT_BACKGROUND_COLOR,
     /** Background opacity */
     STYLE_BACKGROUND_OPA,
     /** Border radius */
@@ -124,7 +124,7 @@ enum CapType : uint8_t {
 };
 
 /**
- * @brief Gradient color direction
+ * @brief Gradient color directions
  *
  * @since 1.0
  * @version 1.0
@@ -145,7 +145,7 @@ enum GradientDirection : uint8_t {
  *
  * @param type Indicates the type of gradient style. Include:
  *             linear-gradient(with different direction) and radial-gradient(with different direction)
- *             Reserved. Detial description will defined when uses.
+ *             Reserved. Detail description will defined when used.
  * @param colorBegin Indicates gradient begin color.
  * @param colorEnd Indicates gradient end color.
  * @param position Indicates the position of radial-gradient.
@@ -210,7 +210,7 @@ public:
     void SetStyle(uint8_t key, int64_t value);
 
         /**
-     * @brief Sets a style of gradient color.
+     * @brief Sets a style for gradient color.
      *
      * @param key Indicates the different type of gradient color, now only support background.
      * @param gradientColor Indicates the value matching the key.
@@ -231,7 +231,7 @@ public:
 
     /* background style */
     ColorType bgColor_;
-    GradientColor gradientColor_;
+    GradientColor bgGradientColor_;
     uint8_t enableGradient_;
     uint8_t enableRadialGradient_;
     uint8_t bgOpa_;

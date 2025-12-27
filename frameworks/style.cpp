@@ -223,7 +223,7 @@ void Style::SetStyle(uint8_t key, int64_t value)
     }
 }
 
-void Style::SetKey(uint8_t key, GradientColor &gradientColor)
+void Style::SetStyle(uint8_t key, GradientColor &gradientColor)
 {
     switch (key) {
         case STYLE_GRADIENT_BACKGROUND_COLOR:
