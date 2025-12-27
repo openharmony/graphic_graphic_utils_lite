@@ -16,6 +16,8 @@
 #include "gfx_utils/style.h"
 
 namespace OHOS {
+constexpr uint16_t MAX_TEXT_STROKE_WIDTH = 2;
+
 Style StyleDefault::defaultStyle_;
 Style StyleDefault::brightStyle_;
 Style StyleDefault::brightColorStyle_;
@@ -35,6 +37,8 @@ Style StyleDefault::scrollBarForegroundStyle_;
 
 Style::Style()
     : bgColor_(Color::Black()),
+      enableGradient_(0),
+      enableRadialGradient_(0),
       bgOpa_(OPA_OPAQUE),
       borderOpa_(OPA_OPAQUE),
       borderWidth_(0),
@@ -107,6 +111,10 @@ int64_t Style::GetStyle(uint8_t key) const
             return lineHeight_;
         case STYLE_TEXT_OPA:
             return textOpa_;
+        case STYLE_TEXT_STROKR_COLOR:
+            return textStrokeColor_.full;
+        case STYLE_TEXT_STROKR_WIDTH:
+            return textStrokeWidth_;
         case STYLE_LINE_COLOR:
             return lineColor_.full;
         case STYLE_LINE_WIDTH:
@@ -125,6 +133,7 @@ void Style::SetStyle(uint8_t key, int64_t value)
     switch (key) {
         case STYLE_BACKGROUND_COLOR:
             bgColor_.full = value;
+            enableGradient_ = 0;
             break;
         case STYLE_BACKGROUND_OPA:
             bgOpa_ = value;
@@ -189,6 +198,14 @@ void Style::SetStyle(uint8_t key, int64_t value)
         case STYLE_TEXT_OPA:
             textOpa_ = value;
             break;
+        case STYLE_TEXT_STROKR_COLOR:
+            textStrokeColor_.full = value;
+            break;
+        case STYLE_TEXT_STROKR_WIDTH:
+            if ((value <= MAX_TEXT_STROKE_WIDTH) && (value >= 0)) {
+                textStrokeWidth_ = value;
+            }
+            break;
         case STYLE_LINE_COLOR:
             lineColor_.full = value;
             break;
@@ -200,6 +217,22 @@ void Style::SetStyle(uint8_t key, int64_t value)
             break;
         case STYLE_LINE_CAP:
             lineCap_ = value;
+            break;
+        default:
+            break;
+    }
+}
+
+void Style::SetStyle(uint8_t key, GradientColor &gradientColor)
+{
+    switch (key) {
+        case STYLE_GRADIENT_BACKGROUND_COLOR:
+            bgGradientColor_ = gradientColor;
+            enableGradient_ = 1;
+            break;
+        case STYLE_RADIAL_GRADIENT_BACKGROUND_COLOR:
+            bgGradientColor_ = gradientColor;
+            enableRadialGradient_ = 1;
             break;
         default:
             break;
