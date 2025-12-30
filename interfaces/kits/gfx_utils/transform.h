@@ -234,7 +234,7 @@ public:
 
     Matrix3<float> invMatrix_;
 
-    uint8_t reserved_ = 0;
+    uint8_t blendMode_ = 0;
 
     bool Is3DTransform() const;
 
