@@ -173,7 +173,8 @@ union GradientColor {
         ColorType colors[RADIAL_GRADIENT_COLOR_NUM];
         float offsets[RADIAL_GRADIENT_COLOR_NUM];
     };
-    GradientColor() {
+    GradientColor()
+    {
         num = 0;
         radius = 0;
         center_x = 0;
