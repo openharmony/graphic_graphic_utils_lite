@@ -60,14 +60,14 @@ struct DeviceData {
 #if ENABLE_ROTATE_INPUT
         struct {
             int16_t rotate; /* rotate type device used this param for rotate */
-            float angularVelocity;
-            float rotateVelocity;
-            float rotateDegree;
+            float angularVelocity; /* angular velocity for rotate */
+            float rotateVelocity; /* rotate velocity in degrees per second for rotate */
+            float rotateDegree; /* current rotation angle in degrees for rotate */
         };
 #endif
         uint16_t type; /* for virtual device the currently event type */
 #if defined (ENABLE_GESTURE_INPUT) && ENABLE_GESTURE_INPUT
-        uint8_t gestureEvent;
+        uint8_t gestureEvent; /* gesture type device used this param for gesture event */
 #endif
     };
     uint16_t state;
@@ -78,7 +78,7 @@ struct DeviceData {
     bool filterRotate; /* weather filter rotate value by rotate time */
 #endif
 #if defined (ENABLE_GESTURE_INPUT) && ENABLE_GESTURE_INPUT
-        uint8_t gestureState; /* gesture tyle device used this param for gesture state */
+        uint8_t gestureState; /* gesture type device used this param for gesture state */
 #endif
 };
 
