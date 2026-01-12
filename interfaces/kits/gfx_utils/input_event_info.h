@@ -58,13 +58,27 @@ struct DeviceData {
         uint16_t keyId; /* key type device use this param for touched key id */
         int16_t encoderDiff; /* encode type device used this param for number of steps since the previous read */
 #if ENABLE_ROTATE_INPUT
-        int16_t rotate; /* rotate type device used this param for rotate */
+        struct {
+            int16_t rotate; /* rotate type device used this param for rotate */
+            float angularVelocity;
+            float rotateVelocity;
+            float rotateDegree;
+        };
 #endif
         uint16_t type; /* for virtual device the currently event type */
+#if defined (ENABLE_GESTURE_INPUT) && ENABLE_GESTURE_INPUT
+        uint8_t gestureEvent;
+#endif
     };
     uint16_t state;
 #if ENABLE_WINDOW
     int32_t winId;
+#endif
+#if ENABLE_ROTATE_INPUT
+    bool filterRotate; /* weather filter rotate value by rotate time */
+#endif
+#if defined (ENABLE_GESTURE_INPUT) && ENABLE_GESTURE_INPUT
+        uint8_t gestureState; /* gesture tyle device used this param for gesture state */
 #endif
 };
 
