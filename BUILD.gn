@@ -51,6 +51,14 @@ if (os_level != "standard") {
             ]
             cflags_cc = cflags
         }
+
+        if (defined(board_toolchain_type) && board_toolchain_type == "clang") {
+            cflags = [
+            "--Wno-float-equal",
+            ]
+            cflags_cc = cflags
+        }
+
         if (enable_graphic_dualcore == true) {
             defines += [ "HAL_CPU_NUM=2" ]
         }
