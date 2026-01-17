@@ -54,7 +54,7 @@ if (os_level != "standard") {
 
         if (defined(board_toolchain_type) && board_toolchain_type == "clang") {
             cflags = [
-            "--Wno-float-equal",
+            "-Wno-float-equal",
             ]
             cflags_cc = cflags
         }
