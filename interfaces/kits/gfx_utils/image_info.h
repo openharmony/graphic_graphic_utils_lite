@@ -38,6 +38,17 @@
 #include <cstdint>
 
 namespace OHOS {
+enum CompressMode : uint8_t {
+    COMPRESS_MODE_NONE = 0,
+    COMPRESS_MODE__ZIP_ALG,
+    COMPRESS_MODE_BITMAP_ALG,
+    COMPRESS_MODE_BLOCK_ALG,
+    COMPRESS_MODE_NEO_ALG,
+    COMPRESS_MODE_HTC = 0x08,
+    COMPRESS_MODE_HTC_2X,
+    COMPRESS_MODE_HTC_3X,
+};
+
 /**
  * @brief Defines image head node information.
  */
