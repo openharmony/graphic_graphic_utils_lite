@@ -146,6 +146,9 @@ void QuadrBezierCurveDividOp::Init(float x1, float y1,
                                    float x3, float y3)
 {
     points_.Clear();
+    if (approximationScale_ == 0) {
+        return;
+    }
     distanceToleranceSquare_ = HALFNUM / approximationScale_;
     distanceToleranceSquare_ *= distanceToleranceSquare_;
     Bezier(x1, y1, x2, y2, x3, y3);
