@@ -63,6 +63,7 @@ struct DeviceData {
             float angularVelocity; /* angular velocity for rotate */
             float rotateVelocity; /* rotate velocity in degrees per second for rotate */
             float rotateDegree; /* current rotation angle in degrees for rotate */
+            uint64_t timestamp; /*Timestamp*/
         };
 #endif
         uint16_t type; /* for virtual device the currently event type */
