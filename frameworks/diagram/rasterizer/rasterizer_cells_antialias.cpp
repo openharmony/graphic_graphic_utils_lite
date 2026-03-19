@@ -198,6 +198,9 @@ void RasterizerCellsAntiAlias::RenderHorizonline(
         dx = -dx;
         deltayMask = submaskFlagsX1 * (polySubpixelMaskY2 - polySubpixelMaskY1);
     }
+    if (dx == 0) {
+        return;
+    }
     delta = static_cast<int32_t>(deltayMask / dx);
     modDxMask = static_cast<int32_t>(deltayMask % dx);
     if (modDxMask < 0) {
