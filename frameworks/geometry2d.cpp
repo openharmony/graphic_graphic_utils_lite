@@ -181,7 +181,7 @@ Polygon::Polygon(const Vector2<int16_t>* vertexes, const uint8_t vertexNum)
         vertexes, vertexNum * sizeof(Vector2<int16_t>)) != EOK) {
         ASSERT(0);
     }
-    vertexNum_ = vertexNum;
+    vertexNum_ = MATH_MIN(vertexNum, MAX_VERTEX_NUM);
 }
 
 Rect Polygon::MakeAABB() const
