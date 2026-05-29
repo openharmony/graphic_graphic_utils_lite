@@ -51,4 +51,5 @@ graphic_hals_include_dirs = [
 graphic_hals_sources = [
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/hals/gfx_engines.cpp",
   "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/hals/hi_fbdev.cpp",
+  "$GRAPHIC_GRAPHIC_UTILS_LITE_PATH/frameworks/hals/gralloc_engines.cpp",
 ]

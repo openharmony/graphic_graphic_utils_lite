@@ -14,7 +14,7 @@ if (os_level != "standard") {
     import("//build/lite/config/subsystem/graphic/config.gni")
     import("//build/lite/ndk/ndk.gni")
 
-    defines = []
+    defines = [ "IMG_CACHE_MEMORY_CUSTOM" ]
 
     declare_args() {
         graphic_utils_lite_enable_ohos_product_config = false
@@ -22,6 +22,10 @@ if (os_level != "standard") {
 
     if (graphic_utils_lite_enable_ohos_product_config) {
         defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
+    }
+
+    if (defined(board_macro_defines)) {
+        defines += board_macro_defines
     }
 
     lite_component("utils_lite") {
@@ -41,7 +45,11 @@ if (os_level != "standard") {
         } else {
             target_type = "shared_library"
         }
-        include_dirs = [ "frameworks" ]
+        include_dirs = [
+            "frameworks",
+            "//drivers/peripheral/base",
+            "//drivers/peripheral/display/interfaces/include",
+            ]
         if (defined(board_toolchain_type) && board_toolchain_type == "iccarm") {
             include_dirs +=
                 [ "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite" ]
@@ -83,6 +91,7 @@ if (os_level != "standard") {
             "frameworks/hal_cpu.cpp",
             "frameworks/hal_tick.cpp",
             "frameworks/mem_api.cpp",
+            "frameworks/mem_custom.cpp",
             "frameworks/pixel_format_utils.cpp",
             "frameworks/style.cpp",
             "frameworks/trans_affine.cpp",
@@ -95,7 +104,10 @@ if (os_level != "standard") {
             public_deps =
                 [ "//base/hiviewdfx/hilog_lite/frameworks/mini:hilog_lite" ]
         } else {
-            deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
+            deps = [
+              ":graphic_hals",
+              "//third_party/bounds_checking_function:libsec_shared"
+            ]
             public_deps =
                 [ "//base/hiviewdfx/hilog_lite/frameworks/featured:hilog_shared" ]
         }
@@ -141,12 +153,13 @@ if (os_level != "standard") {
             sources = [
             "frameworks/hals/gfx_engines.cpp",
             "frameworks/hals/hi_fbdev.cpp",
+            "frameworks/hals/gralloc_engines.cpp",
             ]
             include_dirs =
                 [ "//foundation/window/window_manager_lite/interfaces/innerkits" ]
             deps = [
-            ":utils_lite",
             "//drivers/peripheral/display/hal:hdi_display",
+            "//third_party/bounds_checking_function:libsec_shared",
             ]
             public_configs = [ ":graphic_hals_public_config" ]
             ldflags = [
@@ -159,6 +172,7 @@ if (os_level != "standard") {
 
     config("graphic_hals_public_config") {
         include_dirs = [
+            "interfaces/kits",
             "interfaces/innerkits",
             "//drivers/peripheral/base",
             "//drivers/peripheral/display/interfaces/include",

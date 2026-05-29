@@ -17,6 +17,7 @@
 #include "gfx_utils/common_macros.h"
 
 namespace OHOS {
+#ifndef IMG_CACHE_MEMORY_CUSTOM
 UI_WEAK_SYMBOL void* ImageCacheMalloc(const ImageInfo& info)
 {
     return malloc(info.dataSize);
@@ -29,6 +30,7 @@ UI_WEAK_SYMBOL void ImageCacheFree(ImageInfo& info)
     info.data = nullptr;
     return;
 }
+#endif
 
 UI_WEAK_SYMBOL void* UIMalloc(uint32_t size)
 {
