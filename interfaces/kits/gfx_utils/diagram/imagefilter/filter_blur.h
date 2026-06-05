@@ -51,7 +51,15 @@ public:
             if (integral_ != nullptr) {
                 free(integral_);
             }
-            integral_ = (int32_t*)malloc((width + 1) * (height + 1) * channel * sizeof(int32_t));
+            int64_t totalBytes = (static_cast<int64_t>(width) + 1) * (static_cast<int64_t>(height) + 1) * channel *
+                sizeof(int32_t);
+            if (totalBytes <= 0 || totalBytes > SIZE_MAX) {
+                return;
+            }
+            integral_ = (int32_t*)malloc(static_cast<size_t>(totalBytes));
+            if (integral_ == nullptr) {
+                return;
+            }
             isGetRGBAIntegral = true;
         }
         if (channel == FOUR_TIMES) {
