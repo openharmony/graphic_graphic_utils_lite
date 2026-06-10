@@ -66,7 +66,7 @@ public:
         int32_t height = img.GetHeight();
         bool isGetRGBAIntegral = false;
         if (integral_ == nullptr || ((imageWidth_ * imageHeight_) != (width * height))) {
-            if (!AllocateBuffer()) {
+            if (!AllocateBuffer(width, height, channel)) {
                 return;
             }
             isGetRGBAIntegral = true;
