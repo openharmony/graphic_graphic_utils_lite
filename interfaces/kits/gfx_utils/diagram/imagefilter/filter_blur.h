@@ -38,6 +38,24 @@ public:
         }
     }
 
+    bool AllocateBuffer(int32_t width, int32_t height, int32_t channel)
+    {
+        if (integral_ != nullptr) {
+            free(integral_);
+            integral_ = nullptr;
+        }
+        int64_t totalBytes = (static_cast<int64_t>(width) + 1) * (static_cast<int64_t>(height) + 1) * channel *
+                sizeof(int32_t);
+        if ((totalBytes <= 0) || (totalBytes > SIZE_MAX)) {
+            return false;
+        }
+        integral_ = (int32_t*)malloc(static_cast<size_t>(totalBytes));
+        if (integral_ == nullptr) {
+            return false;
+        }
+        return true;
+    }
+
     template <class Img>
     void BoxBlur(Img& img, uint16_t radius, int32_t channel, int32_t stride)
     {
@@ -48,16 +66,7 @@ public:
         int32_t height = img.GetHeight();
         bool isGetRGBAIntegral = false;
         if (integral_ == nullptr || ((imageWidth_ * imageHeight_) != (width * height))) {
-            if (integral_ != nullptr) {
-                free(integral_);
-            }
-            int64_t totalBytes = (static_cast<int64_t>(width) + 1) * (static_cast<int64_t>(height) + 1) * channel *
-                sizeof(int32_t);
-            if (totalBytes <= 0 || totalBytes > SIZE_MAX) {
-                return;
-            }
-            integral_ = (int32_t*)malloc(static_cast<size_t>(totalBytes));
-            if (integral_ == nullptr) {
+            if (!AllocateBuffer()) {
                 return;
             }
             isGetRGBAIntegral = true;
