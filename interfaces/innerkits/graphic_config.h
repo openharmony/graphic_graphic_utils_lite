@@ -257,12 +257,22 @@ namespace OHOS {
 #ifndef ENABLE_PNG
 #define ENABLE_PNG                        1
 #endif
+
+
+/**
+ * @brief Cache the decoded content for Jpeg and Png image
+ */
+#ifndef CACHE_JPEG_AND_PNG
+#define CACHE_JPEG_AND_PNG                1
+#endif
+
 /**
  * @brief ARM NEON ability, which is enabled by default on other platforms.
  */
 #ifndef ENABLE_ARM_NEON
 #define ENABLE_ARM_NEON                   1
 #endif
+
 /**
  * @brief Graphics rendering hardware acceleration, which is disabled by default on other platforms.
  */

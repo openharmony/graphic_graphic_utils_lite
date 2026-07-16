@@ -105,6 +105,18 @@ static void NeonMemcpy(void* dst, int32_t dstSize, const void* src, int32_t srcS
         src = (uint8_t*)src + mod;
     }
 
+#if defined(__aarch64__) // ARMv8专有代码  rkh_build
+    asm volatile(
+        "NEONCopyPLD: \n"
+        " PRFM PLDL1KEEP, [%[src], #192] \n"  // ARMv8 预取指令
+        " LD1 {v0.16b, v1.16b, v2.16b, v3.16b}, [%[src]], #64 \n"  // 加载 4x128bit=64字节
+        " ST1 {v0.16b, v1.16b, v2.16b, v3.16b}, [%[dst]], #64 \n"  // 存储 64字节
+        " SUBS %[sz], %[sz], #0x40 \n"        // 减少剩余字节计数
+        " B.GT NEONCopyPLD \n"                // 条件跳转
+        : [dst] "+r"(dst), [src] "+r"(src), [sz] "+r"(sz)
+        :
+        : "v0", "v1", "v2", "v3", "cc", "memory");
+#elif defined(__arm__)   // ARMv7兼容
     asm volatile(
         "NEONCopyPLD: \n"
         " PLD [%[src], #0xC0] \n"
@@ -115,6 +127,7 @@ static void NeonMemcpy(void* dst, int32_t dstSize, const void* src, int32_t srcS
         : [dst] "+r"(dst), [src] "+r"(src), [sz] "+r"(sz)
         :
         : "d0", "d1", "d2", "d3", "d4", "d5", "d6", "d7", "cc", "memory");
+#endif
 }
 
 static inline void NeonBlendRGBA(uint8x8_t& r1, uint8x8_t& g1, uint8x8_t& b1, uint8x8_t& a1,

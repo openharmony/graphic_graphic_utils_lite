@@ -13,7 +13,8 @@
     "name": "graphic_utils_lite",
     "subsystem": "graphic",
     "features": [
-      "graphic_utils_lite_enable_ohos_product_config"
+      "graphic_utils_lite_enable_ohos_product_config",
+      "graphic_utils_lite_enable_drm_display_hal"
     ],
     "adapted_system_type": [ "mini","small" ],
     "rom": "450KB",
