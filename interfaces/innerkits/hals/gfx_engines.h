@@ -40,12 +40,6 @@ public:
                  const LiteSurfaceData& dstSurfaceData,
                  int16_t x,
                  int16_t y);
-
-    bool GfxBlitWithOpt(const LiteSurfaceData& srcSurfaceData,
-                    const Rect& srcRect,
-                    const LiteSurfaceData& dstSurfaceData,
-                    const Rect& dstRect,
-                    uint8_t opa);
 private:
     GfxEngines() : gfxFuncs_(nullptr) {}
     virtual ~GfxEngines() {}

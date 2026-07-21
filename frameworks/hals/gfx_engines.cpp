@@ -16,7 +16,6 @@
 #include "hals/gfx_engines.h"
 
 #include "gfx_utils/graphic_log.h"
-#include "securec.h"
 
 namespace OHOS {
 struct {
@@ -162,43 +161,4 @@ bool GfxEngines::GfxBlit(const LiteSurfaceData& srcSurfaceData,
     }
     return true;
 }
-
-bool GfxEngines::GfxBlitWithOpt(const LiteSurfaceData& srcSurfaceData,
-                                const Rect& srcRect,
-                                const LiteSurfaceData& dstSurfaceData,
-                                const Rect& dstRect,
-                                uint8_t opa)
-{
-    if (gfxFuncs_ == nullptr || srcSurfaceData.phyAddr == nullptr || dstSurfaceData.phyAddr == nullptr) {
-        return false;
-    }
-    ISurface srcSurface = {};
-    ISurface dstSurface = {};
-    if (Convert2ISurface(srcSurfaceData, srcSurface) == false) {
-        return false;
-    }
-    if (Convert2ISurface(dstSurfaceData, dstSurface) == false) {
-        return false;
-    }
-    IRect srcIRect = {};
-    IRect dstIRect = {};
-    Convert2IRect(srcRect, srcIRect);
-    Convert2IRect(dstRect, dstIRect);
-    GfxOpt opt;
-    if (memset_s(&opt, sizeof(GfxOpt), 0, sizeof(GfxOpt)) != EOK) {
-        return false;
-    }
-    opt.enPixelAlpha = true;
-    opt.blendType = BLEND_SRCOVER;
-    opt.enableScale = true;
-    opt.enGlobalAlpha = true;
-    opt.globalAlpha = opa;
-
-    if (gfxFuncs_->Blit(&srcSurface, &srcIRect, &dstSurface, &dstIRect, &opt) == DISPLAY_FAILURE) {
-        GRAPHIC_LOGW("HW blit failed, and retry SW blit.");
-        return false;
-    }
-    return true;
-}
-
 } // namespace OHOS

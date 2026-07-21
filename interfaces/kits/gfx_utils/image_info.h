@@ -36,7 +36,6 @@
 #define GRAPHIC_LITE_IMAGE_INFO_H
 
 #include <cstdint>
-#include "graphic_config.h"
 
 namespace OHOS {
 enum CompressMode : uint8_t {
@@ -75,9 +74,6 @@ struct ImageInfo {
     uint32_t dataSize;
     /** Pixel color data of pixelmap images */
     const uint8_t* data;
-#if IMG_CACHE_MEMORY_CUSTOM
-    const uint8_t* phyAddr;
-#endif
     /** User-defined data */
     void* userData;
 };
