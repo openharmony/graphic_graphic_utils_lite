@@ -14,7 +14,7 @@ if (os_level != "standard") {
     import("//build/lite/config/subsystem/graphic/config.gni")
     import("//build/lite/ndk/ndk.gni")
 
-    defines = [ "IMG_CACHE_MEMORY_CUSTOM" ]
+    defines = []
 
     declare_args() {
         graphic_utils_lite_enable_ohos_product_config = false
@@ -26,6 +26,9 @@ if (os_level != "standard") {
 
     if (defined(board_macro_defines)) {
         defines += board_macro_defines
+    }
+    if (defined(media_interface_upgrade)) {
+        defines += [ "IMG_CACHE_MEMORY_CUSTOM" ]
     }
 
     lite_component("utils_lite") {
@@ -91,13 +94,17 @@ if (os_level != "standard") {
             "frameworks/hal_cpu.cpp",
             "frameworks/hal_tick.cpp",
             "frameworks/mem_api.cpp",
-            "frameworks/mem_custom.cpp",
             "frameworks/pixel_format_utils.cpp",
             "frameworks/style.cpp",
             "frameworks/trans_affine.cpp",
             "frameworks/transform.cpp",
             "frameworks/version.cpp",
         ]
+        if (defined(media_interface_upgrade)) {
+            sources += [
+                "frameworks/mem_custom.cpp",
+            ]
+        }
         public_configs = [ ":graphic_utils_public_config" ]
         if (ohos_kernel_type == "liteos_m") {
             deps = [ "//third_party/bounds_checking_function:libsec_static" ]

@@ -289,7 +289,11 @@ namespace OHOS {
  * @brief Graphics rendering accelerated by gfx_engines, which is enabled by default on other platforms.
  */
 #ifndef ENABLE_GFX_ENGINES
+#ifdef MEDIA_INTERFACE_V1_0
 #define ENABLE_GFX_ENGINES                1
+#else
+#define ENABLE_GFX_ENGINES                0
+#endif
 #endif // ENABLE_GFX_ENGINES
 #endif
 
