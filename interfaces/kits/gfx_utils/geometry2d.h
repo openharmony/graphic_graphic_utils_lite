@@ -216,7 +216,7 @@ public:
      */
     void SetVertexNum(uint8_t vertexNum)
     {
-        vertexNum_ = vertexNum;
+        vertexNum_ = MATH_MIN(vertexNum, MAX_VERTEX_NUM);
     }
 
     const Vector2<int16_t> operator[](uint8_t index) const
@@ -227,6 +227,7 @@ public:
     Vector2<int16_t>& operator[](uint8_t index)
     {
         ASSERT(index < MAX_VERTEX_NUM);
+        index = MATH_MIN(index, MAX_VERTEX_NUM - 1);
         return vertexes_[index];
     }
 
