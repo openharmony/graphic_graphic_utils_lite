@@ -9,8 +9,8 @@
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * See the License for the specific language governing permissions and limitations
+ * under the License.
  */
 
 /**
@@ -53,8 +53,6 @@ enum : uint8_t {
     STYLE_BACKGROUND_COLOR,
     /** Background gradient color */
     STYLE_GRADIENT_BACKGROUND_COLOR,
-    /** Background radial gradient color */
-    STYLE_RADIAL_GRADIENT_BACKGROUND_COLOR,
     /** Background opacity */
     STYLE_BACKGROUND_OPA,
     /** Border radius */
@@ -106,7 +104,9 @@ enum : uint8_t {
     /** Line opacity */
     STYLE_LINE_OPA,
     /** Line cap style */
-    STYLE_LINE_CAP
+    STYLE_LINE_CAP,
+    /** Background radial gradient color */
+    STYLE_RADIAL_GRADIENT_BACKGROUND_COLOR
 };
 
 /**
@@ -124,7 +124,7 @@ enum CapType : uint8_t {
 };
 
 /**
- * @brief Gradient color directions
+ * @brief GradientColorDirections.
  *
  * @since 1.0
  * @version 1.0
@@ -144,19 +144,19 @@ enum GradientDirection : uint8_t {
  * @brief union to describe gradient color attribute.
  *
  * @param type Indicates the type of gradient style. Include:
- *             linear-gradient(with different direction) and radial-gradient(with different direction)
+ *             linear-gradient(with different direction) and radial-gradient(with different direction).
  *             Reserved. Detail description will defined when used.
  * @param colorBegin Indicates gradient begin color.
  * @param colorEnd Indicates gradient end color.
- * @param position Indicates the position of radial-gradient.
- *                 Only use in radial-gradient, high 16 bytes indicates x position,
- *                 low 16 bytes indicates y position.
- * @param num colors num and offsets num of the radial-gradient.
- * @param radius radius of the radial-gradient.
- * @param center_x center x position of the radial-gradient.
- * @param center_y center y position of the radial-gradient.
- * @param colors colors of the radial-gradient.
- * @param offsets offsets of the radial-gradient.
+ * @param position Indicates the positon of radial-gradient.
+                   Only use in radial-gradient, high 16 bytes indicates x position,
+                   low 16 bytes indicates y position.
+ * @param num colors num and offsets num of the radial gradient.
+ * @param radius radius of the radial gradient.
+ * @param center_x center x position of the radial gradient
+ * @param center_y center y position of the radial gradient
+ * @param colors colors of the radial gradient
+ * @param offsets offsets of the radial gradient
  */
 union GradientColor {
     struct {
@@ -220,11 +220,11 @@ public:
      */
     void SetStyle(uint8_t key, int64_t value);
 
-        /**
-     * @brief Sets a style for gradient color.
+    /**
+     * @brief Sets a style for gradientColor.
      *
      * @param key Indicates the different type of gradient color, now only support background.
-     * @param gradientColor Indicates the value matching the key.
+     * @param value Indicates the value matching the key.
      * @since 1.0
      * @version 1.0
      */
