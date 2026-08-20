@@ -13,6 +13,7 @@ GRAPHIC_GRAPHIC_UTILS_LITE_PATH = "//foundation/graphic/graphic_utils_lite"
 
 declare_args() {
   graphic_utils_lite_enable_component_gradient_config = false
+  graphic_utils_lite_enable_svg_component_config = false
 }
 
 graphic_utils_include_dirs = [

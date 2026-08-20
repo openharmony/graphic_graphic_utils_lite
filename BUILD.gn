@@ -25,6 +25,12 @@ if (os_level != "standard") {
         defines += [ "ENABLE_OHOS_GRAPHIC_UTILS_PRODUCT_CONFIG=1" ]
     }
 
+    if (graphic_utils_lite_enable_svg_component_config) {
+        defines += [ "FEATURE_COMPONENT_SVG=1" ]
+    } else {
+        defines += [ "FEATURE_COMPONENT_SVG=0" ]
+    }
+
     lite_component("utils_lite") {
         features = [ ":graphic_utils_lite" ]
     public_deps = features

@@ -15,6 +15,9 @@
 #ifndef GRAPHIC_LITE_PAINT_H
 #define GRAPHIC_LITE_PAINT_H
 
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+#include "gfx_utils/diagram/common/common_basics.h"
+#endif
 #include "gfx_utils/diagram/imagefilter/filter_blur.h"
 #include "gfx_utils/diagram/spancolorfill/fill_pattern_rgba.h"
 #include "gfx_utils/diagram/vertexprimitive/geometry_math_stroke.h"
@@ -62,7 +65,13 @@ public:
 #endif
 #if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
           linearGradientPoint_({0, 0, 0, 0}),
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+          radialGradientPoint_({0, 0, 0, 0, 0, 0, 1.0f, 1.0f}),
+          linearGradientScaleX_(1.0f),
+          linearGradientScaleY_(1.0f),
+#else
           radialGradientPoint_({0, 0, 0, 0, 0, 0}),
+#endif
           stopAndColors_({}),
           gradientflag_(Linear),
 #endif
@@ -99,6 +108,7 @@ public:
 
     void Init(const Paint& paint);
 
+    void InitRenderState(const Paint& paint);
 
     /**
      * @brief A destructor used to delete the <b>Paint</b> instance.
@@ -153,6 +163,16 @@ public:
         float y1;
         /**  Start circle radius r0  */
         float r1;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+        /**
+         * @brief SVG objectBoundingBox radial gradient scale.
+         *        Maps the unit circle (radius r1) to the bounding box/record space.
+         *        Canvas 2D default is 1.0/1.0.
+         */
+        float scaleX;
+        /** @brief SVG objectBoundingBox radial gradient Y scale. */
+        float scaleY;
+#endif
     };
 
     struct StopAndColor {
@@ -232,6 +252,31 @@ public:
     {
         return style_;
     }
+
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    /**
+     * @brief Sets the filling rule used by path rasterization.
+     * @see GetFillingRule
+     * @since 3.0
+     * @version 5.0
+     */
+    void SetFillingRule(FillingRule rule)
+    {
+        fillingRule_ = rule;
+    }
+
+    /**
+     * @brief Obtains the filling rule used by path rasterization.
+     * @return Returns the filling rule.
+     * @see SetFillingRule
+     * @since 3.0
+     * @version 5.0
+     */
+    FillingRule GetFillingRule() const
+    {
+        return fillingRule_;
+    }
+#endif
 
     /**
      * @brief Sets the width of a line or border.
@@ -462,7 +507,44 @@ public:
 
     void addColorStop(float stop, ColorType color);
 
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    void ClearColorStops()
+    {
+        stopAndColors_.Clear();
+    }
+#endif
+
     void createRadialGradient(float start_x, float start_y, float start_r, float end_x, float end_y, float end_r);
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    /**
+     * @brief Sets the SVG objectBoundingBox radial gradient scale.
+     *
+     * The unit circle (radius end_r) is mapped to an ellipse with
+     * x-semi-axis end_r * scaleX and y-semi-axis end_r * scaleY.
+     * For Canvas 2D / userSpaceOnUse the scale is 1.0/1.0.
+     */
+    void SetRadialGradientScale(float scaleX, float scaleY);
+
+    /**
+     * @brief Sets the SVG objectBoundingBox linear gradient scale.
+     *
+     * The unit gradient vector is mapped to the bounding box in record space:
+     * a point (dx_unit, dy_unit) in gradient coordinates becomes
+     * (dx_unit * scaleX, dy_unit * scaleY) before rotation.
+     * For Canvas 2D / userSpaceOnUse the scale is 1.0/1.0.
+     */
+    void SetLinearGradientScale(float scaleX, float scaleY);
+
+    float GetLinearGradientScaleX() const
+    {
+        return linearGradientScaleX_;
+    }
+
+    float GetLinearGradientScaleY() const
+    {
+        return linearGradientScaleY_;
+    }
+#endif
 
     List<StopAndColor> getStopAndColor() const
     {
@@ -755,6 +837,10 @@ private:
 #if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
     LinearGradientPoint linearGradientPoint_;
     RadialGradientPoint radialGradientPoint_;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    float linearGradientScaleX_;
+    float linearGradientScaleY_;
+#endif
     List<StopAndColor> stopAndColors_;
     Gradient gradientflag_;
     void CopyStopAndColors(const Paint& paint);
@@ -781,6 +867,9 @@ private:
     int32_t translationY_;
     TransAffine transfrom_; // matrix.
     bool haveComposite_;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    FillingRule fillingRule_ = FILL_NON_ZERO;
+#endif
 };
 } // namespace OHOS
 
