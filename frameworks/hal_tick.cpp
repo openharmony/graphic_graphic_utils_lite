@@ -22,7 +22,7 @@
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
 #include <ctime>
 #else
-#include "los_tick.h"
+    #include "cmsis_os2.h"
 #endif
 
 namespace OHOS {
@@ -41,7 +41,7 @@ uint32_t HALTick::GetTime()
     clock_gettime(CLOCK_MONOTONIC, &time);
     return time.tv_sec * SEC_TO_MILLISEC + time.tv_nsec / MILLISEC_TO_NANOSEC;
 #else
-    return LOS_TickCountGet();
+    return static_cast<uint32_t>(osKernelGetTickCount());
 #endif
 }
 

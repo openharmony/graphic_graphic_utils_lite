@@ -23,7 +23,7 @@
 #include <limits.h>
 #include <semaphore.h>
 #else
-#include "los_sem.h"
+#include "cmsis_os2.h"   // LiteOS‑M 使用CMSIS‑RTOS2
 #endif // WIN32
 #include "gfx_utils/heap_base.h"
 
@@ -52,11 +52,8 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         initFlag_ = (sem_init(&sem_, 0, init) == 0);
 #else
-        if (max == 1) {
-            initFlag_ = (LOS_BinarySemCreate((uint16_t)init, &sem_) == LOS_OK);
-        } else {
-            initFlag_ = (LOS_SemCreate((uint16_t)init, &sem_) == LOS_OK);
-        }
+        sem_ = osSemaphoreNew(static_cast<uint32_t>(max), static_cast<uint32_t>(init), NULL);
+        initFlag_ = (sem_ != NULL);   
 #endif // WIN32
     }
 
@@ -71,7 +68,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         sem_destroy(&sem_);
 #else
-        LOS_SemDelete(sem_);
+        osSemaphoreDelete(sem_);
 #endif // WIN32
     }
 
@@ -86,7 +83,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         return (sem_post(&sem_) == 0);
 #else
-        return (LOS_SemPost(sem_) == LOS_OK);
+        return (osSemaphoreRelease(sem_) == osOK);
 #endif // WIN32
     }
 
@@ -101,7 +98,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         return (sem_wait(&sem_) == 0);
 #else
-        return (LOS_SemPend(sem_, LOS_WAIT_FOREVER) == LOS_OK);
+        return (osSemaphoreAcquire(sem_, osWaitForever) == osOK);
 #endif // WIN32
     }
 
@@ -112,7 +109,7 @@ private:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
     sem_t sem_;
 #else
-    uint32_t sem_;
+    osSemaphoreId_t sem_;
 #endif // WIN32
 };
 } // namespace OHOS
