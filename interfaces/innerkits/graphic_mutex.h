@@ -94,7 +94,7 @@ private:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
     pthread_mutex_t mutex_;
 #else
-    osMutexId_t mutex_;
+     osMutexId_t mutex_;
 #endif // WIN32
 };
 } // namespace OHOS
