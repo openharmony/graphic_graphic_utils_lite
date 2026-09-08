@@ -53,7 +53,7 @@ public:
         initFlag_ = (sem_init(&sem_, 0, init) == 0);
 #else
         sem_ = osSemaphoreNew(static_cast<uint32_t>(max), static_cast<uint32_t>(init), NULL);
-        initFlag_ = (sem_ != NULL);   
+        initFlag_ = (sem_ != NULL); 
 #endif // WIN32
     }
 
