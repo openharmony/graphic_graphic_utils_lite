@@ -22,7 +22,7 @@
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
 #include <pthread.h>
 #else
-#include "los_mux.h"
+#include "cmsis_os2.h"   // LiteOS‑M 使用CMSIS‑RTOS2
 #endif // WIN32
 #include "gfx_utils/heap_base.h"
 
@@ -39,7 +39,8 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         initFlag_ = (pthread_mutex_init(&mutex_, NULL) == 0);
 #else
-        initFlag_ = (LOS_MuxCreate(&mutex_) == LOS_OK);
+        mutex_ = osMutexNew(NULL);
+        initFlag_ = (mutex_ != NULL);
 #endif // WIN32
     }
 
@@ -54,7 +55,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         pthread_mutex_destroy(&mutex_);
 #else
-        LOS_MuxDelete(mutex_);
+        osMutexDelete(mutex_);
 #endif // WIN32
     }
 
@@ -68,7 +69,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         return (pthread_mutex_lock(&mutex_) == 0);
 #else
-        return (LOS_MuxPend(mutex_, LOS_WAIT_FOREVER) == LOS_OK);
+        return (osMutexAcquire(mutex_, osWaitForever) == osOK);
 #endif // WIN32
     }
 
@@ -82,7 +83,7 @@ public:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
         return (pthread_mutex_unlock(&mutex_) == 0);
 #else
-        return (LOS_MuxPost(mutex_) == LOS_OK);
+        return (osMutexRelease(mutex_) == osOK);
 #endif // WIN32
     }
 
@@ -93,7 +94,7 @@ private:
 #elif defined __linux__ || defined __LITEOS__ || defined __APPLE__
     pthread_mutex_t mutex_;
 #else
-    uint32_t mutex_;
+     osMutexId_t mutex_;
 #endif // WIN32
 };
 } // namespace OHOS
