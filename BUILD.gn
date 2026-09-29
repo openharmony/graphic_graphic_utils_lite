@@ -13,6 +13,7 @@ if (os_level != "standard") {
     import("//build/lite/config/component/lite_component.gni")
     import("//build/lite/config/subsystem/graphic/config.gni")
     import("//build/lite/ndk/ndk.gni")
+    import("//foundation/graphic/graphic_utils_lite/utils.gni")
 
     defines = []
 
@@ -123,6 +124,12 @@ if (os_level != "standard") {
             "GRAPHIC_ENABLE_DRAW_IMAGE_FLAG=1",
             "GRAPHIC_ENABLE_DRAW_TEXT_FLAG=1",
         ]
+
+        if (graphic_utils_lite_enable_component_gradient_config) {
+            defines += [ "GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG=1" ]
+        } else {
+            defines += [ "GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG=0" ]
+        }
     }
 
     if (ohos_kernel_type != "liteos_m") {

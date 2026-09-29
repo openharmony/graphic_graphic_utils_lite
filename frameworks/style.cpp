@@ -40,6 +40,9 @@ Style::Style()
       enableGradient_(0),
       enableRadialGradient_(0),
       bgOpa_(OPA_OPAQUE),
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+      gradientInfo_(nullptr),
+#endif
       borderOpa_(OPA_OPAQUE),
       borderWidth_(0),
       borderRadius_(0),

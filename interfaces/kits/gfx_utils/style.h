@@ -42,6 +42,9 @@
 #endif
 
 namespace OHOS {
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+struct GradientInfo;
+#endif
 /**
  * @brief Enumerates keys of styles.
  *
@@ -208,7 +211,114 @@ public:
      * @since 1.0
      * @version 1.0
      */
-    virtual ~Style() {}
+    virtual ~Style()
+    {
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+        if (gradientInfo_ != nullptr) {
+            delete gradientInfo_;
+            gradientInfo_ = nullptr;
+        }
+#endif
+    }
+
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+    /**
+     * @brief Copy constructor: copies the style values, never the gradient payload.
+     *
+     * The payload is heap owned by the source style, so the copy clears the
+     * pointer instead of aliasing it: the copy borrows nothing and its
+     * destructor cannot release the source's payload. A view that needs its own
+     * gradient must attach it through its private style.
+     *
+     * @param other the style to copy values from.
+     * @since 1.0
+     * @version 1.0
+     */
+    Style(const Style& other)
+        : bgColor_(other.bgColor_),
+          bgGradientColor_(other.bgGradientColor_),
+          enableGradient_(other.enableGradient_),
+          enableRadialGradient_(other.enableRadialGradient_),
+          bgOpa_(other.bgOpa_),
+          gradientInfo_(nullptr), /* never alias the source's payload */
+          borderOpa_(other.borderOpa_),
+          borderWidth_(other.borderWidth_),
+          borderRadius_(other.borderRadius_),
+          borderColor_(other.borderColor_),
+          paddingLeft_(other.paddingLeft_),
+          paddingRight_(other.paddingRight_),
+          paddingTop_(other.paddingTop_),
+          paddingBottom_(other.paddingBottom_),
+          marginLeft_(other.marginLeft_),
+          marginRight_(other.marginRight_),
+          marginTop_(other.marginTop_),
+          marginBottom_(other.marginBottom_),
+          imageOpa_(other.imageOpa_),
+          textOpa_(other.textOpa_),
+          font_(other.font_),
+          lineSpace_(other.lineSpace_),
+          letterSpace_(other.letterSpace_),
+          lineHeight_(other.lineHeight_),
+          textColor_(other.textColor_),
+          textStrokeColor_(other.textStrokeColor_),
+          textStrokeWidth_(other.textStrokeWidth_),
+          lineColor_(other.lineColor_),
+          lineOpa_(other.lineOpa_),
+          lineCap_(other.lineCap_),
+          lineWidth_(other.lineWidth_) {}
+
+    /**
+     * @brief Copy assignment: copies the style values, keeps the own payload.
+     *
+     * A payload already attached to this style stays owned by it and is kept;
+     * the source's payload is never aliased.
+     *
+     * @param other the style to copy values from.
+     * @return returns *this.
+     * @since 1.0
+     * @version 1.0
+     */
+    Style& operator=(const Style& other)
+    {
+        if (this == &other) {
+            return *this;
+        }
+        GradientInfo* ownGradient = gradientInfo_; /* keep ours */
+        gradientInfo_ = nullptr;                   /* avoid clobbering while copying */
+        bgColor_ = other.bgColor_;
+        bgGradientColor_ = other.bgGradientColor_;
+        enableGradient_ = other.enableGradient_;
+        enableRadialGradient_ = other.enableRadialGradient_;
+        bgOpa_ = other.bgOpa_;
+        borderOpa_ = other.borderOpa_;
+        borderWidth_ = other.borderWidth_;
+        borderRadius_ = other.borderRadius_;
+        borderColor_ = other.borderColor_;
+        paddingLeft_ = other.paddingLeft_;
+        paddingRight_ = other.paddingRight_;
+        paddingTop_ = other.paddingTop_;
+        paddingBottom_ = other.paddingBottom_;
+        marginLeft_ = other.marginLeft_;
+        marginRight_ = other.marginRight_;
+        marginTop_ = other.marginTop_;
+        marginBottom_ = other.marginBottom_;
+        imageOpa_ = other.imageOpa_;
+        textOpa_ = other.textOpa_;
+        font_ = other.font_;
+        lineSpace_ = other.lineSpace_;
+        letterSpace_ = other.letterSpace_;
+        lineHeight_ = other.lineHeight_;
+        textColor_ = other.textColor_;
+        textStrokeColor_ = other.textStrokeColor_;
+        textStrokeWidth_ = other.textStrokeWidth_;
+        lineColor_ = other.lineColor_;
+        lineOpa_ = other.lineOpa_;
+        lineCap_ = other.lineCap_;
+        lineWidth_ = other.lineWidth_;
+        gradientInfo_ = ownGradient; /* restore ours; source's never aliased */
+        return *this;
+    }
+#endif // GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG
 
     /**
      * @brief Sets a style.
@@ -240,12 +350,38 @@ public:
      */
     int64_t GetStyle(uint8_t key) const;
 
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+    /**
+     * @brief Attaches a gradient payload to this style, owning it.
+     *
+     * The previously attached payload (if any) is released here, and the new
+     * one is released by ~Style(). This is the single owning entry point:
+     * view code never deletes gradientInfo_ manually. Passing nullptr just
+     * drops the current payload.
+     *
+     * @param info gradient payload to own, may be nullptr.
+     * @since 1.0
+     * @version 1.0
+     */
+    void SetGradientInfo(GradientInfo* info)
+    {
+        if (gradientInfo_ == info) {
+            return;
+        }
+        delete gradientInfo_;
+        gradientInfo_ = info;
+    }
+#endif // GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG
+
     /* background style */
     ColorType bgColor_;
     GradientColor bgGradientColor_;
     uint8_t enableGradient_;
     uint8_t enableRadialGradient_;
     uint8_t bgOpa_;
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+    GradientInfo* gradientInfo_;
+#endif
     /* border style */
     uint8_t borderOpa_;
     int16_t borderWidth_;
