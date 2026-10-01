@@ -92,9 +92,19 @@ void Paint::Init(const Paint& paint)
 #if defined(GRAPHIC_ENABLE_LINEJOIN_FLAG) && GRAPHIC_ENABLE_LINEJOIN_FLAG
     miterLimit_ = paint.miterLimit_;
 #endif
+    InitRenderState(paint);
+}
+
+void Paint::InitRenderState(const Paint& paint)
+{
 #if defined(GRAPHIC_ENABLE_GRADIENT_FILL_FLAG) && GRAPHIC_ENABLE_GRADIENT_FILL_FLAG
     linearGradientPoint_ = paint.linearGradientPoint_;
     radialGradientPoint_ = paint.radialGradientPoint_;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    linearGradientScaleX_ = paint.linearGradientScaleX_;
+    linearGradientScaleY_ = paint.linearGradientScaleY_;
+    fillingRule_ = paint.fillingRule_;
+#endif
     CopyStopAndColors(paint);
     gradientflag_ = paint.gradientflag_;
 #endif
@@ -214,6 +224,10 @@ void Paint::createLinearGradient(float startx, float starty, float endx, float e
     linearGradientPoint_.y0 = starty;
     linearGradientPoint_.x1 = endx;
     linearGradientPoint_.y1 = endy;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    linearGradientScaleX_ = 1.0f;
+    linearGradientScaleY_ = 1.0f;
+#endif
     changeFlag_ = true;
 }
 
@@ -234,8 +248,28 @@ void Paint::createRadialGradient(float start_x, float start_y, float start_r, fl
     radialGradientPoint_.x1 = end_x;
     radialGradientPoint_.y1 = end_y;
     radialGradientPoint_.r1 = end_r;
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    radialGradientPoint_.scaleX = 1.0f;
+    radialGradientPoint_.scaleY = 1.0f;
+#endif
     changeFlag_ = true;
 }
+
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+void Paint::SetRadialGradientScale(float scaleX, float scaleY)
+{
+    radialGradientPoint_.scaleX = scaleX;
+    radialGradientPoint_.scaleY = scaleY;
+    changeFlag_ = true;
+}
+
+void Paint::SetLinearGradientScale(float scaleX, float scaleY)
+{
+    linearGradientScaleX_ = scaleX;
+    linearGradientScaleY_ = scaleY;
+    changeFlag_ = true;
+}
+#endif
 #endif
 
 #if defined(GRAPHIC_ENABLE_PATTERN_FILL_FLAG) && GRAPHIC_ENABLE_PATTERN_FILL_FLAG

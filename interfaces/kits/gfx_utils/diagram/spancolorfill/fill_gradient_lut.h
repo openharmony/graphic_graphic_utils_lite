@@ -116,6 +116,75 @@ public:
         }
     }
 
+#if (GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG == 1)
+    /**
+     * @brief Building a color_typ array from gradient colors
+     * Array length 0-255
+     * The contents of the array are distributed on the array according to the gradient color
+     * @since 1.0
+     * @version 1.0
+     */
+    void BuildLutNoSort()
+    {
+        /*
+         * W3C CSS Images Module Level 3, 3.4.1: color stops are never re-sorted;
+         * fix-up rule 2 clamps an out-of-order stop IN PLACE up to the largest
+         * specified position before it, and a run of equal offsets is a hard stop
+         * where the right-hand color takes over. The previous QuickSort +
+         * RemoveDuplicates re-sorted the profile and dropped every hard-stop
+         * color (e.g. [.., 80% magenta, 80% blue, ..] lost the blue, so the tail
+         * painted pure magenta instead of the W3C blue-to-magenta ramp).
+         *
+         * The interpolation loop below already yields the correct W3C output for
+         * a monotonic profile - adjacent equal offsets produce an empty span and
+         * the next span starts with the right-hand color - so only a defensive
+         * clamp-in-place is applied here, for profiles that bypassed the CSS
+         * parser normalization (e.g. the JS canvas API).
+         */
+        for (uint32_t k = 1; k < colorProfile_.Size(); k++) {
+            if (colorProfile_[k].offset < colorProfile_[k - 1].offset) {
+                colorProfile_[k].offset = colorProfile_[k - 1].offset;
+            }
+        }
+
+        if (colorProfile_.Size() > 1) {
+            uint32_t index;
+            uint32_t start = static_cast<uint32_t>(colorProfile_[0].offset * colorLutSize_);
+            uint32_t end;
+            Rgba8T color = colorProfile_[0].color;
+
+            /*
+             * Assign initial color calculation to colorprofile [0]
+             */
+            for (index = 0; index < start; index++) {
+                colorType_[index] = color;
+            }
+            /*
+             * From 1 to colorprofile Interpolation color calculation between size ()
+             */
+            for (index = 1; index < colorProfile_.Size(); index++) {
+                end = static_cast<uint32_t>(colorProfile_[index].offset * colorLutSize_);
+                ColorInterpolator ci(colorProfile_[index - 1].color,
+                                     colorProfile_[index].color,
+                                     end - start + 1);
+                while (start < end) {
+                    colorType_[start] = ci.GetColor();
+                    ++ci;
+                    ++start;
+                }
+            }
+            color = colorProfile_.End()->color;
+            /*
+             * Give end color to colorprofile last
+             */
+            for (; end < colorType_.GetSize(); end++) {
+                color = colorProfile_.End()->color;
+                colorType_[end] = color;
+            }
+        }
+    }
+#endif // GRAPHIC_ENABLE_COMPONENT_GRADIENT_FLAG
+
     /**
      * @brief size Returns the size of the colorprofile
      */

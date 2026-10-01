@@ -179,6 +179,19 @@ public:
         return outline_.GetMaxY();
     }
 
+#if defined(FEATURE_COMPONENT_SVG) && FEATURE_COMPONENT_SVG
+    /**
+     * @brief Sets the polygon filling rule for subsequent paths.
+     * @param rule FILL_NON_ZERO (default) or FILL_EVEN_ODD.
+     * @since 3.0
+     * @version 5.0
+     */
+    void SetFillingRule(FillingRule rule)
+    {
+        fillingRule_ = rule;
+    }
+#endif
+
     /**
      * @brief The cells in the contour line are sorted from left to right and from top to bottom.
      * @since 1.0
